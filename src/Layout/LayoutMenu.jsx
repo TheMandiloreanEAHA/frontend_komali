@@ -11,6 +11,6 @@ const LayoutMenu = () => {
         </>
     )
 
- }
+}
 
- export default LayoutMenu;
+export default LayoutMenu;
