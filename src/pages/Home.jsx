@@ -7,13 +7,13 @@ export default function Home() {
     <>
       <div className="box-content h-dvh w-full">
         <TopBar />
-        <div className="box-border h-2/5 w-full p-4 border-4">
+        <div className="flex justify-center gap-y-10 flex-col items-center box-border h-57 w-full p-4 border-4">
           <div className="text-5xl">Bienvenido a</div>
-          <h1 className="text-6xl font-bold text-indigo-500">KOMALLI (Logo)</h1>
+          <h1 className="text-6xl font-bold text-uv-blue ">KOMALLI (Logo)</h1>
           <div className="text-5xl">Ordena Aquí </div>
         </div>
-        <div className="flex justify-center box-border  h-57 w-full p-4 border-4">
-          <button className="h-24 p-4 text-5xl text-white-100 bg-indigo-500 rounded-full">
+        <div className="flex justify-center items-center box-border  h-2/5 w-full p-4 border-4">
+          <button className="h-24 p-4 text-5xl text-white-100 bg-uv-blue rounded-full">
             <svg
               className="h-14 w-14 inline-block"
               xmlns="http://www.w3.org/2000/svg"
@@ -35,12 +35,4 @@ export default function Home() {
       </div>
     </>
   );
-}
-
-{
-  /* <img
-              className="inline-block h-14 w-14 fill-white-100"
-              src={click}
-              alt=""
-            /> */
 }
