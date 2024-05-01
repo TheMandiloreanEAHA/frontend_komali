@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 571.4 574.8">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 74.49px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        font-family: GillSansMT-BoldItalic, 'Gill Sans MT';
+        font-style: italic;
+        font-weight: 700;
+        isolation: isolate;
+      }
+
+      .cls-1, .cls-4 {
+        fill: #2559a1;
+      }
+
+      .cls-5, .cls-2, .cls-3 {
+        fill: #44a635;
+      }
+
+      .cls-5, .cls-4, .cls-6 {
+        stroke-width: 0px;
+      }
+
+      .cls-7 {
+        fill: none;
+        stroke: #2559a1;
+        stroke-miterlimit: 10;
+        stroke-width: 10px;
+      }
+
+      .cls-2 {
+        letter-spacing: .02em;
+      }
+
+      .cls-2, .cls-3 {
+        font-size: 59.44px;
+      }
+
+      .cls-6 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path class="cls-5" d="M52.7,269.1c1.9-1.1,3.2-3.1,3.2-5.4,0-3.4-2.8-6.2-6.2-6.2s-6.2,2.8-6.2,6.2c0,2.5,1.5,4.7,3.7,5.7l-2.1,8.1c-.8,2.9,1.4,5.8,4.4,5.9h0c3,.1,5.4-2.6,4.8-5.6l-1.6-8.7h0Z"/>
+  <g>
+    <circle class="cls-6" cx="285.7" cy="287.4" r="282.4"/>
+    <path class="cls-4" d="M52.6,239.2v15.9h-5v-17.7s-8.5-2.5-2.6-8.2,33-27.6,33-27.6c0,0,17.6-15.7,29.8-6s44.8,36.9,44.8,36.9c0,0-1.4,6-20.5,9v30.5s-1.4,18-38.4,20.5h-20.3s-8.7-1.6-8.7-7.1-.3-42.9-.3-42.9c0,0-4.8-.6-11.8-3.3h0Z"/>
+    <path class="cls-6" d="M69.7,240.9v19.7c0,.9.7,1.5,1.6,1.5h0c.8,0,1.6-.7,1.6-1.5v-17.6c0-.4.2-.7.5-.9,2.3-1.4,12.8-7.6,25.3-7.9,0,0,13.3-1,29.3,6,0,0-6.1-10.3-28.8-11.2h-.6c-2.3.2-17.5,1.9-28.5,11.3-.3.1-.4.3-.4.6h0Z"/>
+    <path class="cls-5" d="M60.9,286.4s-.7,13.2,11.6,13.8c12.3.6,56.6.9,65.3-24.7v-14.2s5.7.3,16.3-10.2c0,0,37.8-42.9,41.5-44.7s25.1-19.6,37.7-7c0,0,6.6,14.8-24.6,26.7,0,0-26.2,11.6-45.6,26.6,0,0-9.6,8.5-11.5,12.2,0,0,15.3,50.6-47.8,54.8-63.1,4-50.8-31.9-42.9-33.3h0Z"/>
+    <text class="cls-1" transform="translate(167.65 305.21) scale(.98 1)"><tspan x="0" y="0">Comedo</tspan></text>
+    <text class="cls-1" transform="translate(436.93 305.21) scale(.98 1)"><tspan x="0" y="0">r</tspan></text>
+    <text class="cls-1" transform="translate(462.88 305.21) scale(.98 1)"><tspan x="0" y="0">es</tspan></text>
+    <text class="cls-3" transform="translate(161.88 362.63)"><tspan x="0" y="0">Uni</tspan></text>
+    <text class="cls-3" transform="translate(254.7 362.63)"><tspan x="0" y="0">v</tspan></text>
+    <text class="cls-3" transform="translate(281.34 362.63)"><tspan x="0" y="0">e</tspan></text>
+    <text class="cls-2" transform="translate(311.64 362.63)"><tspan x="0" y="0">r</tspan></text>
+    <text class="cls-3" transform="translate(334.54 362.63)"><tspan x="0" y="0">sitarios</tspan></text>
+    <ellipse class="cls-7" cx="285.7" cy="287.4" rx="280.7" ry="282.4"/>
+  </g>
+</svg>

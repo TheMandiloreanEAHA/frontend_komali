@@ -45,6 +45,8 @@ module.exports = {
       },
       "uv-blue": "#18529D",
       "uv-green": "#28AD56",
+      "uv-text-black":"#3f3f3f",
+      "error": "#b91c1c"
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
