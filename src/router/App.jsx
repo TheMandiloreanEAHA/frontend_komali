@@ -20,6 +20,6 @@ export const App = () => {
           <Route path="employee" element={<Employee/>}/>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter> 
   )
 };

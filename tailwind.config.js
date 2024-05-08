@@ -10,6 +10,17 @@ module.exports = {
 
         Para usarlo, unicamente indicamnos el nombre del color y nos autocompletrá, ej: text-black
       */
+      gray: {
+        100: "#efefef",
+        200: "#dfdfdf",
+        300: "#cfcfcf",
+        400: "#bfbfbf",
+        500: "#afafaf",
+        600: "#8c8c8c",
+        700: "#696969",
+        800: "#464646",
+        900: "#232323",
+      },
       black: {
         100: "#dadada",
         200: "#b4b4b4",
@@ -45,8 +56,8 @@ module.exports = {
       },
       "uv-blue": "#18529D",
       "uv-green": "#28AD56",
-      "uv-text-black":"#3f3f3f",
-      "error": "#b91c1c"
+      "uv-text-black": "#3f3f3f",
+      error: "#b91c1c",
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
