@@ -1,16 +1,19 @@
 import axios from 'axios';
 
-const axiosGet = async (url, parameters = {}) => {
+const axiosGet = async (url, token) => {
     let result = undefined
-    axios.get(url,{
-        params:parameters
-    })
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    await axios.get(url,
+        config
+    )
     .then((response) => {
         result = response
     })
-    .finally(() => {
-        return result
-    })
+    return result
 }
 
 const axiosPost = async (url, body_params) => {

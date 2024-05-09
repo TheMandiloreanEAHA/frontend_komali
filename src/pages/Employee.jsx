@@ -1,10 +1,23 @@
 import React from 'react'
-import TopBar from '../components/TopBar'
 import { useEffect } from 'react'
 import { getDataLocalStorage } from '../utils/localStorageHelper'
 import { jwtDecode } from 'jwt-decode'
+import TopBar from '../components/TopBar'
 
-function Employee() {
+const Employee = () => {
+
+    const changeScreen = (pantalla) => {
+        switch(pantalla){
+            case 'order':
+                window.location = '/order'
+                break;
+            case 'home':
+                window.location = '/home'
+                break;
+            default:
+                console.log('Pantalla inválida')
+        }
+    }
 
     useEffect(() => {
         const token = getDataLocalStorage('token')
@@ -16,10 +29,11 @@ function Employee() {
 
     return (
         <>
-            <TopBar logout={true}/>
-            <div>Employee</div>
+            <TopBar/>
+            <button onClick={() => {changeScreen('order')}}>Ordenes</button>
+            <button onClick={() => {changeScreen('home')}}>Tienda</button>
         </>
     )
 }
 
-export default Employee
+export default Employee;

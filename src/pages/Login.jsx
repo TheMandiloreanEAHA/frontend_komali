@@ -24,9 +24,6 @@ const Login = () => {
       case 'employee':
         window.location = '/employee'
         break;
-      case 'client':
-        window.location = '/home'
-        break;
       default:
         console.log('tipo de usuario inválido')
     }
