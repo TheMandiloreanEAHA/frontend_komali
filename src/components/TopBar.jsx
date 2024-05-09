@@ -1,23 +1,23 @@
 import comedoresImg from "../assets/uv/comedorMinimal.svg";
 import cintoIconos from "../assets/uv/cintoIconos.svg";
-import { deleteDataLocalStorage } from "../utils/localStorageHelper.js";
+// import { deleteDataLocalStorage } from "../utils/localStorageHelper.js";
 
 const TopBar = ({
   comedorImg = comedoresImg,
   logout = false,
   userName = "",
 }) => {
-  const deleteSession = () => {
-    deleteDataLocalStorage("save_user");
-    deleteDataLocalStorage("token");
-    window.location = "/";
-  };
+  // const deleteSession = () => {
+  //   deleteDataLocalStorage("save_user");
+  //   deleteDataLocalStorage("token");
+  //   window.location = "/";
+  // };
 
-  const renderShowButton = () => {
-    if (logout) {
-      return <button onClick={deleteSession}>Cerrar sesión</button>;
-    }
-  };
+  // const renderShowButton = () => {
+  //   if (logout) {
+  //     return <button onClick={deleteSession}>Cerrar sesión</button>;
+  //   }
+  // };
 
   const renderUserName = () => {
     if (userName.length !== "") {
@@ -42,7 +42,7 @@ const TopBar = ({
           src={cintoIconos}
           alt="Cinco iconos uv"
         />
-        {renderShowButton()}
+        {/* {renderShowButton()} */}
       </div>
     </div>
   );
