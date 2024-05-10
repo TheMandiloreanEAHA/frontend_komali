@@ -9,7 +9,7 @@ import Order from "../pages/Order.jsx";
 
 import ProtectedRoute from "../components/ProtectedRoute.jsx";
 import WelcomeScreen from "../components/employee/WelcomeScreen.jsx";
-import ScanCredential from "../components/employee/ScanCredential.jsx";
+import Store from "../components/employee/Store";
 
 export const App = () => {
   return (
@@ -23,7 +23,7 @@ export const App = () => {
           <Route path="order" element={<Order/>}/>
           <Route path="home" element={<Home/>}>
             <Route index element={<WelcomeScreen/>}/>
-            <Route path="scan" element={<ScanCredential/>}/>
+            <Route path="store" element={<Store/>}/>
           </Route>
         </Route>
       </Routes>

@@ -10,14 +10,12 @@ import { axiosGet } from '../../utils/axiosHelper.js'
 
 const WelcomeScreen = () => {
 
-    const [userData, setUserData] = useState({})
     const [diningRoomData, setDiningRoomData] = useState({})
 
     useEffect(() => {
         const token = getDataLocalStorage('token')
         const data = jwtDecode(token)
         if(data){
-            setUserData(data)
             getDinerRoomData(data.dining_room_id)
         }
     },[])
@@ -51,7 +49,7 @@ const WelcomeScreen = () => {
     }
 
     const goScanScreen = () => {
-        window.location = '/home/scan'
+        window.location = '/home/store'
     }
 
     return (
