@@ -1,9 +1,25 @@
-import React from 'react'
+import React from "react";
+import finger from "../../assets/finger.svg";
 
-const CategoryCard = ({category}) => {
-    return (
-        <div>CategoryCard</div>
-    )
-}
+const CategoryCard = ({ categoryData }) => {
+  const categoryId = categoryData.category_id;
+  const categoryImg = categoryData.category_img;
+  const categoryName = categoryData.category_name;
 
-export default CategoryCard
+  const setCategoryImg = () => {
+    if (categoryImg) {
+      return categoryImg;
+    } else {
+      return finger;
+    }
+  };
+
+  return (
+    <>
+      <img className="w-32 h-32" src={setCategoryImg()} alt={categoryName} />
+      <h4 className="pt-4 font-bold text-xl w-auto">{categoryName}</h4>
+    </>
+  );
+};
+
+export default CategoryCard;

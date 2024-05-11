@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react";
 import { axiosGet } from "../../utils/axiosHelper";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
+import CategoryCard from "./CategoryCard";
 
-const SideMenu = ({ diningRoom }) => {
-  const [categories, setCategories] = useState();
-  const [categoryCount, setCategoryCount] = useState();
+const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
+  const [categoriesFilter, setCategoriesFilter] = useState();
 
   useEffect(() => {
-    getCategory();
-    getCategoryCount(diningRoom.dining_id);
+    const initSideMenu = async () => {
+      const categoriesResult = await getCategories();
+      const countResult = await getCategoryCount(diningRoom.dining_id);
+      if (categoriesResult !== undefined && countResult !== undefined) {
+        getActiveCategories(categoriesResult, countResult);
+      }
+    };
+    initSideMenu();
   }, []);
 
-  const getCategory = async () => {
+  const getCategories = async () => {
     const token = getDataLocalStorage("token");
     const url = `http://localhost:8000/categories/`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
-      setCategories(result.data);
+      return result.data;
+    } else {
+      return undefined;
     }
   };
 
@@ -25,22 +33,50 @@ const SideMenu = ({ diningRoom }) => {
     const url = `http://localhost:8000/counter/${dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
-      setCategoryCount(result.data);
+      return result.data;
+    } else {
+      return undefined;
     }
+  };
+
+  const setSelectCategory = (category_id) => {
+    onSetSelectedCategory(category_id);
+  };
+
+  const getActiveCategories = (categories, categoryCount) => {
+    const categoriesFilter = [];
+    categories.forEach((category) => {
+      categoryCount.forEach((element) => {
+        if (category.category_id === element.category_id) {
+          categoriesFilter.push(category);
+        }
+      });
+    });
+    setCategoriesFilter(categoriesFilter);
   };
 
   return (
     <>
-      <div>
-        <ul>
-          {categories ? (
-            categories.map((item, index) => (
-              <li key={index}>{item.category_name}</li>
-            ))
-          ) : (
-            <span>...</span>
-          )}
-        </ul>
+      <div className=" p-8 bg-uv-green rounded-3xl h-full text-center grid grid-cols-1 gap-8 mr-8">
+        <div className="flex flex-col justify-center items-center w-full rounded-2xl bg-white-100 text-uv-blue p-4 font-bold text-3xl">
+          <h4>MENÚ</h4>
+        </div>
+        {categoriesFilter ? (
+          categoriesFilter.map((item) => {
+            return (
+              <div
+                onClick={() => {
+                  setSelectCategory(item.category_id);
+                }}
+                className="rounded-2xl bg-white-100 shadow-md cursor-pointer p-8 w-auto flex flex-col justify-center items-center"
+              >
+                <CategoryCard categoryData={item} />
+              </div>
+            );
+          })
+        ) : (
+          <span>...</span>
+        )}
       </div>
     </>
   );
