@@ -5,7 +5,12 @@ import { axiosGet } from "../../utils/axiosHelper";
 import SideMenu from "./SideMenu";
 import ProductList from "./ProductList";
 
-const Menu = ({ matricula, onChangeMatricula, onChangeScaning }) => {
+const Menu = ({
+  matricula,
+  onChangeMatricula,
+  onChangeScaning,
+  clientType,
+}) => {
   const [diningRoomData, setDiningRoomData] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
 

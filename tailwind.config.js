@@ -68,8 +68,8 @@ module.exports = {
         57: "57%",
       },
       backgroundImage: {
-        'uv-background': "url('/src/assets/uv/fondoMascara.svg')"
-      }
+        "uv-background": "url('/src/assets/uv/fondoMascara.svg')",
+      },
     },
   },
   plugins: [],
