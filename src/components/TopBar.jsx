@@ -1,26 +1,23 @@
 import comedoresImg from "../assets/uv/comedorMinimal.svg";
 import cintoIconos from "../assets/uv/cintoIconos.svg";
-// import { deleteDataLocalStorage } from "../utils/localStorageHelper.js";
 
 const TopBar = ({
   comedorImg = comedoresImg,
-  logout = false,
   userName = "",
+  userType = "",
 }) => {
-  // const deleteSession = () => {
-  //   deleteDataLocalStorage("save_user");
-  //   deleteDataLocalStorage("token");
-  //   window.location = "/";
-  // };
-
-  // const renderShowButton = () => {
-  //   if (logout) {
-  //     return <button onClick={deleteSession}>Cerrar sesión</button>;
-  //   }
-  // };
+  const renderUserType = () => {
+    if (userType !== "") {
+      return (
+        <label className="text-xl text-uv-blue font-bold uppercase">
+          {userType}
+        </label>
+      );
+    }
+  };
 
   const renderUserName = () => {
-    if (userName.length !== "") {
+    if (userName !== "") {
       return <p>{userName}</p>;
     }
   };
@@ -33,7 +30,7 @@ const TopBar = ({
           src={comedorImg}
           alt="Comedores universitarios"
         />
-        <label className="text-xl text-uv-blue font-bold">ADMIN</label>
+        {renderUserType()}
         {renderUserName()}
       </div>
       <div className="flex flex-row">

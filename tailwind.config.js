@@ -66,6 +66,7 @@ module.exports = {
     extend: {
       height: {
         57: "57%",
+        18: "4.25rem",
       },
       backgroundImage: {
         "uv-background": "url('/src/assets/uv/fondoMascara.svg')",

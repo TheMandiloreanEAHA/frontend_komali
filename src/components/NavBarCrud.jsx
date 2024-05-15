@@ -23,7 +23,7 @@ const NavBarCrud = () => {
         type="text"
         id="buscar"
         placeholder="Nombre empleado"
-        className="col-span-3 h-10  rounded-full border-2 border-uv-blue p-4"
+        className="col-span-3 h-10  rounded-full border-2 border-uv-blue p-4 mr-4"
       />
     </div>
   );

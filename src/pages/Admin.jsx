@@ -18,10 +18,10 @@ function Admin() {
 
   return (
     <>
-      <TopBar logout={true} />
+      <TopBar userType="Admin" />
       <InfoCardUser />
       <div className="flex gap-4 mx-10 mt-2">
-        <div className="flex-none w-1/5">
+        <div className=" flex-none w-1/5">
           <AdminOptions />
         </div>
         <div className="grow">
