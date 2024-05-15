@@ -8,7 +8,7 @@ const ProductCard = ({ productData, openModal }) => {
   const productStudentPrice = productData.product_student_price.toFixed(2);
 
   return (
-    <div className="rounded-3xl bg-white-100">
+    <div className="rounded-3xl bg-white-100 h-fit">
       <div className="mx-8 mt-8 w-auto h-56 bg-gray-100 rounded-2xl flex justify-center items-center">
         <img src={productImg} alt="Imagen de producto" />
       </div>

@@ -16,7 +16,7 @@ const CategoryCard = ({ categoryData }) => {
 
   return (
     <>
-      <img className="w-32 h-32" src={setCategoryImg()} alt={categoryName} />
+      <img className="w-auto h-fit" src={setCategoryImg()} alt={categoryName} />
       <h4 className="pt-4 font-bold text-xl w-auto">{categoryName}</h4>
     </>
   );

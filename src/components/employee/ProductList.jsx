@@ -29,7 +29,7 @@ const ProductList = ({ selectedCategory, openModal }) => {
   };
 
   return (
-    <div className="p-8 bg-gray-500 rounded-3xl h-auto text-center grid grid-cols-2 gap-8 ">
+    <div className="p-8 bg-gray-500 rounded-3xl h-screen text-center grid grid-cols-2 gap-8 overflow-y-scroll">
       {productList ? (
         productList.map((item) => {
           return (
