@@ -77,12 +77,8 @@ const Menu = ({
           )}
         </div>
       </div>
-      {productInfo && (
-        <ProductModal
-          isOpen={isModalOpen}
-          closeModal={onCloseModal}
-          productInfo={productInfo}
-        />
+      {productInfo && isModalOpen && (
+        <ProductModal closeModal={onCloseModal} productInfo={productInfo} />
       )}
       <div className="bg-uv-blue fixed bottom-10 right-10 rounded-full size-32 p-8 flex justify-center items-center text-center text-white-100 cursor-pointer">
         <button>Carrito</button>

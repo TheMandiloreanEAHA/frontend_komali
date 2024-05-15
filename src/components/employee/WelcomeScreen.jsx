@@ -81,7 +81,7 @@ const WelcomeScreen = () => {
             className="mt-6 p-4 text-4xl text-white-100 bg-uv-blue rounded-full absolute bottom-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
             onClick={goScanScreen}
           >
-            <div class="flex flex-row justify-center items-center px-1">
+            <div className="flex flex-row justify-center items-center px-1">
               <img
                 src={click}
                 alt="Icono click"

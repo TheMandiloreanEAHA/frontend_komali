@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const ProductModal = ({ isOpen, closeModal, productInfo }) => {
+const ProductModal = ({ closeModal, productInfo }) => {
   const categoryId = productInfo.category_id;
   const diningId = productInfo.dining_id;
   const isActive = productInfo.is_active;
@@ -14,9 +14,13 @@ const ProductModal = ({ isOpen, closeModal, productInfo }) => {
   const productStudentPrice = productInfo.product_student_price;
 
   const [seletive, setSelective] = useState();
-  const [optionalsChecked, setOptionalsChecked] = useState(
-    new Array(productOptionals.length).fill(false)
-  );
+  const [optionalsChecked, setOptionalsChecked] = useState();
+
+  useEffect(() => {
+    if (productOptionals) {
+      setOptionalsChecked(new Array(productOptionals.length).fill(false));
+    }
+  }, []);
 
   const onSetSelective = (value) => {
     console.log(value);
@@ -40,15 +44,16 @@ const ProductModal = ({ isOpen, closeModal, productInfo }) => {
 
   const createOrder = () => {
     const optionalsList = [];
-    optionalsChecked.map((item, index) => {
-      if (item) {
-        optionalsList.push(productOptionals[index]);
-      }
-    });
-    console.log(optionalsList);
+    if (productOptionals.length > 0) {
+      optionalsChecked.map((item, index) => {
+        if (item) {
+          optionalsList.push(productOptionals[index]);
+        }
+      });
+      console.log(optionalsList);
+    }
   };
 
-  if (!isOpen) return null;
   return (
     <div className="w-full h-full bg-gray-900 bg-opacity-50 fixed bottom-0 right-0 flex justify-center items-center text-center">
       <div className="bg-white-100 rounded-3xl h-auto w-1/2">
@@ -89,7 +94,7 @@ const ProductModal = ({ isOpen, closeModal, productInfo }) => {
                     type="checkbox"
                     name="product_optionals"
                     id={index}
-                    checked={optionalsChecked[index]}
+                    checked={optionalsChecked ? optionalsChecked[index] : false}
                     onChange={() => onSetOptional(index)}
                   />
                   <span className="pl-2">{item}</span>

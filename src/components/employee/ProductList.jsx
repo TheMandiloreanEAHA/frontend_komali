@@ -31,13 +31,9 @@ const ProductList = ({ selectedCategory, openModal }) => {
   return (
     <div className="p-8 bg-gray-500 rounded-3xl h-screen text-center grid grid-cols-2 gap-8 overflow-y-scroll">
       {productList ? (
-        productList.map((item) => {
+        productList.map((item, index) => {
           return (
-            <ProductCard
-              key={item.producto_id}
-              productData={item}
-              openModal={openModal}
-            />
+            <ProductCard key={index} productData={item} openModal={openModal} />
           );
         })
       ) : (
