@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { axiosGet } from "../../utils/axiosHelper";
 import ProductCard from "./ProductCard";
 
-const ProductList = ({ selectedCategory }) => {
+const ProductList = ({ selectedCategory, openModal }) => {
   const [productList, setProductList] = useState();
 
   useEffect(() => {
@@ -32,7 +32,13 @@ const ProductList = ({ selectedCategory }) => {
     <div className="p-8 bg-gray-500 rounded-3xl h-auto text-center grid grid-cols-2 gap-8 ">
       {productList ? (
         productList.map((item) => {
-          return <ProductCard key={item.producto_id} productData={item} />;
+          return (
+            <ProductCard
+              key={item.producto_id}
+              productData={item}
+              openModal={openModal}
+            />
+          );
         })
       ) : (
         <span>Cargando productos...</span>

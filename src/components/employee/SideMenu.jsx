@@ -65,6 +65,7 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
           categoriesFilter.map((item) => {
             return (
               <div
+                key={item.category_id}
                 onClick={() => {
                   setSelectCategory(item.category_id);
                 }}
