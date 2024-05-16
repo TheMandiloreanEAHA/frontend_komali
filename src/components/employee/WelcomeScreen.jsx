@@ -37,7 +37,7 @@ const WelcomeScreen = () => {
     }
   };
 
-  const setDiningBanner = () => {
+  const setDiningBackground = () => {
     const diningBg = diningRoomData.dining_bg;
     console.log(diningBg);
     if (diningBg === undefined || diningBg === null) {
@@ -55,14 +55,14 @@ const WelcomeScreen = () => {
     <>
       <div className="relative  h-[96.6vh] overflow-hidden">
         <img
-          src={background}
-          alt="Image 1"
+          src={setDiningBackground()}
+          alt="Fondo del comedor"
           className="absolute inset-0  h-[100vh]l object-fill top-[67vh] bg-cover"
         />
         <div className="h-[800vh]"></div>
         <img
           src={fondoMascara}
-          alt="Image 2"
+          alt="Fondo mascara"
           className="absolute inset-0 w-screen h-[80vh] object-cover "
         />
       </div>

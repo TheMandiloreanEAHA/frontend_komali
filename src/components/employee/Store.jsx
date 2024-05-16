@@ -32,9 +32,9 @@ const Store = () => {
       return (
         <Menu
           matricula={matricula}
+          clientType={clientType}
           onChangeMatricula={onChangeMatricula}
           onChangeScaning={onChangeScaning}
-          clientType={clientType}
         />
       );
     }

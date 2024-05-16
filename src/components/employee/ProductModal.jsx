@@ -34,15 +34,19 @@ const ProductModal = ({ closeModal, productInfo }) => {
     setOptionalsChecked(updateOptionalsChecked);
   };
 
+  const goShoppingCart = () => {
+    window.location = "home/cart";
+  };
+
   const onBuyProduct = () => {
-    createOrder();
+    createSaveOrder();
   };
 
   const onAddProduct = () => {
-    createOrder();
+    createSaveOrder();
   };
 
-  const createOrder = () => {
+  const createSaveOrder = () => {
     const optionalsList = [];
     if (productOptionals.length > 0) {
       optionalsChecked.map((item, index) => {
@@ -50,8 +54,13 @@ const ProductModal = ({ closeModal, productInfo }) => {
           optionalsList.push(productOptionals[index]);
         }
       });
-      console.log(optionalsList);
     }
+    const order = {
+      product_id: productId,
+      dining_id: diningId,
+      order_optionals: optionalsList,
+      order_selectives: [],
+    };
   };
 
   return (

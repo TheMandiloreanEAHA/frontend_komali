@@ -23,7 +23,6 @@ const ProductList = ({ selectedCategory, openModal }) => {
     const url = `http://localhost:8000/products/${dining_room_id}/${selectedCategory}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
-      console.log(result);
       setProductList(result.data);
     }
   };

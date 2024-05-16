@@ -8,9 +8,9 @@ import ProductModal from "./ProductModal";
 
 const Menu = ({
   matricula,
+  clientType,
   onChangeMatricula,
   onChangeScaning,
-  clientType,
 }) => {
   const [diningRoomData, setDiningRoomData] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
