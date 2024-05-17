@@ -17,7 +17,9 @@ const CategoryCard = ({ categoryData }) => {
   return (
     <>
       <img className="w-auto h-fit" src={setCategoryImg()} alt={categoryName} />
-      <h4 className="pt-4 font-bold text-xl w-auto">{categoryName}</h4>
+      <h4 className="pt-4 font-bold text-xl w-auto">
+        {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
+      </h4>
     </>
   );
 };

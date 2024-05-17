@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import {
+  saveDataLocalStorage,
+  getDataLocalStorage,
+} from "../../utils/localStorageHelper";
 
 const ProductModal = ({ closeModal, productInfo }) => {
   const categoryId = productInfo.category_id;
@@ -13,7 +17,7 @@ const ProductModal = ({ closeModal, productInfo }) => {
   const productSelectives = productInfo.product_selectives;
   const productStudentPrice = productInfo.product_student_price;
 
-  const [seletive, setSelective] = useState();
+  const [selective, setSelective] = useState(0);
   const [optionalsChecked, setOptionalsChecked] = useState();
 
   useEffect(() => {
@@ -22,9 +26,8 @@ const ProductModal = ({ closeModal, productInfo }) => {
     }
   }, []);
 
-  const onSetSelective = (value) => {
-    console.log(value);
-    setSelective(value);
+  const onSetSelective = (index) => {
+    setSelective(index);
   };
 
   const onSetOptional = (position) => {
@@ -35,32 +38,47 @@ const ProductModal = ({ closeModal, productInfo }) => {
   };
 
   const goShoppingCart = () => {
-    window.location = "home/cart";
+    window.location = "/home/cart";
   };
 
   const onBuyProduct = () => {
-    createSaveOrder();
+    const order = createOrder();
+    saveDataLocalStorage("order", [order]);
+    goShoppingCart();
   };
 
   const onAddProduct = () => {
-    createSaveOrder();
+    const order = createOrder();
+    let currentOrder = getDataLocalStorage("order");
+    if (currentOrder !== undefined && currentOrder.length > 0) {
+      currentOrder.push(order);
+      saveDataLocalStorage("order", currentOrder);
+    } else {
+      saveDataLocalStorage("order", [order]);
+    }
+    closeModal();
   };
 
-  const createSaveOrder = () => {
+  const createOrder = () => {
     const optionalsList = [];
-    if (productOptionals.length > 0) {
+    if (productOptionals && productOptionals.length > 0) {
       optionalsChecked.map((item, index) => {
         if (item) {
           optionalsList.push(productOptionals[index]);
         }
       });
     }
+    let selectiveItem = "";
+    if (productSelectives && productSelectives.length > 0) {
+      selectiveItem = productSelectives[selective];
+    }
     const order = {
       product_id: productId,
       dining_id: diningId,
       order_optionals: optionalsList,
-      order_selectives: [],
+      order_selectives: selectiveItem,
     };
+    return order;
   };
 
   return (
@@ -83,7 +101,8 @@ const ProductModal = ({ closeModal, productInfo }) => {
                     type="radio"
                     id={index}
                     name="product_seletives"
-                    onClick={() => onSetSelective(item)}
+                    checked={selective === index}
+                    onChange={() => onSetSelective(index)}
                   />
                   <span className="pl-2">{item}</span>
                 </div>

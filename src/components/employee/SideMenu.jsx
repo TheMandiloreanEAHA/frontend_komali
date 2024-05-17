@@ -53,6 +53,9 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
       });
     });
     setCategoriesFilter(categoriesFilter);
+    if (categoriesFilter.length > 0) {
+      onSetSelectedCategory(categoriesFilter[0].category_id);
+    }
   };
 
   return (

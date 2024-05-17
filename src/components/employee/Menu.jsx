@@ -16,6 +16,7 @@ const Menu = ({
   const [selectedCategory, setSelectedCategory] = useState();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [productInfo, setProductInfo] = useState();
+  const [countProducts, setCountProducts] = useState(0);
 
   useEffect(() => {
     const initMenu = async () => {
@@ -29,6 +30,11 @@ const Menu = ({
   }, []);
 
   const onCloseModal = () => {
+    let currentOrder = getDataLocalStorage("order");
+    if (currentOrder) {
+      console.log(currentOrder);
+      setCountProducts(currentOrder.length);
+    }
     setIsModalOpen(false);
   };
 
@@ -39,6 +45,10 @@ const Menu = ({
 
   const onSetSelectedCategory = (selectedCategory) => {
     setSelectedCategory(selectedCategory);
+  };
+
+  const goShoppingCart = () => {
+    window.location = "/home/cart";
   };
 
   const getDinerRoomData = async (dining_room_id) => {
@@ -80,8 +90,11 @@ const Menu = ({
       {productInfo && isModalOpen && (
         <ProductModal closeModal={onCloseModal} productInfo={productInfo} />
       )}
-      <div className="bg-uv-blue fixed bottom-10 right-10 rounded-full size-32 p-8 flex justify-center items-center text-center text-white-100 cursor-pointer">
-        <button>Carrito</button>
+      <div
+        className="bg-uv-blue fixed bottom-10 right-10 rounded-full size-32 p-8 flex justify-center items-center text-center text-white-100 cursor-pointer"
+        onClick={goShoppingCart}
+      >
+        <button>Carrito {countProducts > 0 && countProducts}</button>
       </div>
     </div>
   );

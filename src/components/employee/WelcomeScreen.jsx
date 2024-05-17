@@ -3,7 +3,10 @@ import click from "../../assets/uv/ICON BTN TOUCH - SVG.svg";
 import logoComedores from "../../assets/uv/logoComedores.svg";
 import fondoMascara from "../../assets/uv/fondoMascara.svg";
 import background from "../../assets/uv/background.jpg";
-import { getDataLocalStorage } from "../../utils/localStorageHelper";
+import {
+  getDataLocalStorage,
+  deleteDataLocalStorage,
+} from "../../utils/localStorageHelper";
 import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import { axiosGet } from "../../utils/axiosHelper.js";
@@ -12,6 +15,7 @@ const WelcomeScreen = () => {
   const [diningRoomData, setDiningRoomData] = useState({});
 
   useEffect(() => {
+    deleteDataLocalStorage("order");
     const token = getDataLocalStorage("token");
     const data = jwtDecode(token);
     if (data) {
