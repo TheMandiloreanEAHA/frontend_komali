@@ -2,10 +2,12 @@ import React from "react";
 import TopBar from "../components/TopBar";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import { useState } from "react";
 import { getDataLocalStorage } from "../utils/localStorageHelper";
 import InfoCardUser from "../components/InfoCardUser";
 import AdminOptions from "../components/AdminOptions";
 import AdminCrud from "../components/AdminCrud";
+import ModalCrud from "../components/ModalCrud";
 
 function Admin() {
   useEffect(() => {
@@ -16,6 +18,14 @@ function Admin() {
     }
   }, []);
 
+  const [isOpen, setState] = useState(false);
+  const [accion, setaccion] = useState("");
+
+  const funcion = (accion) => {
+    console.log(accion);
+    setaccion(accion);
+  };
+
   return (
     <>
       <TopBar userType="Admin" />
@@ -25,9 +35,18 @@ function Admin() {
           <AdminOptions />
         </div>
         <div className="grow">
-          <AdminCrud />
+          <AdminCrud
+            estado={isOpen}
+            cambiarEstado={setState}
+            fun={funcion}
+          />
         </div>
       </div>
+      <ModalCrud
+        estado={isOpen}
+        cambiarEstado={setState}
+        funcion={accion}
+      />
     </>
   );
 }
