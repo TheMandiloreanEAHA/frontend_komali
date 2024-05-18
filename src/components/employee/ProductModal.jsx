@@ -7,7 +7,6 @@ import {
 const ProductModal = ({ closeModal, productInfo }) => {
   const categoryId = productInfo.category_id;
   const diningId = productInfo.dining_id;
-  const isActive = productInfo.is_active;
   const productDescription = productInfo.product_description;
   const productId = productInfo.product_id;
   const productImg = productInfo.product_img;
@@ -73,6 +72,12 @@ const ProductModal = ({ closeModal, productInfo }) => {
       selectiveItem = productSelectives[selective];
     }
     const order = {
+      category_id: categoryId,
+      product_description: productDescription,
+      product_img: productImg,
+      product_name: productName,
+      product_price: productPrice,
+      product_student_price: productStudentPrice,
       product_id: productId,
       dining_id: diningId,
       order_optionals: optionalsList,
