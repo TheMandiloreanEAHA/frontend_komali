@@ -3,13 +3,10 @@ import credential from "../../assets/credential.svg";
 import docenteBtn from "../../assets/docenteBtn.svg";
 import estudianteBtn from "../../assets/estudianteBtn.svg";
 import generalBtn from "../../assets/generalBtn.svg";
+import { saveDataLocalStorage } from "../../utils/localStorageHelper";
 
-const ScanCredential = ({
-  onChangeMatricula,
-  onChangeScaning,
-  onChangeClientType,
-}) => {
-  const types = ["estudiante", "maestro", "general"];
+const ScanCredential = () => {
+  const types = ["estudiante", "docente", "visitante"];
   const [clientType, setClientType] = useState(0);
   const [matricula, setMatricula] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -19,19 +16,20 @@ const ScanCredential = ({
       let auxMatricula = "";
       if (clientType === 0) {
         auxMatricula = `S${matricula}`;
+        saveDataLocalStorage("matricula", auxMatricula);
       }
-      onChangeMatricula(auxMatricula);
-      onChangeScaning(false);
-      onChangeClientType(types[clientType]);
+      //TODO
+      //Si es docente
+      saveDataLocalStorage("client_type", types[clientType]);
+      window.location = "/home/menu";
     } else {
       setErrorMsg("Matrícula inválida, debe tener 8 caracteres numéricos");
     }
   };
 
   const onGoStoreGeneral = () => {
-    setClientType(2);
-    onChangeScaning(false);
-    onChangeClientType(clientType[clientType]);
+    saveDataLocalStorage("client_type", types[2]);
+    window.location = "/home/menu";
   };
 
   const validateMatricula = () => {

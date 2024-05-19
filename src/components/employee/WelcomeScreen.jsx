@@ -52,7 +52,7 @@ const WelcomeScreen = () => {
   };
 
   const goScanScreen = () => {
-    window.location = "/home/store";
+    window.location = "/home/scan";
   };
 
   return (

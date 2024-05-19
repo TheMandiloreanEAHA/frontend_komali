@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalizeText } from "../../utils/textHelper";
 
 const ProductCard = ({ productData, openModal }) => {
   const productId = productData.product_id;
@@ -12,7 +13,7 @@ const ProductCard = ({ productData, openModal }) => {
       <div className="mx-8 mt-8 w-auto h-56 bg-gray-100 rounded-2xl flex justify-center items-center">
         <img src={productImg} alt="Imagen de producto" />
       </div>
-      <h4 className="text-2xl p-4">{productName}</h4>
+      <h4 className="text-2xl p-4">{capitalizeText(productName)}</h4>
       <div className="text-2xl pb-4 text-uv-blue flex justify-around">
         <span>${productPrice}</span>
         <span>${productStudentPrice}</span>

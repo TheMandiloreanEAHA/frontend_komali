@@ -6,36 +6,39 @@ import SideMenu from "./SideMenu";
 import ProductList from "./ProductList";
 import ProductModal from "./ProductModal";
 
-const Menu = ({
-  matricula,
-  clientType,
-  onChangeMatricula,
-  onChangeScaning,
-}) => {
+const Menu = () => {
   const [diningRoomData, setDiningRoomData] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [productInfo, setProductInfo] = useState();
   const [countProducts, setCountProducts] = useState(0);
+  const [matricula, setMatricula] = useState();
+  const [clienteType, setClientType] = useState();
+
+  const getCurrentOrder = () => {
+    let currentOrder = getDataLocalStorage("order");
+    if (currentOrder) {
+      setCountProducts(currentOrder.length);
+    }
+  };
 
   useEffect(() => {
     const initMenu = async () => {
       const token = getDataLocalStorage("token");
+      setMatricula(getDataLocalStorage("matricula"));
+      setClientType(getDataLocalStorage("client_type"));
       const data = jwtDecode(token);
       if (data) {
         await getDinerRoomData(data.dining_room_id);
       }
+      getCurrentOrder();
     };
     initMenu();
   }, []);
 
   const onCloseModal = () => {
-    let currentOrder = getDataLocalStorage("order");
-    if (currentOrder) {
-      console.log(currentOrder);
-      setCountProducts(currentOrder.length);
-    }
     setIsModalOpen(false);
+    getCurrentOrder();
   };
 
   const onOpenModal = (product) => {
@@ -62,8 +65,10 @@ const Menu = ({
 
   return (
     <div className="relative">
-      <div>Carrusel Matricula:{matricula}</div>
+      <div>Carrusel</div>
       <div>Más populares</div>
+      <div>Matricula:{matricula}</div>
+      <div>Tipo de cliente:{clienteType}</div>
       <div className="w-auto flex m-8">
         <div className="w-1/4">
           {diningRoomData ? (

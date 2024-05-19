@@ -1,5 +1,6 @@
 import React from "react";
 import finger from "../../assets/finger.svg";
+import { capitalizeText } from "../../utils/textHelper";
 
 const CategoryCard = ({ categoryData }) => {
   const categoryId = categoryData.category_id;
@@ -18,7 +19,7 @@ const CategoryCard = ({ categoryData }) => {
     <>
       <img className="w-auto h-fit" src={setCategoryImg()} alt={categoryName} />
       <h4 className="pt-4 font-bold text-xl w-auto">
-        {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
+        {capitalizeText(categoryName)}
       </h4>
     </>
   );

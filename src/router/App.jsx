@@ -10,7 +10,8 @@ import ShoppingCart from "../pages/ShoppingCart";
 
 import ProtectedRoute from "../components/ProtectedRoute.jsx";
 import WelcomeScreen from "../components/employee/WelcomeScreen.jsx";
-import Store from "../components/employee/Store";
+import ScanCredential from "../components/employee/ScanCredential.jsx";
+import Menu from "../components/employee/Menu.jsx";
 
 export const App = () => {
   return (
@@ -24,7 +25,8 @@ export const App = () => {
           <Route path="order" element={<Order />} />
           <Route path="home" element={<Home />}>
             <Route index element={<WelcomeScreen />} />
-            <Route path="store" element={<Store />} />
+            <Route path="scan" element={<ScanCredential />} />
+            <Route path="menu" element={<Menu />} />
             <Route path="cart" element={<ShoppingCart />} />
           </Route>
         </Route>
