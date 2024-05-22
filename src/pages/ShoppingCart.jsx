@@ -39,15 +39,27 @@ const ShoppingCart = () => {
     }
   };
 
-  console.log("DINING ID:", diningId);
-  console.log("ORDER NUM:", orderNum);
+  const createOrder = () => {
+    const final_order_list = [];
+    order.forEach((element) => {
+      const orderAux = {
+        order_num: orderNum,
+        product_id: element.product_id,
+        dining_id: element.dining_id,
+        order_optionals: element.order_optionals,
+        order_selective: element.order_selective,
+      };
+      final_order_list.push(orderAux);
+    });
+    console.log(final_order_list);
+  };
 
   return (
     <>
       <h1 className="font-bold text-4xl w-full text-center py-4">Carrito</h1>
       <div className="flex flex-row gap-8 p-8 h-screen">
         <OrderList orderList={order} setOrderList={setOrder} />
-        <OrderResumen orderList={order} />
+        <OrderResumen orderList={order} onCreateOrder={createOrder} />
       </div>
     </>
   );

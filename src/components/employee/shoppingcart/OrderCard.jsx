@@ -1,8 +1,6 @@
 import React from "react";
-import { capitalizeText } from "../../../utils/textHelper";
 
 const OrderCard = ({ data, index, deleteProduct }) => {
-  console.log(data);
   return (
     <div className="rounded-2xl bg-white-100 h-fit flex shadow-md">
       <div className="w-4/5 p-4 flex">
@@ -10,15 +8,20 @@ const OrderCard = ({ data, index, deleteProduct }) => {
           <img src={data.product_img} alt="producto" />
         </div>
         <div className="w-3/4 pl-4 flex flex-col justify-around">
-          <strong className="text-xl">
-            {capitalizeText(data.product_name)}
-          </strong>
+          <strong className="text-xl capitalize">{data.product_name}</strong>
+          <p className="text-uv-green text-xl">
+            {data.product_calories + " "}cal
+          </p>
           {data.order_selectives && (
-            <p className="text-lg">{capitalizeText(data.order_selectives)}</p>
+            <p className="text-lg capitalize">{data.order_selectives}</p>
           )}
           {data.order_optionals.length > 0 &&
             data.order_optionals.map((item, index) => {
-              return <li className="text-lg">{capitalizeText(item)}</li>;
+              return (
+                <li key={index} className="text-lg capitalize">
+                  {item}
+                </li>
+              );
             })}
           <p className="text-uv-blue font-bold text-lg">
             ${data.product_price.toFixed(2)}
