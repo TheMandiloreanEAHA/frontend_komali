@@ -1,10 +1,11 @@
 import React from "react";
+import trashIcon from "../../../assets/trashIcon.svg";
 
 const OrderCard = ({ data, index, deleteProduct }) => {
   return (
     <div className="rounded-2xl bg-white-100 h-fit flex shadow-md">
       <div className="w-4/5 p-4 flex">
-        <div className="w-1/4 aspect-square bg-gray-200 rounded-2xl">
+        <div className="w-1/4 aspect-square bg-gray-200 rounded-2xl flex justify-center items-center">
           <img src={data.product_img} alt="producto" />
         </div>
         <div className="w-3/4 pl-4 flex flex-col justify-around">
@@ -29,12 +30,12 @@ const OrderCard = ({ data, index, deleteProduct }) => {
         </div>
       </div>
       <button
-        className="bg-red-600 w-1/5 rounded-r-2xl"
+        className="bg-red-600 w-1/5 rounded-r-2xl p-4"
         onClick={() => {
           deleteProduct(index);
         }}
       >
-        Eliminar
+        <img src={trashIcon} alt="eliminar" />
       </button>
     </div>
   );

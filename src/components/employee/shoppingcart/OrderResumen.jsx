@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDataLocalStorage } from "../../../utils/localStorageHelper";
 
-const OrderResumen = ({ orderList, onCreateOrder }) => {
+const OrderResumen = ({ orderList, onOpenModal }) => {
   const [total, setTotal] = useState();
   const [productCount, setProductCount] = useState();
   const [matricula, setMatricula] = useState();
@@ -76,7 +76,7 @@ rounded-bl-3xl bg-uv-blue text-white-100 w-1/2 h-full"
         </button>
         <button
           className="rounded-br-3xl bg-uv-green text-white-100 w-1/2 h-full"
-          onClick={onCreateOrder}
+          onClick={() => onOpenModal(true)}
         >
           COMPRAR
         </button>

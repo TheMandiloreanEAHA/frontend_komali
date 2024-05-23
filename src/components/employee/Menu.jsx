@@ -5,11 +5,12 @@ import { axiosGet } from "../../utils/axiosHelper";
 import SideMenu from "./SideMenu";
 import ProductList from "./ProductList";
 import ProductModal from "./ProductModal";
+import shoppingCarIcon from "../../assets/shoppingCarIcon.svg";
 
 const Menu = () => {
   const [diningRoomData, setDiningRoomData] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [productInfo, setProductInfo] = useState();
   const [countProducts, setCountProducts] = useState(0);
   const [matricula, setMatricula] = useState();
@@ -96,10 +97,15 @@ const Menu = () => {
         <ProductModal closeModal={onCloseModal} productInfo={productInfo} />
       )}
       <div
-        className="bg-uv-blue fixed bottom-10 right-10 rounded-full size-32 p-8 flex justify-center items-center text-center text-white-100 cursor-pointer"
+        className="bg-uv-blue fixed bottom-10 right-10 rounded-full size-32 flex justify-center items-center text-center text-white-100 cursor-pointer"
         onClick={goShoppingCart}
       >
-        <button>Carrito {countProducts > 0 && countProducts}</button>
+        <div className="static">
+          <div className="bg-uv-blue rounded-full size-14 absolute -top-3 -right-3 flex justify-center items-center text-2xl font-bold">
+            {countProducts}
+          </div>
+          <img className="w-full h-full" src={shoppingCarIcon} alt="Carrito" />
+        </div>
       </div>
     </div>
   );

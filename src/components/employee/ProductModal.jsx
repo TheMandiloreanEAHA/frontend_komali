@@ -158,7 +158,7 @@ const ProductModal = ({ closeModal, productInfo }) => {
             )}
             {productOptionals && productSelectives ? (
               <div className="w-full my-4 flex items-center justify-center">
-                <hr class="h-1 w-3/4 bg-gray-300 border-0 rounded-full" />
+                <hr className="h-1 w-3/4 bg-gray-300 border-0 rounded-full" />
               </div>
             ) : (
               <div className="text-2xl flex justify-around mb-4">

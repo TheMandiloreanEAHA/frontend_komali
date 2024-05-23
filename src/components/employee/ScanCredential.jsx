@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import credential from "../../assets/credential.svg";
 import docenteBtn from "../../assets/docenteBtn.svg";
 import estudianteBtn from "../../assets/estudianteBtn.svg";
 import generalBtn from "../../assets/generalBtn.svg";
-import { saveDataLocalStorage } from "../../utils/localStorageHelper";
+import {
+  saveDataLocalStorage,
+  deleteDataLocalStorage,
+} from "../../utils/localStorageHelper";
 
 const ScanCredential = () => {
   const types = ["estudiante", "docente", "visitante"];
   const [clientType, setClientType] = useState(0);
   const [matricula, setMatricula] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    deleteDataLocalStorage("order");
+    deleteDataLocalStorage("matricula");
+    deleteDataLocalStorage("client_type");
+  }, []);
 
   const onGoStore = () => {
     if (validateMatricula()) {
