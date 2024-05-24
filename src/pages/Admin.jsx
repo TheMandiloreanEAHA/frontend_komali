@@ -20,10 +20,15 @@ function Admin() {
 
   const [isOpen, setState] = useState(false);
   const [accion, setaccion] = useState("");
+  const [infoTable, setinfoTable] = useState("admin");
 
   const funcion = (accion) => {
     console.log(accion);
     setaccion(accion);
+  };
+
+  const btnSeleccionado = (btnId) => {
+    setinfoTable(btnId);
   };
 
   return (
@@ -32,13 +37,17 @@ function Admin() {
       <InfoCardUser />
       <div className="flex gap-4 mx-10 mt-2">
         <div className=" flex-none w-1/5">
-          <AdminOptions />
+          <AdminOptions
+            userType="admin"
+            btnSeleccionado={btnSeleccionado}
+          />
         </div>
         <div className="grow">
           <AdminCrud
             estado={isOpen}
             cambiarEstado={setState}
             fun={funcion}
+            infoTable={infoTable}
           />
         </div>
       </div>

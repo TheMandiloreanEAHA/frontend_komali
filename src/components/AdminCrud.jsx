@@ -1,7 +1,7 @@
 import AdminTable from "./AdminTable";
 import NavBarCrud from "./NavBarCrud";
 
-const AdminCrud = ({ estado, cambiarEstado, fun }) => {
+const AdminCrud = ({ estado, cambiarEstado, fun, infoTable }) => {
   const funcion = (accion) => {
     //console.log(accion);
     fun(accion);
@@ -14,7 +14,7 @@ const AdminCrud = ({ estado, cambiarEstado, fun }) => {
           cambiarEstado={cambiarEstado}
           funcion={funcion}
         />
-        <AdminTable />
+        <AdminTable infoTable={infoTable} />
       </div>
     </>
   );
