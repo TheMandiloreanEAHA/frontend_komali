@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
+import { getDataLocalStorage } from "../../../utils/localStorageHelper";
 
 const TicketMsg = ({ total, onCreateOrder, orderList, orderNum }) => {
   const [date, setDate] = useState();
+  const [clientType, setClientType] = useState();
+  const [matricula, setMatricula] = useState();
 
   useEffect(() => {
     const d = new Date();
     setDate(`${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`);
+    const auxClientType = getDataLocalStorage("client_type");
+    const matricula = getDataLocalStorage("matricula");
+    setClientType(auxClientType);
+    setMatricula(matricula);
   }, []);
 
   const addUnderscores = (textName, textPrice) => {
@@ -50,7 +57,10 @@ const TicketMsg = ({ total, onCreateOrder, orderList, orderNum }) => {
           ** toma una foto a esta pantalla **
         </h3>
         <div className="text-xl w-full flex justify-around">
-          <div>Estudiante UV</div>
+          <div className="capitalize">
+            {clientType + " "}
+            {matricula}
+          </div>
           <div>{date}</div>
         </div>
         <div className="text-4xl font-extrabold m-2">

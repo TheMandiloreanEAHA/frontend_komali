@@ -4,7 +4,12 @@ import {
   getDataLocalStorage,
 } from "../../utils/localStorageHelper";
 
-const ProductModal = ({ closeModal, productInfo }) => {
+const ProductModal = ({
+  closeModal,
+  productInfo,
+  openTemporalModal,
+  setVisibleShoppingCart,
+}) => {
   const productId = productInfo.product_id;
   const productName = productInfo.product_name;
   const productPrice = productInfo.product_price;
@@ -21,6 +26,7 @@ const ProductModal = ({ closeModal, productInfo }) => {
   const [optionalsChecked, setOptionalsChecked] = useState();
 
   useEffect(() => {
+    setVisibleShoppingCart(false);
     if (productOptionals) {
       setOptionalsChecked(new Array(productOptionals.length).fill(false));
     }
@@ -57,6 +63,8 @@ const ProductModal = ({ closeModal, productInfo }) => {
       saveDataLocalStorage("order", [order]);
     }
     closeModal();
+    openTemporalModal();
+    setVisibleShoppingCart(true);
   };
 
   const createOrder = () => {
@@ -94,7 +102,14 @@ const ProductModal = ({ closeModal, productInfo }) => {
         <div className="relative w-full">
           <h2 className="text-3xl m-6 font-bold">{productName}</h2>
           <div className="flex justify-end text-xl pr-6 font-bold absolute -top-1 right-0">
-            <button onClick={() => closeModal()}>X</button>
+            <button
+              onClick={() => {
+                closeModal();
+                setVisibleShoppingCart(true);
+              }}
+            >
+              X
+            </button>
           </div>
         </div>
         <div className="flex flex-row">
@@ -102,6 +117,12 @@ const ProductModal = ({ closeModal, productInfo }) => {
           <div className="px-8 pb-8 w-1/2">
             <div className="w-full aspect-square bg-gray-100 rounded-2xl flex justify-center items-center">
               <img src={productImg} alt="Imagen de producto" />
+            </div>
+            <div className="text-2xl flex justify-around m-4">
+              <p className="text-justify">
+                Descripción:{" "}
+                <span className="text-uv-blue">{productDescription}</span>
+              </p>
             </div>
           </div>
           <div className="h-full w-1/2 flex flex-col pb-8 pr-8">
@@ -156,18 +177,9 @@ const ProductModal = ({ closeModal, productInfo }) => {
                 </div>
               </>
             )}
-            {productOptionals && productSelectives ? (
-              <div className="w-full my-4 flex items-center justify-center">
-                <hr className="h-1 w-3/4 bg-gray-300 border-0 rounded-full" />
-              </div>
-            ) : (
-              <div className="text-2xl flex justify-around mb-4">
-                <span>Descripción: </span>
-                <span className="text-2xl text-uv-blue">
-                  {productDescription}
-                </span>
-              </div>
-            )}
+            <div className="w-full my-4 flex items-center justify-center">
+              <hr className="h-0.5 w-3/4 bg-gray-300 border-0 rounded-full" />
+            </div>
             <div className="text-2xl flex justify-around">
               <span>Calorias: </span>
               <span className="text-2xl text-uv-green">{productCalories}</span>

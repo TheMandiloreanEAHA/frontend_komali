@@ -6,6 +6,7 @@ import SideMenu from "./SideMenu";
 import ProductList from "./ProductList";
 import ProductModal from "./ProductModal";
 import shoppingCarIcon from "../../assets/shoppingCarIcon.svg";
+import TemporalModal from "../TemporalModal";
 
 const Menu = () => {
   const [diningRoomData, setDiningRoomData] = useState();
@@ -15,6 +16,8 @@ const Menu = () => {
   const [countProducts, setCountProducts] = useState(0);
   const [matricula, setMatricula] = useState();
   const [clienteType, setClientType] = useState();
+  const [temporalModal, setTemporalModal] = useState(false);
+  const [visibleShoppingCart, setVisibleShoppingCart] = useState(true);
 
   const getCurrentOrder = () => {
     let currentOrder = getDataLocalStorage("order");
@@ -45,6 +48,14 @@ const Menu = () => {
   const onOpenModal = (product) => {
     setIsModalOpen(true);
     setProductInfo(product);
+  };
+
+  const onOpenTemporalModal = () => {
+    setTemporalModal(true);
+  };
+
+  const onCloseTemporalModal = () => {
+    setTemporalModal(false);
   };
 
   const onSetSelectedCategory = (selectedCategory) => {
@@ -94,19 +105,37 @@ const Menu = () => {
         </div>
       </div>
       {productInfo && isModalOpen && (
-        <ProductModal closeModal={onCloseModal} productInfo={productInfo} />
+        <ProductModal
+          closeModal={onCloseModal}
+          productInfo={productInfo}
+          openTemporalModal={onOpenTemporalModal}
+          setVisibleShoppingCart={setVisibleShoppingCart}
+        />
       )}
-      <div
-        className="bg-uv-blue fixed bottom-10 right-10 rounded-full size-32 flex justify-center items-center text-center text-white-100 cursor-pointer"
-        onClick={goShoppingCart}
-      >
-        <div className="static">
-          <div className="bg-uv-blue rounded-full size-14 absolute -top-3 -right-3 flex justify-center items-center text-2xl font-bold">
-            {countProducts}
+      {temporalModal && (
+        <TemporalModal
+          closeTemporalModal={onCloseTemporalModal}
+          icon={""}
+          message="Producto agregado al carrito"
+        />
+      )}
+      {visibleShoppingCart && (
+        <div
+          className="bg-uv-blue fixed bottom-10 right-10 rounded-full size-32 flex justify-center items-center text-center text-white-100 cursor-pointer"
+          onClick={goShoppingCart}
+        >
+          <div className="static">
+            <div className="bg-uv-blue rounded-full size-14 absolute -top-3 -right-3 flex justify-center items-center text-2xl font-bold">
+              {countProducts}
+            </div>
+            <img
+              className="w-full h-full"
+              src={shoppingCarIcon}
+              alt="Carrito"
+            />
           </div>
-          <img className="w-full h-full" src={shoppingCarIcon} alt="Carrito" />
         </div>
-      </div>
+      )}
     </div>
   );
 };
