@@ -8,15 +8,32 @@ import InfoCardUser from "../components/InfoCardUser";
 import AdminOptions from "../components/AdminOptions";
 import AdminCrud from "../components/AdminCrud";
 import ModalCrud from "../components/ModalCrud";
+import { axiosGet } from "../utils/axiosHelper";
 
 function Admin() {
+  const token = getDataLocalStorage("token");
+  const data = jwtDecode(token);
+  const [diningName, setDiningName] = useState();
+
   useEffect(() => {
-    const token = getDataLocalStorage("token");
-    const data = jwtDecode(token);
+    const initDiningRoom = async () => {
+      await getDiningRoom();
+    };
+
     if (data.user_type !== "admin") {
       window.location = "/";
+    } else {
+      initDiningRoom();
     }
   }, []);
+
+  const getDiningRoom = async () => {
+    const url = `http://127.0.0.1:8000/dining-room/${data.dining_room_id}`;
+    const result = await axiosGet(url, token);
+    if (result !== undefined) {
+      setDiningName(result.data.dining_name);
+    }
+  };
 
   const [isOpen, setState] = useState(false);
   const [accion, setaccion] = useState("");
@@ -33,11 +50,15 @@ function Admin() {
   return (
     <>
       <TopBar userType="Admin" />
-      <InfoCardUser />
+      <InfoCardUser
+        userName={data.user_name}
+        diningRoomName={diningName}
+        userType={data.user_type}
+      />
       <div className="flex gap-4 mx-10 mt-2">
         <div className=" flex-none w-1/5">
           <AdminOptions
-            userType="admin"
+            userType={data.user_type}
             btnSeleccionado={btnSeleccionado}
           />
         </div>

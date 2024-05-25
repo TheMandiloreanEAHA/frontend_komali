@@ -2,9 +2,9 @@ import perfilImg from "../assets/perfilFoto.svg";
 
 const InfoCardUser = ({
   userImg = false,
-  userName = "",
-  diningRoomName = "",
-  userType = "",
+  userName,
+  diningRoomName,
+  userType,
 }) => {
   const renderImg = () => {
     if (userImg) {
@@ -23,7 +23,7 @@ const InfoCardUser = ({
   const renderUserName = () => {
     if (userName !== "") {
       return (
-        <label className="text-3xl font-semibold text-white-500">
+        <label className="text-3xl font-semibold text-white-500 capitalize">
           {userName}
         </label>
       );
@@ -40,7 +40,7 @@ const InfoCardUser = ({
   const renderDiningRoomName = () => {
     if (diningRoomName !== "") {
       return (
-        <label className="text-lg font-semibold text-white-500">
+        <label className="text-lg font-semibold text-white-500 uppercase">
           {diningRoomName}
         </label>
       );
@@ -57,7 +57,7 @@ const InfoCardUser = ({
   const renderUserType = () => {
     if (userType !== "") {
       return (
-        <label className="text-lg font-semibold text-white-500">
+        <label className="text-lg font-semibold text-white-500 capitalize">
           {userType}
         </label>
       );
