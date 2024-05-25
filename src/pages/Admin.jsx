@@ -23,7 +23,6 @@ function Admin() {
   const [infoTable, setinfoTable] = useState("admin");
 
   const funcion = (accion) => {
-    console.log(accion);
     setaccion(accion);
   };
 
