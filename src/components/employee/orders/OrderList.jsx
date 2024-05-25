@@ -47,6 +47,7 @@ const OrderList = () => {
     setDiningId(dining_room_id);
     const initOrderList = async () => {
       await getOrdersByDining();
+      setInterval(getOrdersByDining, 30000);
     };
     initOrderList();
   }, []);
