@@ -3,7 +3,7 @@ import TopBar from "../components/TopBar";
 import HiddenSideBar from "../components/employee/orders/HiddenSideBar";
 import SideBar from "../components/employee/orders/SideBar";
 import OrderList from "../components/employee/orders/OrderList";
-import CompletedOrderList from "../components/employee/orders/CompletedOrderList";
+import LogOrderList from "../components/employee/orders/LogOrderList";
 
 const Order = () => {
   const [showSideBar, setShowSideBar] = useState(false);
@@ -12,7 +12,7 @@ const Order = () => {
   return (
     <>
       <TopBar />
-      <div className="w-full h-screen bg-gray-100 flex">
+      <div className="w-full h-full bg-gray-100 flex">
         <div
           className="m-6"
           onMouseEnter={() => setShowSideBar(true)}
@@ -29,7 +29,7 @@ const Order = () => {
           )}
         </div>
         <div className="w-full h-full my-6 mr-6">
-          {list ? <OrderList /> : <CompletedOrderList />}
+          {list ? <OrderList /> : <LogOrderList />}
         </div>
       </div>
     </>

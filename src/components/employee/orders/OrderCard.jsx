@@ -42,7 +42,6 @@ const OrderCard = ({ orderData, index, onDeleteOrder, diningId }) => {
         {orderData &&
           orderData.map((item, index) => {
             if (orderNum === undefined || orderNum !== item.order_num) {
-              console.log(item);
               setOrderNum(item.order_num);
             }
             return (

@@ -8,8 +8,6 @@ const OrderList = () => {
   const [ordersData, setOrdersData] = useState();
   const [diningId, setDiningId] = useState();
 
-  console.log(diningId);
-
   function groupBy(list, keyGetter) {
     const map = new Map();
     list.forEach((item) => {
@@ -31,7 +29,6 @@ const OrderList = () => {
     const url = `http://127.0.0.1:8000/orders/${dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
-      console.log(result);
       const grouped = groupBy(result.data, (order) => order.order_num);
       const dataResult = Array.from(grouped.values());
       setOrdersData(dataResult);
@@ -55,10 +52,10 @@ const OrderList = () => {
   }, []);
 
   return (
-    <div className="bg-white-100 h-full w-full rounded-3xl p-6 overflow-y-auto">
-      <div className="grid grid-cols-2 gap-6">
-        {ordersData &&
-          ordersData.map((item, index) => {
+    <div className="bg-white-100 h-screen w-full rounded-3xl p-6 overflow-y-auto">
+      {ordersData && ordersData.length > 0 ? (
+        <div className="grid grid-cols-2 gap-6">
+          {ordersData.map((item, index) => {
             return (
               <OrderCard
                 orderData={item}
@@ -69,7 +66,12 @@ const OrderList = () => {
               />
             );
           })}
-      </div>
+        </div>
+      ) : (
+        <div className="h-full w-full flex justify-center pt-16">
+          <p className="text-3xl font-bold">Sin ordenes pendientes</p>
+        </div>
+      )}
     </div>
   );
 };
