@@ -98,7 +98,7 @@ const ProductModal = ({
 
   return (
     <div className="w-full h-full bg-gray-900 bg-opacity-50 fixed bottom-0 right-0 flex justify-center items-center text-center">
-      <div className="bg-white-100 rounded-3xl h-auto w-4/5">
+      <div className="bg-white-100 rounded-3xl h-auto w-3/5">
         <div className="relative w-full">
           <h2 className="text-3xl m-6 font-bold">{productName}</h2>
           <div className="flex justify-end text-xl pr-6 font-bold absolute -top-1 right-0">

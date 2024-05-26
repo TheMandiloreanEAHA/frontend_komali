@@ -59,9 +59,9 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
   };
 
   return (
-    <>
-      <div className=" p-8 bg-uv-green rounded-3xl h-screen text-center grid grid-cols-1 gap-8 mr-8 overflow-y-scroll">
-        <div className="flex flex-col justify-center items-center w-full rounded-2xl bg-white-100 text-uv-blue p-4 font-bold text-3xl">
+    <div className="p-6 bg-uv-green rounded-3xl h-screen w-full overflow-y-auto">
+      <div className="h-fit text-center grid grid-cols-1 gap-6">
+        <div className="flex flex-col justify-center items-center w-full h-20 rounded-2xl bg-white-100 text-uv-blue px-4 font-bold text-2xl">
           <h4>MENÚ</h4>
         </div>
         {categoriesFilter ? (
@@ -72,7 +72,7 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
                 onClick={() => {
                   setSelectCategory(item.category_id);
                 }}
-                className="rounded-2xl bg-white-100 shadow-md cursor-pointer p-8 w-auto flex flex-col justify-center items-center"
+                className="rounded-2xl bg-white-100 shadow-md cursor-pointer w-full aspect-square p-2 flex justify-center items-center"
               >
                 <CategoryCard categoryData={item} />
               </div>
@@ -82,7 +82,7 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
           <span>...</span>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

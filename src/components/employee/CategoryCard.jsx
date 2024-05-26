@@ -8,19 +8,17 @@ const CategoryCard = ({ categoryData }) => {
 
   const setCategoryImg = () => {
     if (categoryImg) {
-      return categoryImg;
+      return `data:image/png;base64,${categoryImg}`;
     } else {
       return finger;
     }
   };
 
   return (
-    <>
-      <img className="w-auto h-fit" src={setCategoryImg()} alt={categoryName} />
-      <h4 className="pt-4 font-bold text-xl w-auto capitalize">
-        {categoryName}
-      </h4>
-    </>
+    <div className="h-24 w-24 flex flex-col justify-center items-center">
+      <img src={setCategoryImg()} alt={categoryName} />
+      <h4 className="font-bold text-lg w-auto capitalize">{categoryName}</h4>
+    </div>
   );
 };
 

@@ -77,12 +77,9 @@ const Menu = () => {
 
   return (
     <div className="relative">
-      <div>Carrusel</div>
       <div>Más populares</div>
-      <div>Matricula:{matricula}</div>
-      <div>Tipo de cliente:{clienteType}</div>
-      <div className="w-auto flex m-8">
-        <div className="w-1/4">
+      <div className="w-auto flex m-6">
+        <div className="w-1/6 mr-6">
           {diningRoomData ? (
             <SideMenu
               diningRoom={diningRoomData}
@@ -92,7 +89,7 @@ const Menu = () => {
             <span>Cargando datos...</span>
           )}
         </div>
-        <div className="w-3/4">
+        <div className="w-5/6">
           {selectedCategory ? (
             <ProductList
               selectedCategory={selectedCategory}
