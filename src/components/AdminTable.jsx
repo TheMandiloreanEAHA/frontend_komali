@@ -62,7 +62,7 @@ const AdminTable = ({ infoTable }) => {
           {userList ? (
             userList.map((item, index) => {
               return (
-                <tr key={index}>
+                <tr key={index} className="hover:bg-uv-blue">
                   <td class="bg-gray-500 pl-2">{item.user_name}</td>
                   <td class="bg-gray-300 pl-2">{item.user_type}</td>
                   <td class="bg-gray-500 pl-2">{item.dining_name}</td>
@@ -80,11 +80,13 @@ const AdminTable = ({ infoTable }) => {
     return (
       <div class="m-5  rounded-lg border-4 border-gray-500/20">
         <table className="w-full">
-          <tr>
-            <th class="bg-gray-600">Logo</th>
-            <th class="bg-gray-400">Nombre del Comedor</th>
-            <th class="bg-gray-600">Estado del Comedor</th>
-          </tr>
+          <thead>
+            <tr>
+              <th class="bg-gray-600">Logo</th>
+              <th class="bg-gray-400">Nombre del Comedor</th>
+              <th class="bg-gray-600">Estado del Comedor</th>
+            </tr>
+          </thead>
           {diningRoomList ? (
             diningRoomList.map((item, index) => {
               return (

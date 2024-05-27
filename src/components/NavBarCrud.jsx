@@ -1,28 +1,29 @@
-const NavBarCrud = ({ estado, cambiarEstado, funcion }) => {
-  const setState = (accion) => {
-    cambiarEstado(!estado);
-    funcion(accion);
+const NavBarCrud = ({ setIsModalOpen, setSelectedAction }) => {
+  const onSetSelectedAction = (accion) => {
+    setIsModalOpen(true);
+    setSelectedAction(accion);
+    console.log(accion);
   };
 
   return (
-    <div class="grid grid-cols-6 mt-3">
+    <div class="grid grid-cols-6 gap-4 mb-4">
       <button
-        onClick={() => setState("agregar")}
-        className="h-10 w-2/3 ml-8 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
+        onClick={() => onSetSelectedAction("agregar")}
+        className="h-10 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
         type="button"
       >
         Nuevo
       </button>
       <button
-        onClick={() => setState("modificar")}
-        className=" h-10 w-2/3 ml-4 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
+        onClick={() => onSetSelectedAction("modificar")}
+        className=" h-10 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
         type="button"
       >
         Editar
       </button>
       <button
-        onClick={() => setState("eliminar")}
-        className=" h-10 w-2/3 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
+        onClick={() => onSetSelectedAction("eliminar")}
+        className=" h-10 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
         type="button"
       >
         Eliminar
@@ -31,7 +32,7 @@ const NavBarCrud = ({ estado, cambiarEstado, funcion }) => {
         type="text"
         id="buscar"
         placeholder="Nombre empleado"
-        className="col-span-3 h-10  rounded-full border-2 border-uv-blue p-4 mr-4"
+        className="col-span-3 h-10 rounded-full border-2 border-uv-blue p-4"
       />
     </div>
   );

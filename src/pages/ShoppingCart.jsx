@@ -12,8 +12,6 @@ const ShoppingCart = () => {
   const [orderNum, setOrderNum] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(order, diningId, orderNum);
-
   useEffect(() => {
     const initShoppingCart = async () => {
       const diningAux = await getDiningId();

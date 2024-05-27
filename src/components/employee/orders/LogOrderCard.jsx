@@ -1,34 +1,30 @@
-import { useEffect, useState } from 'react'
-import { getDataLocalStorage } from '../../../utils/localStorageHelper'
-import { jwtDecode } from 'jwt-decode'
-import { axiosPost } from '../../../utils/axiosHelper'
+import { useEffect, useState } from "react";
+import { getDataLocalStorage } from "../../../utils/localStorageHelper";
+import { jwtDecode } from "jwt-decode";
+import { axiosPost } from "../../../utils/axiosHelper";
 
-const LogOrderCard = ({orderLogData}) => {
+const LogOrderCard = ({ orderLogData }) => {
+  const [productsData, setProductsData] = useState();
 
-  const [productsData, setProductsData] = useState()
-
-  console.log(productsData)
-  console.log(orderLogData)
-
-  useEffect(()=>{
+  useEffect(() => {
     const initProductsList = async () => {
-      getProductsById()
-    }
-    initProductsList()
-  },[])
+      getProductsById();
+    };
+    initProductsList();
+  }, []);
 
   const getProductsById = async () => {
     const token = getDataLocalStorage("token");
     const data = jwtDecode(token);
     const dining_room_id = data.dining_room_id;
     const productsRequest = {
-      "dining_id": dining_room_id,
-      "products_list": orderLogData.products_id
+      dining_id: dining_room_id,
+      products_list: orderLogData.products_id,
     };
     const url = `http://127.0.0.1:8000/products/filter`;
     const result = await axiosPost(url, productsRequest, token);
     if (result !== undefined) {
-      setProductsData(result.data)
+      setProductsData(result.data);
     }
   };
 
@@ -39,24 +35,28 @@ const LogOrderCard = ({orderLogData}) => {
         <div>Total:{" $" + orderLogData.total.toFixed(2)}</div>
       </div>
       <div className="p-6 capitalize text-2xl">
-        <div><span className='font-bold'>Fecha:</span>{" "+orderLogData.order_date}</div>
-        {productsData && 
+        <div>
+          <span className="font-bold">Fecha:</span>
+          {" " + orderLogData.order_date}
+        </div>
+        {productsData && (
           <div>
-            <div className='font-bold'>
-              Productos:
-            </div>
-            <ul className='list-disc px-4 flex justify-between'>
+            <div className="font-bold">Productos:</div>
+            <ul className="list-disc px-4 flex justify-between">
               {productsData.map((item, index) => {
-                return(
-                  <li key={index}>{item.product_name}{" $"+item.product_price}</li>
-                )
+                return (
+                  <li key={index}>
+                    {item.product_name}
+                    {" $" + item.product_price}
+                  </li>
+                );
               })}
             </ul>
           </div>
-        }
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LogOrderCard
+export default LogOrderCard;

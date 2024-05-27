@@ -43,7 +43,6 @@ const WelcomeScreen = () => {
 
   const setDiningBackground = () => {
     const diningBg = diningRoomData.dining_bg;
-    console.log(diningBg);
     if (diningBg === undefined || diningBg === null) {
       return background;
     } else {

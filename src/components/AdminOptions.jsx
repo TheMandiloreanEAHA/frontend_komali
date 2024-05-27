@@ -1,64 +1,44 @@
 import { useState } from "react";
 import { deleteDataLocalStorage } from "../utils/localStorageHelper.js";
 
-const AdminOptions = ({ userType, btnSeleccionado }) => {
+const AdminOptions = ({ userType, setSelectedCategory, selectedCategory }) => {
   const deleteSession = () => {
     deleteDataLocalStorage("save_user");
     deleteDataLocalStorage("token");
     window.location = "/";
   };
 
-  const [selectedBtn, setSelectedBtn] = useState("admin");
-
   const handleButtonClicked = (btnId) => {
-    setSelectedBtn(btnId);
-    btnSeleccionado(btnId);
+    setSelectedCategory(btnId);
   };
 
   if (userType === "admin") {
     return (
-      <div className="h-auto rounded-lg border-4 p-2 py-4 border-gray-500/20">
-        <div className="flex flex-col">
+      <div className="relative w-full h-full rounded-3xl text-white-100 font-bold text-2xl text-center bg-white-100">
+        <div className="grid gap-6 p-4">
           <button
             onClick={() => handleButtonClicked("admin")}
-            className={`w-3/4 h-18 ml-8 rounded-full ${selectedBtn === "admin" ? "bg-uv-green" : "bg-uv-blue"} text-2xl text-white-100 hover:font-bold`}
+            className={`w-full py-4 rounded-full ${selectedCategory === "admin" ? "bg-uv-green" : "bg-uv-blue"} text-2xl text-white-100 hover:font-bold`}
             type="button"
           >
             Administradores
           </button>
           <button
             onClick={() => handleButtonClicked("comedores")}
-            className={`my-4 w-3/4 h-18 ml-8 rounded-full  ${selectedBtn === "comedores" ? "bg-uv-green" : "bg-uv-blue"} text-2xl text-white-100 hover:font-bold`}
+            className={`w-full py-4 rounded-full  ${selectedCategory === "comedores" ? "bg-uv-green" : "bg-uv-blue"} text-2xl text-white-100 hover:font-bold`}
             type="button"
           >
             Comedores
           </button>
-          <button
-            className="my-4 w-3/4 h-18 ml-8 rounded-full bg-gray-500/90 text-2xl text-white-100 cursor-not-allowed"
-            type="button"
-          >
-            Comedor
-          </button>
-          <button
-            className="my-4 w-3/4 h-18 ml-8 rounded-full bg-gray-500/90 text-2xl text-white-100 cursor-not-allowed"
-            type="button"
-          >
-            Alimentos
-          </button>
-          <button
-            className="my-4 w-3/4 h-18 ml-8 rounded-full bg-gray-500/90 text-2xl text-white-100 cursor-not-allowed"
-            type="button"
-          >
-            Empleados
-          </button>
-          <button
-            onClick={deleteSession}
-            className="w-3/4 h-18 ml-8 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
-            type="button"
-          >
-            Cerrar Sesión
-          </button>
         </div>
+        <button className="absolute bottom-0 w-full flex justify-center items-center p-6">
+          <div
+            onClick={deleteSession}
+            className=" bg-red-700 h-16 rounded-full w-full flex justify-center items-center"
+          >
+            Cerrar sesión
+          </div>
+        </button>
       </div>
     );
   } else {

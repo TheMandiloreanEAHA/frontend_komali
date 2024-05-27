@@ -14,6 +14,9 @@ function Admin() {
   const token = getDataLocalStorage("token");
   const data = jwtDecode(token);
   const [diningName, setDiningName] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("admin");
+  const [selectedAction, setSelectedAction] = useState();
+  const [selectedRow, setSelectedRow] = useState();
 
   useEffect(() => {
     const initDiningRoom = async () => {
@@ -35,48 +38,42 @@ function Admin() {
     }
   };
 
-  const [isOpen, setState] = useState(false);
-  const [accion, setaccion] = useState("");
-  const [infoTable, setinfoTable] = useState("admin");
-
-  const funcion = (accion) => {
-    setaccion(accion);
-  };
-
-  const btnSeleccionado = (btnId) => {
-    setinfoTable(btnId);
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <>
+    <div className="w-full h-screen bg-gray-100">
       <TopBar userType="Admin" />
       <InfoCardUser
         userName={data.user_name}
         diningRoomName={diningName}
         userType={data.user_type}
       />
-      <div className="flex gap-4 mx-10 mt-2">
+      <div className="flex gap-8 p-8 w-full h-4/5">
         <div className=" flex-none w-1/5">
           <AdminOptions
             userType={data.user_type}
-            btnSeleccionado={btnSeleccionado}
+            setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
           />
         </div>
-        <div className="grow">
+        <div className="w-4/5 h-full">
           <AdminCrud
-            estado={isOpen}
-            cambiarEstado={setState}
-            fun={funcion}
-            infoTable={infoTable}
+            setIsModalOpen={setIsModalOpen}
+            selectedCategory={selectedCategory}
+            setSelectedAction={setSelectedAction}
+            setSelectedRow={setSelectedRow}
+            selectedRow={selectedRow}
           />
         </div>
       </div>
-      <ModalCrud
-        estado={isOpen}
-        cambiarEstado={setState}
-        funcion={accion}
-      />
-    </>
+      {isModalOpen && (
+        <ModalCrud
+          setIsModalOpen={setIsModalOpen}
+          selectedAction={selectedAction}
+          selectedRow={selectedRow}
+        />
+      )}
+    </div>
   );
 }
 

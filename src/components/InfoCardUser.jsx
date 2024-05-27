@@ -12,7 +12,7 @@ const InfoCardUser = ({
       //Aquí se debe cargar la foto del usuario
       return (
         <img
-          className="flex-none h-24 m-2 mx-6"
+          className="h-20 aspect-square"
           src={perfilImg}
           alt="perfil sin foto"
         />
@@ -23,14 +23,14 @@ const InfoCardUser = ({
   const renderUserName = () => {
     if (userName !== "") {
       return (
-        <label className="text-3xl font-semibold text-white-500 capitalize">
+        <label className="text-2xl font-semibold text-white-500 capitalize">
           {userName}
         </label>
       );
     } else {
       //Aquí va el texto por default
       return (
-        <label className="text-3xl font-semibold text-white-500">
+        <label className="text-2xl font-semibold text-white-500">
           Nombre de usuario completo
         </label>
       );
@@ -40,14 +40,14 @@ const InfoCardUser = ({
   const renderDiningRoomName = () => {
     if (diningRoomName !== "") {
       return (
-        <label className="text-lg font-semibold text-white-500 uppercase">
+        <label className="text-md font-semibold text-white-500 uppercase">
           {diningRoomName}
         </label>
       );
     } else {
       //Aquí va el texto por default
       return (
-        <label className="text-lg font-semibold text-white-500">
+        <label className="text-md font-semibold text-white-500">
           Nombre de la sede
         </label>
       );
@@ -57,14 +57,14 @@ const InfoCardUser = ({
   const renderUserType = () => {
     if (userType !== "") {
       return (
-        <label className="text-lg font-semibold text-white-500 capitalize">
+        <label className="text-md font-semibold text-white-500 capitalize">
           {userType}
         </label>
       );
     } else {
       //Aquí va el texto por default
       return (
-        <label className="text-lg font-semibold text-white-500">
+        <label className="text-md font-semibold text-white-500">
           Tipo de usuario
         </label>
       );
@@ -72,14 +72,12 @@ const InfoCardUser = ({
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="flex w-full h-28 mx-10 bg-uv-blue ">
-        {renderImg()}
-        <div className="flex-1 flex flex-col justify-center">
-          {renderUserName()}
-          {renderDiningRoomName()}
-          {renderUserType()}
-        </div>
+    <div className="flex w-full h-auto bg-uv-blue justify-start items-center px-8 py-2">
+      <div className="mr-4">{renderImg()}</div>
+      <div className="flex flex-col justify-center">
+        {renderUserName()}
+        {renderDiningRoomName()}
+        {renderUserType()}
       </div>
     </div>
   );
