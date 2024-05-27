@@ -4,7 +4,7 @@ import DeleteForm from "../components/crud/DeleteForm";
 
 import React from "react";
 
-const ModalCrud = ({ setIsModalOpen, selectedAction, selectedRow }) => {
+const ModalCrud = ({ setIsModalOpen, selectedAction }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -14,9 +14,9 @@ const ModalCrud = ({ setIsModalOpen, selectedAction, selectedRow }) => {
       case "agregar":
         return <CreateForm />;
       case "modificar":
-        return <EditForm selectedRow={selectedRow} />;
+        return <EditForm />;
       case "eliminar":
-        return <DeleteForm selectedRow={selectedRow} />;
+        return <DeleteForm />;
       default:
         console.log("tilin");
     }

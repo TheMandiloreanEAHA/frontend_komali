@@ -1,4 +1,10 @@
-const TableAdmin = ({ dataList, headNames, setSelectedRow, selectedRow }) => {
+import { crudContext } from "../pages/Admin";
+import { useContext } from "react";
+
+const TableAdmin = ({ dataList, headNames }) => {
+  const { row } = useContext(crudContext);
+  const [selectedRow, setSelectedRow] = row;
+
   console.log(dataList);
   const onGetRowInfo = (e) => {
     const element = document.querySelector(`[dataValue="${selectedRow}"]`);

@@ -1,4 +1,11 @@
-const NavBarCrud = ({ setIsModalOpen, setSelectedAction }) => {
+import { crudContext } from "../pages/Admin";
+import { useContext } from "react";
+
+const NavBarCrud = () => {
+  const { modal, action } = useContext(crudContext);
+  const [isModalOpen, setIsModalOpen] = modal;
+  const [selectedAction, setSelectedAction] = action;
+
   const onSetSelectedAction = (accion) => {
     setIsModalOpen(true);
     setSelectedAction(accion);

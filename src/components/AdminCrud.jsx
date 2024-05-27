@@ -1,21 +1,12 @@
 import NavBarCrud from "./NavBarCrud";
 import TableAdmin from "./TableAdmin";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getDataLocalStorage } from "../utils/localStorageHelper";
 import { axiosGet } from "../utils/axiosHelper";
 
-const AdminCrud = ({
-  isModalOpen,
-  setIsModalOpen,
-  selectedCategory,
-  setSelectedAction,
-  setSelectedRow,
-  selectedRow,
-}) => {
+const AdminCrud = ({ selectedCategory }) => {
   const [dataList, setDataList] = useState();
   const [headersTableNames, setHeadersTableNames] = useState();
-
-  console.log(selectedCategory);
 
   useEffect(() => {
     selectedCategoryTable();
@@ -40,7 +31,6 @@ const AdminCrud = ({
   };
 
   const selectedCategoryTable = () => {
-    console.log(selectedCategory);
     switch (selectedCategory) {
       case "admin":
         getUsers();
@@ -66,17 +56,8 @@ const AdminCrud = ({
   return (
     <>
       <div className="rounded-3xl w-full h-full p-6 bg-white-100">
-        <NavBarCrud
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-          setSelectedAction={setSelectedAction}
-        />
-        <TableAdmin
-          dataList={dataList}
-          headNames={headersTableNames}
-          setSelectedRow={setSelectedRow}
-          selectedRow={selectedRow}
-        />
+        <NavBarCrud />
+        <TableAdmin dataList={dataList} headNames={headersTableNames} />
       </div>
     </>
   );

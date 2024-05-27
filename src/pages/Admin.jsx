@@ -10,6 +10,8 @@ import AdminCrud from "../components/AdminCrud";
 import ModalCrud from "../components/ModalCrud";
 import { axiosGet } from "../utils/axiosHelper";
 
+export const crudContext = React.createContext();
+
 function Admin() {
   const token = getDataLocalStorage("token");
   const data = jwtDecode(token);
@@ -17,6 +19,11 @@ function Admin() {
   const [selectedCategory, setSelectedCategory] = useState("admin");
   const [selectedAction, setSelectedAction] = useState();
   const [selectedRow, setSelectedRow] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  console.log(selectedAction);
+  console.log(selectedCategory);
+  console.log(selectedRow);
 
   useEffect(() => {
     const initDiningRoom = async () => {
@@ -38,42 +45,47 @@ function Admin() {
     }
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
-    <div className="w-full h-screen bg-gray-100">
-      <TopBar userType="Admin" />
-      <InfoCardUser
-        userName={data.user_name}
-        diningRoomName={diningName}
-        userType={data.user_type}
-      />
-      <div className="flex gap-8 p-8 w-full h-4/5">
-        <div className=" flex-none w-1/5">
-          <AdminOptions
-            userType={data.user_type}
-            setSelectedCategory={setSelectedCategory}
-            selectedCategory={selectedCategory}
-          />
-        </div>
-        <div className="w-4/5 h-full">
-          <AdminCrud
-            setIsModalOpen={setIsModalOpen}
-            selectedCategory={selectedCategory}
-            setSelectedAction={setSelectedAction}
-            setSelectedRow={setSelectedRow}
-            selectedRow={selectedRow}
-          />
-        </div>
-      </div>
-      {isModalOpen && (
-        <ModalCrud
-          setIsModalOpen={setIsModalOpen}
-          selectedAction={selectedAction}
-          selectedRow={selectedRow}
+    <crudContext.Provider
+      value={{
+        category: [selectedCategory, setSelectedCategory],
+        action: [selectedAction, setSelectedAction],
+        row: [selectedRow, setSelectedRow],
+        modal: [isModalOpen, setIsModalOpen],
+      }}
+    >
+      <div className="w-full h-screen bg-gray-100">
+        <TopBar userType="Admin" />
+        <InfoCardUser
+          userName={data.user_name}
+          diningRoomName={diningName}
+          userType={data.user_type}
         />
-      )}
-    </div>
+        <div className="flex gap-8 p-8 w-full h-4/5">
+          <div className=" flex-none w-1/5">
+            <AdminOptions
+              userType={data.user_type}
+              setSelectedCategory={setSelectedCategory}
+              selectedCategory={selectedCategory}
+            />
+          </div>
+          <div className="w-4/5 h-full">
+            <AdminCrud
+              setIsModalOpen={setIsModalOpen}
+              selectedCategory={selectedCategory}
+            />
+          </div>
+        </div>
+        {isModalOpen && (
+          <ModalCrud
+            setIsModalOpen={setIsModalOpen}
+            selectedAction={selectedAction}
+            selectedRow={selectedRow}
+            selectedCategory={selectedCategory}
+          />
+        )}
+      </div>
+    </crudContext.Provider>
   );
 }
 
