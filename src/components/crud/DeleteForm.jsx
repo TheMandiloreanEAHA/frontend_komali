@@ -4,9 +4,10 @@ import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosDelete } from "../../utils/axiosHelper";
 
 const DeleteForm = () => {
-  const { row, category } = useContext(crudContext);
+  const { row, category, modal } = useContext(crudContext);
   const [selectedRow, setSelectedRow] = row;
   const [selectedCategory, setSelectedCategory] = category;
+  const [isModalOpen, setIsModalOpen] = modal;
 
   const deleteAdmin = async () => {
     const token = getDataLocalStorage("token");
@@ -38,6 +39,8 @@ const DeleteForm = () => {
         console.log("Categoría inválida");
         break;
     }
+    setIsModalOpen(!isModalOpen);
+    window.location.reload();
   };
 
   return (

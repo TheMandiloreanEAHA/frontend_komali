@@ -80,8 +80,6 @@ function Admin() {
           <ModalCrud
             setIsModalOpen={setIsModalOpen}
             selectedAction={selectedAction}
-            selectedRow={selectedRow}
-            selectedCategory={selectedCategory}
           />
         )}
       </div>

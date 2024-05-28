@@ -1,6 +1,7 @@
+import { useContext } from "react";
+import { crudContext } from "../pages/Admin";
+
 const ModalAux = ({
-  estado,
-  cambiarEstado,
   isActive,
   setisActive,
   motivo,
@@ -9,6 +10,9 @@ const ModalAux = ({
   msj,
   setmsj,
 }) => {
+  const { modal } = useContext(crudContext);
+  const [isModalOpen, setIsModalOpen] = modal;
+
   const renderMotivo = (btn) => {
     if (!btn) {
       switch (motivo) {
@@ -80,9 +84,10 @@ const ModalAux = ({
 
   const cerrarAmbos = () => {
     setValues(initialFormValues);
-    cambiarEstado(!estado);
+    setIsModalOpen(!isModalOpen);
     setisActive(!isActive);
     setmsj("");
+    window.location.reload();
   };
 
   const cerrar = () => {
@@ -93,7 +98,7 @@ const ModalAux = ({
   if (isActive) {
     return (
       <div className="fixed inset-0 bg-black-900 bg-opacity-20 backdrop-blur-none flex justify-center items-center">
-        <div className="w-5/12 h-1/3 bg-white-100 p-5 rounded-3xl flex flex-col items-center gap-5">
+        <div className="w-4/12 h-1/3 bg-white-100 p-5 rounded-3xl flex flex-col items-center gap-5">
           {renderMotivo(false)}
           {renderMotivo(true)}
         </div>

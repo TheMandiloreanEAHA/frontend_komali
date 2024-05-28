@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPost } from "../../utils/axiosHelper";
+import ModalAux from "../ModalAux";
 
 const CreateForm = () => {
   const [diningRoomList, setDiningRoomList] = useState([]);
@@ -92,85 +93,96 @@ const CreateForm = () => {
 
   return (
     <>
-      <h1 className="text-2xl">Agregar nuevo usuario</h1>
-      <form
-        className="flex flex-col items-center w-full gap-y-4"
-        onSubmit={handleForm}
-      >
-        <input
-          className="border-b-2 border-black-900 text-2xl w-4/6 mb-3"
-          type="text"
-          name="name"
-          value={values.name}
-          placeholder="Nombre de usuario"
-          onChange={handleInputOnChange}
-        />
-        <input
-          className="border-b-2 border-black-900 text-2xl w-4/6 mb-3"
-          type="password"
-          name="pswd"
-          value={values.pswd}
-          placeholder="Contraseña"
-          onChange={handleInputOnChange}
-        />
-        <input
-          className="border-b-2 border-black-900 text-2xl w-4/6 mb-3"
-          type="password"
-          name="pswd2"
-          value={values.pswd2}
-          placeholder="Repita la contraseña"
-          onChange={handleInputOnChange}
-        />
-        <select
-          className="border-2 border-black-900 text-2xl w-4/6 mb-3"
-          name="userType"
-          value={values.userType}
-          onChange={handleInputOnChange}
+      <div className="my-6">
+        <h1 className="text-2xl mb-5">REGISTRO DE UN NUEVO USUARIO</h1>
+        <form
+          className="flex flex-col items-center w-full gap-y-4"
+          onSubmit={handleForm}
         >
-          <option value="" disabled hidden>
-            Tipo de usuario
-          </option>
-          <option value="admin">Administrador general</option>
-          <option value="second_admin">Administrador Secundario</option>
-          <option value="employee">Empleado</option>
-        </select>
-        <select
-          className="border-2 border-black-900 text-2xl w-4/6 mb-3"
-          name="diningRoom"
-          value={values.diningRoom}
-          onChange={handleInputOnChange}
-        >
-          <option value="" disabled hidden>
-            Selecciona un comedor
-          </option>
-          {diningRoomList.length > 0 ? (
-            diningRoomList.map((item, index) => (
-              <option key={index} value={item.dining_id}>
-                {item.dining_name}
-              </option>
-            ))
-          ) : (
-            <option disabled>Cargando Datos...</option>
-          )}
-        </select>
-        <button
-          type="submit"
-          className="w-52 h-14 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
-        >
-          Agregar
-        </button>
-      </form>
-      {/* <ModalAux
-        estado={estado}
-        cambiarEstado={cambiarEstado}
-        isActive={isActive}
-        setisActive={setisActive}
-        motivo={motivo}
-        initialFormValues={initialFormValues}
-        setValues={setValues}
-        msj={msj}
-        setmsj={setMsj}
-      /> */}
+          <input
+            className="border-b-2 border-black-900 text-2xl w-9/12 mb-3"
+            type="text"
+            name="name"
+            value={values.name}
+            placeholder="Nombre de usuario"
+            onChange={handleInputOnChange}
+          />
+          <input
+            className="border-b-2 border-black-900 text-2xl w-9/12 mb-3"
+            type="password"
+            name="pswd"
+            value={values.pswd}
+            placeholder="Contraseña"
+            onChange={handleInputOnChange}
+          />
+          <input
+            className="border-b-2 border-black-900 text-2xl w-9/12 mb-3"
+            type="password"
+            name="pswd2"
+            value={values.pswd2}
+            placeholder="Repita la contraseña"
+            onChange={handleInputOnChange}
+          />
+          <select
+            className="border-2 border-black-900 text-2xl w-9/12 mb-3"
+            name="userType"
+            value={values.userType}
+            onChange={handleInputOnChange}
+          >
+            <option
+              value=""
+              disabled
+              hidden
+            >
+              Tipo de usuario
+            </option>
+            <option value="admin">Administrador general</option>
+            <option value="second_admin">Administrador Secundario</option>
+            <option value="employee">Empleado</option>
+          </select>
+          <select
+            className="border-2 border-black-900 text-2xl w-9/12 mb-3"
+            name="diningRoom"
+            value={values.diningRoom}
+            onChange={handleInputOnChange}
+          >
+            <option
+              value=""
+              disabled
+              hidden
+            >
+              Selecciona un comedor
+            </option>
+            {diningRoomList.length > 0 ? (
+              diningRoomList.map((item, index) => (
+                <option
+                  key={index}
+                  value={item.dining_id}
+                >
+                  {item.dining_name}
+                </option>
+              ))
+            ) : (
+              <option disabled>Cargando Datos...</option>
+            )}
+          </select>
+          <button
+            type="submit"
+            className="w-52 h-14 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
+          >
+            Agregar
+          </button>
+        </form>
+        <ModalAux
+          isActive={isActive}
+          setisActive={setisActive}
+          motivo={motivo}
+          initialFormValues={initialFormValues}
+          setValues={setValues}
+          msj={msj}
+          setmsj={setMsj}
+        />
+      </div>
     </>
   );
 };

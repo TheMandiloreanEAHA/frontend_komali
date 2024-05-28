@@ -33,7 +33,10 @@ const TableAdmin = ({ dataList, headNames }) => {
                     const key = entry[0];
                     if (headNames[key]) {
                       return (
-                        <td key={index} className="px-6 py-3">
+                        <td
+                          key={index}
+                          className="px-6 py-3"
+                        >
                           {headNames[key]}
                         </td>
                       );
@@ -54,7 +57,13 @@ const TableAdmin = ({ dataList, headNames }) => {
                         const key = entry[0];
                         if (headNames[key]) {
                           const value = entry[1];
-                          return <td class="px-6 py-4">{value}</td>;
+                          if (value === true) {
+                            return <td class="px-6 py-4">Activo</td>;
+                          } else if (value === false) {
+                            return <td class="px-6 py-4">Inactivo</td>;
+                          } else {
+                            return <td class="px-6 py-4">{value}</td>;
+                          }
                         }
                       })}
                     </tr>

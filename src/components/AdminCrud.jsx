@@ -44,7 +44,7 @@ const AdminCrud = ({ selectedCategory }) => {
         getDiningRooms();
         setHeadersTableNames({
           dining_name: "Nombre",
-          is_active: "Activo",
+          is_active: "Estado",
         });
         break;
       default:
@@ -57,7 +57,10 @@ const AdminCrud = ({ selectedCategory }) => {
     <>
       <div className="rounded-3xl w-full h-full p-6 bg-white-100">
         <NavBarCrud />
-        <TableAdmin dataList={dataList} headNames={headersTableNames} />
+        <TableAdmin
+          dataList={dataList}
+          headNames={headersTableNames}
+        />
       </div>
     </>
   );
