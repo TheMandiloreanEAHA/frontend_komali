@@ -1,7 +1,7 @@
 import { crudContext } from "../pages/Admin";
 import { useContext } from "react";
 
-const TableAdmin = ({ dataList, headNames }) => {
+const TableAdmin = ({ dataList = [], headNames }) => {
   const { row } = useContext(crudContext);
   const [selectedRow, setSelectedRow] = row;
 
@@ -23,7 +23,7 @@ const TableAdmin = ({ dataList, headNames }) => {
 
   return (
     <>
-      {dataList && (
+      {dataList.length > 0 && (
         <>
           <div class="overflow-x-auto w-full h-auto shadow-lg rounded-2xl">
             <table class="w-full text-left">
@@ -33,10 +33,7 @@ const TableAdmin = ({ dataList, headNames }) => {
                     const key = entry[0];
                     if (headNames[key]) {
                       return (
-                        <td
-                          key={index}
-                          className="px-6 py-3"
-                        >
+                        <td key={index} className="px-6 py-3">
                           {headNames[key]}
                         </td>
                       );

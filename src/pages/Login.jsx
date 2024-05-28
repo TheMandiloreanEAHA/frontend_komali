@@ -22,7 +22,7 @@ const Login = () => {
         window.location = "/admin";
         break;
       case "second_admin":
-        window.location = "/sadmin";
+        window.location = "/admin";
         break;
       case "employee":
         window.location = "/employee";

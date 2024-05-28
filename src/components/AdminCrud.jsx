@@ -3,6 +3,7 @@ import TableAdmin from "./TableAdmin";
 import { useEffect, useState, useContext } from "react";
 import { getDataLocalStorage } from "../utils/localStorageHelper";
 import { axiosGet } from "../utils/axiosHelper";
+import { jwtDecode } from "jwt-decode";
 
 const AdminCrud = ({ selectedCategory }) => {
   const [dataList, setDataList] = useState();
@@ -30,6 +31,26 @@ const AdminCrud = ({ selectedCategory }) => {
     }
   };
 
+  const getProducts = async () => {
+    const token = getDataLocalStorage("token");
+    const data = jwtDecode(token);
+    const url = `http://localhost:8000/products/${data.dining_room_id}`;
+    const result = await axiosGet(url, token);
+    if (result !== undefined) {
+      setDataList(result.data);
+    }
+  };
+
+  const getEmployees = async () => {
+    const token = getDataLocalStorage("token");
+    const data = jwtDecode(token);
+    const url = `http://localhost:8000/employees/${data.dining_room_id}`;
+    const result = await axiosGet(url, token);
+    if (result !== undefined) {
+      setDataList(result.data);
+    }
+  };
+
   const selectedCategoryTable = () => {
     switch (selectedCategory) {
       case "admin":
@@ -47,6 +68,22 @@ const AdminCrud = ({ selectedCategory }) => {
           is_active: "Estado",
         });
         break;
+      case "productos":
+        getProducts();
+        setHeadersTableNames({
+          product_name: "Nombre",
+          product_price: "Precio",
+          prodcut_calories: "Calorias",
+          is_active: "Estado",
+        });
+        break;
+      case "empleados":
+        getEmployees();
+        setHeadersTableNames({
+          user_name: "Nombre",
+          user_type: "Tipo",
+        });
+        break;
       default:
         console.log("tilin");
         break;
@@ -57,10 +94,7 @@ const AdminCrud = ({ selectedCategory }) => {
     <>
       <div className="rounded-3xl w-full h-full p-6 bg-white-100">
         <NavBarCrud />
-        <TableAdmin
-          dataList={dataList}
-          headNames={headersTableNames}
-        />
+        <TableAdmin dataList={dataList} headNames={headersTableNames} />
       </div>
     </>
   );

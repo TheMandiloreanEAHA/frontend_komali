@@ -27,6 +27,24 @@ const DeleteForm = () => {
     }
   };
 
+  const deleteProduct = async () => {
+    const token = getDataLocalStorage("token");
+    const url = `http://localhost:8000/products/${selectedRow}`;
+    const result = await axiosDelete(url, token);
+    if (result !== undefined) {
+      console.log(result);
+    }
+  };
+
+  const deleteEmployee = async () => {
+    const token = getDataLocalStorage("token");
+    const url = `http://localhost:8000/${selectedRow}`;
+    const result = await axiosDelete(url, token);
+    if (result !== undefined) {
+      console.log(result);
+    }
+  };
+
   const onDeleteRow = () => {
     switch (selectedCategory) {
       case "admin":
@@ -34,6 +52,12 @@ const DeleteForm = () => {
         break;
       case "comedores":
         deleteDining();
+        break;
+      case "productos":
+        deleteProduct();
+        break;
+      case "empleados":
+        deleteEmployee();
         break;
       default:
         console.log("Categoría inválida");

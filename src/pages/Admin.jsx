@@ -9,6 +9,7 @@ import AdminOptions from "../components/AdminOptions";
 import AdminCrud from "../components/AdminCrud";
 import ModalCrud from "../components/ModalCrud";
 import { axiosGet } from "../utils/axiosHelper";
+import ComedorForm from "../components/crud/ComedorForm";
 
 export const crudContext = React.createContext();
 
@@ -16,7 +17,7 @@ function Admin() {
   const token = getDataLocalStorage("token");
   const data = jwtDecode(token);
   const [diningName, setDiningName] = useState();
-  const [selectedCategory, setSelectedCategory] = useState("admin");
+  const [selectedCategory, setSelectedCategory] = useState();
   const [selectedAction, setSelectedAction] = useState();
   const [selectedRow, setSelectedRow] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,12 +26,24 @@ function Admin() {
   console.log(selectedCategory);
   console.log(selectedRow);
 
+  const userTypes = ["admin", "second_admin"];
+
+  const setInitCategory = () => {
+    if (data.user_type === "admin") {
+      setSelectedCategory("admin");
+    }
+    if (data.user_type === "second_admin") {
+      setSelectedCategory("comedor");
+    }
+  };
+
   useEffect(() => {
     const initDiningRoom = async () => {
+      setInitCategory();
       await getDiningRoom();
     };
 
-    if (data.user_type !== "admin") {
+    if (!userTypes.includes(data.user_type)) {
       window.location = "/";
     } else {
       initDiningRoom();
@@ -70,10 +83,14 @@ function Admin() {
             />
           </div>
           <div className="w-4/5 h-full">
-            <AdminCrud
-              setIsModalOpen={setIsModalOpen}
-              selectedCategory={selectedCategory}
-            />
+            {selectedCategory === "comedor" ? (
+              <ComedorForm />
+            ) : (
+              <AdminCrud
+                setIsModalOpen={setIsModalOpen}
+                selectedCategory={selectedCategory}
+              />
+            )}
           </div>
         </div>
         {isModalOpen && (
