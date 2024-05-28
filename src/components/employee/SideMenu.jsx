@@ -59,7 +59,7 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
   };
 
   return (
-    <div className="p-6 bg-uv-green rounded-3xl h-screen w-full overflow-y-auto">
+    <div className="p-6 bg-uv-light-blue rounded-3xl h-full w-full overflow-y-auto shadow-lg">
       <div className="h-fit text-center grid grid-cols-1 gap-6">
         <div className="flex flex-col justify-center items-center w-full h-20 rounded-2xl bg-white-100 text-uv-blue px-4 font-bold text-2xl">
           <h4>MENÚ</h4>
@@ -72,7 +72,7 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
                 onClick={() => {
                   setSelectCategory(item.category_id);
                 }}
-                className="rounded-2xl bg-white-100 shadow-md cursor-pointer w-full aspect-square p-2 flex justify-center items-center"
+                className="rounded-2xl bg-white-100 shadow-md cursor-pointer w-full aspect-square p-2 flex justify-center items-center hover:bg-uv-green"
               >
                 <CategoryCard categoryData={item} />
               </div>

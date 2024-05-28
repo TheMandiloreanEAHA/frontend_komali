@@ -44,7 +44,7 @@ const OrderResumen = ({ orderList, onOpenModal }) => {
   };
 
   return (
-    <div className="rounded-3xl w-1/2 h-5/6 bg-white-100 shadow-2xl">
+    <div className="rounded-3xl w-1/2 h-5/6 bg-uv-light-blue shadow-lg">
       <div className="flex flex-col items-center justify-center p-8 h-3/4">
         <h1 className="text-3xl font-bold">Resumen del pedido</h1>
         <p className="text-2xl mt-4">

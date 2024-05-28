@@ -7,6 +7,7 @@ import ProductList from "./ProductList";
 import ProductModal from "./ProductModal";
 import shoppingCarIcon from "../../assets/shoppingCarIcon.svg";
 import TemporalModal from "../TemporalModal";
+import successIcon from "../../assets/successIcon.svg";
 
 const Menu = () => {
   const [diningRoomData, setDiningRoomData] = useState();
@@ -76,10 +77,9 @@ const Menu = () => {
   };
 
   return (
-    <div className="relative">
-      <div>Más populares</div>
-      <div className="w-auto flex m-6">
-        <div className="w-1/6 mr-6">
+    <div className="h-full">
+      <div className="w-full flex px-6 pb-6 h-screen">
+        <div className="w-1/6 h-full mr-6">
           {diningRoomData ? (
             <SideMenu
               diningRoom={diningRoomData}
@@ -89,7 +89,7 @@ const Menu = () => {
             <span>Cargando datos...</span>
           )}
         </div>
-        <div className="w-5/6">
+        <div className="w-5/6 h-full">
           {selectedCategory ? (
             <ProductList
               selectedCategory={selectedCategory}
@@ -101,6 +101,7 @@ const Menu = () => {
           )}
         </div>
       </div>
+      {/* MODALES */}
       {productInfo && isModalOpen && (
         <ProductModal
           closeModal={onCloseModal}
@@ -112,7 +113,7 @@ const Menu = () => {
       {temporalModal && (
         <TemporalModal
           closeTemporalModal={onCloseTemporalModal}
-          icon={""}
+          icon={successIcon}
           message="Producto agregado al carrito"
         />
       )}

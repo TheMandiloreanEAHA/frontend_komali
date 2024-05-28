@@ -9,27 +9,26 @@ const ProductCard = ({ productData, openModal }) => {
 
   return (
     <div className="rounded-3xl bg-white-100 h-fit">
-      <div className="mx-8 mt-8 w-auto h-56 bg-gray-100 rounded-2xl flex justify-center items-center">
+      <div className="mx-8 mt-8 w-auto aspect-video bg-gray-100 rounded-2xl flex justify-center items-center">
         <img src={productImg} alt="Imagen de producto" />
       </div>
-      <h4 className="text-2xl p-4 capitalize">{productName}</h4>
-      <div className="text-2xl pb-4 text-uv-blue flex justify-around">
+      <h4 className="text-2xl my-2 capitalize">{productName}</h4>
+      <div className="text-2xl mb-2 text-uv-blue flex justify-around">
         <span>${productPrice}</span>
-        <span>${productStudentPrice}</span>
       </div>
-      <div className="w-full text-center text-white-100">
-        <button
+      <div className="w-full h-auto text-center text-white-100 flex">
+        <div
           onClick={() => openModal(productData)}
-          className="font-bold bg-uv-blue w-1/2 h-full rounded-bl-2xl p-4"
+          className="font-bold bg-uv-blue w-1/2 h-16 rounded-bl-2xl p-4 flex justify-center items-center"
         >
           COMPRAR
-        </button>
-        <button
+        </div>
+        <div
           onClick={() => openModal(productData)}
-          className="font-bold bg-uv-green w-1/2 h-full rounded-br-2xl p-4"
+          className="font-bold bg-uv-green w-1/2 h-16 rounded-br-2xl p-4 flex justify-center items-center"
         >
           AL CARRITO
-        </button>
+        </div>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ const OrderCard = ({ data, index, deleteProduct }) => {
         </div>
       </div>
       <button
-        className="bg-red-600 w-1/5 rounded-r-2xl p-4"
+        className="bg-red-600 w-1/5 rounded-r-2xl p-8"
         onClick={() => {
           deleteProduct(index);
         }}

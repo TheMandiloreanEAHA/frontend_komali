@@ -27,17 +27,66 @@ const ProductList = ({ selectedCategory, openModal }) => {
     }
   };
 
+  const onSearchProduct = async (e) => {
+    const value = e.target.value;
+    if (value !== "") {
+      const token = getDataLocalStorage("token");
+      const data = jwtDecode(token);
+      const dining_room_id = data.dining_room_id;
+      const url = `http://localhost:8000/products/search/${dining_room_id}/${value}`;
+      const result = await axiosGet(url, token);
+      if (result !== undefined) {
+        setProductList(result.data);
+      }
+    }
+  };
+
   return (
-    <div className="p-8 bg-gray-500 rounded-3xl h-screen text-center grid grid-cols-2 gap-8 overflow-y-auto">
-      {productList ? (
-        productList.map((item, index) => {
-          return (
-            <ProductCard key={index} productData={item} openModal={openModal} />
-          );
-        })
-      ) : (
-        <span>Cargando productos...</span>
-      )}
+    <div className="h-full">
+      <form>
+        <div className="flex">
+          <div className="relative w-full">
+            <input
+              type="search"
+              className="block p-3 w-full z-20 text-lg text-gray-900 bg-gray-50 rounded-full border-4 border-uv-blue focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Buscar"
+              onChange={onSearchProduct}
+              required
+            />
+            <button className="absolute top-0 end-0 pr-6 pl-5 h-full text-lg font-medium text-white bg-uv-blue rounded-e-full">
+              <svg
+                className="w-6 h-6"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="#fff"
+                  strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div className="p-8 bg-uv-light-green rounded-3xl h-full text-center grid grid-cols-3 gap-8 overflow-y-auto shadow-lg">
+        {productList ? (
+          productList.map((item, index) => {
+            return (
+              <ProductCard
+                key={index}
+                productData={item}
+                openModal={openModal}
+              />
+            );
+          })
+        ) : (
+          <span>Cargando productos...</span>
+        )}
+      </div>
     </div>
   );
 };

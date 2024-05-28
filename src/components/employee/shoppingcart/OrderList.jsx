@@ -16,7 +16,7 @@ const OrderList = ({ orderList, setOrderList }) => {
   }, [orderList]);
 
   return (
-    <div className="p-8 bg-white-100 shadow-2xl rounded-3xl w-1/2 h-5/6 overflow-y-scroll">
+    <div className="p-8 bg-uv-light-blue shadow-lg rounded-3xl w-1/2 h-5/6 overflow-y-scroll">
       <div className="w-full grid gap-8">
         {orderList ? (
           orderList.map((item, index) => {

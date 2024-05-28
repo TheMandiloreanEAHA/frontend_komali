@@ -86,7 +86,8 @@ export const theme = {
     "uv-blue": "#18529D",
     "uv-green": "#28AD56",
     "uv-text-black": "#3f3f3f",
-    "uv-light-green": "e3fada",
+    "uv-light-green": "#e3fada",
+    "uv-light-blue": "#ccfce4",
     error: "#b91c1c",
   },
   fontFamily: {
@@ -99,7 +100,7 @@ export const theme = {
       18: "4.25rem",
     },
     backgroundImage: {
-      "uv-background": "url('/src/assets/uv/fondoMascara.svg')",
+      "uv-background": "url('/src/assets/uv/fondo.svg')",
     },
   },
 };
