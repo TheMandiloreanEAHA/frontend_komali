@@ -1,16 +1,53 @@
 import React, { useState, useRef } from "react";
+import { getDataLocalStorage } from "../../utils/localStorageHelper";
+import { axiosPostForm } from "../../utils/axiosHelper";
+import ModalAux from "../ModalAux";
 
 const ComedorForm = () => {
   const [selectedImages, setSelectedImages] = useState([null, null]);
   const [previews, setPreviews] = useState([null, null]);
   const fileImgRefs = [useRef(null), useRef(null)];
 
+  const [isActive, setisActive] = useState(false);
+  const [motivo, setmotivo] = useState("success");
+  const [msj, setMsj] = useState("");
+
+  const initialFormValues = {
+    dining_name: "",
+    logo_file: null,
+    bg_file: null,
+  };
+
+  const [values, setValues] = useState(initialFormValues);
+
+  const createDiningRoom = async (values) => {
+    if (values.dining_name === "") {
+      setisActive(true);
+      setmotivo("missing");
+      setMsj("El comedor debe llevar un nombre");
+    } else {
+      const token = getDataLocalStorage("token");
+      const url = `http://127.0.0.1:8000/dining-room/`;
+      const result = await axiosPostForm(url, values, token);
+      if (result !== undefined) {
+        if (!result.data.error) {
+          console.log("Comedor Agregado");
+          setmotivo("success");
+          setisActive(true);
+        }
+      }
+    }
+  };
+
   const handleImageChange = (index, event) => {
     const file = event.target.files[0];
+    const name = event.target.name;
     if (file) {
       const newSelectedImages = [...selectedImages];
       newSelectedImages[index] = file;
       setSelectedImages(newSelectedImages);
+
+      setValues({ ...values, [name]: file });
 
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -22,27 +59,19 @@ const ComedorForm = () => {
     }
   };
 
+  const handleInputOnChange = (event) => {
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     event.preventDefault();
-    if (selectedImages.every((image) => image)) {
-      const formData = new FormData();
-      selectedImages.forEach((image) => formData.append("images", image));
-      console.log(formData);
-    }
-    /*
-      try {
-        const response = await axios.post("http://localhost:8000/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log("Imágenes subidas con éxito:", response.data);
-      } catch (error) {
-        console.error("Error al subir las imágenes:", error);
-      }
-    }
-    */
+    console.log(values);
+    createDiningRoom(values);
   };
 
   return (
@@ -57,10 +86,10 @@ const ComedorForm = () => {
           <input
             className="border-b-2 border-black-900 text-2xl w-9/12 mb-3"
             type="text"
-            name="name"
-            // value={values.name}
+            name="dining_name"
+            value={values.dining_name}
             placeholder="Nombre del comedor"
-            // onChange={handleInputOnChange}
+            onChange={handleInputOnChange}
           />
           <label className="self-start ml-20">
             Selecciona una imagen del comedor (opcional):
@@ -76,6 +105,7 @@ const ComedorForm = () => {
             <input
               className="hidden"
               type="file"
+              name="logo_file"
               accept="image/*"
               onChange={(event) => handleImageChange(0, event)}
               ref={fileImgRefs[0]}
@@ -104,6 +134,7 @@ const ComedorForm = () => {
             <input
               className="hidden"
               type="file"
+              name="bg_file"
               accept="image/*"
               onChange={(event) => handleImageChange(1, event)}
               ref={fileImgRefs[1]}
@@ -118,9 +149,13 @@ const ComedorForm = () => {
               </div>
             )}
           </div>
+          <label className="self-start mx-20 italic">
+            En caso de no seleccionar ninguna imagen, el sistema asignará unas
+            por default.
+          </label>
           <select
             className="border-2 border-black-900 text-2xl w-9/12 mb-3  bg-gray-500/70 cursor-not-allowed"
-            name="userType"
+            name="estado"
             disabled={true}
             // value={values.userType}
             // onChange={handleInputOnChange}
@@ -135,7 +170,7 @@ const ComedorForm = () => {
             Agregar
           </button>
         </form>
-        {/* <ModalAux
+        <ModalAux
           isActive={isActive}
           setisActive={setisActive}
           motivo={motivo}
@@ -143,7 +178,7 @@ const ComedorForm = () => {
           setValues={setValues}
           msj={msj}
           setmsj={setMsj}
-        /> */}
+        />
       </div>
     </>
   );
