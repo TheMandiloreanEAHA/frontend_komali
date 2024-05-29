@@ -16,7 +16,8 @@ const OrderCard = ({ data, index, deleteProduct }) => {
           {data.order_selectives && (
             <p className="text-lg capitalize">{data.order_selectives}</p>
           )}
-          {data.order_optionals.length > 0 &&
+          {data.order_optionals &&
+            data.order_optionals.length > 0 &&
             data.order_optionals.map((item, index) => {
               return (
                 <li key={index} className="text-lg capitalize">
