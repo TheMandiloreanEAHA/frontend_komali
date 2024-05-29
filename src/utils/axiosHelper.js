@@ -31,6 +31,24 @@ const axiosPost = async (url, body_params, token) => {
   return result;
 };
 
+const axiosPostForm = async (url, formData, token) => {
+  let result = undefined;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios
+    .postForm(url, formData, config)
+    .then((response) => {
+      result = response;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return result;
+};
+
 const axiosPut = async (url, body_params, token) => {
   let result = undefined;
   const config = {
