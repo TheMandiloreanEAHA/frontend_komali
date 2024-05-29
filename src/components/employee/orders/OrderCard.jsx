@@ -55,12 +55,12 @@ const OrderCard = ({ orderData, index, onDeleteOrder, diningId }) => {
                     </p>
                   )}
                 </div>
-                {item.order_optionals.length > 0 && (
+                {item.order_optionals && item.order_optionals.length > 0 && (
                   <div>
                     <p className="font-bold">Opcionales:</p>
                     <ul className="list-disc pl-6 flex justify-between">
-                      {item.order_optionals.map((item, index) => {
-                        return <li key={index}>{item}</li>;
+                      {item.order_optionals.map((optionalItem, index) => {
+                        return <li key={index}>{optionalItem}</li>;
                       })}
                     </ul>
                   </div>
