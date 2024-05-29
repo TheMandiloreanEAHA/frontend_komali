@@ -67,4 +67,4 @@ const axiosDelete = async (url, token) => {
   return result;
 };
 
-export { axiosGet, axiosPost, axiosDelete };
+export { axiosGet, axiosPost, axiosPut, axiosDelete };

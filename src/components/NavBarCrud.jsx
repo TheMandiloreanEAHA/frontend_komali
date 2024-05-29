@@ -1,15 +1,27 @@
 import { crudContext } from "../pages/Admin";
-import { useContext } from "react";
+import { useState, useContext } from "react";
+import TemporalModal from "../components/TemporalModal";
 
 const NavBarCrud = () => {
-  const { modal, action } = useContext(crudContext);
+  const { modal, action, row } = useContext(crudContext);
   const [isModalOpen, setIsModalOpen] = modal;
   const [selectedAction, setSelectedAction] = action;
+  const [selectedRow, setSelectedRow] = row;
 
   const onSetSelectedAction = (accion) => {
-    setIsModalOpen(true);
-    setSelectedAction(accion);
-    console.log(accion);
+    if (accion == "modificar" || accion == "eliminar") {
+      if (selectedRow !== "") {
+        //Si se edita y/o modifica, verifica que haya una fila seleccionada
+        setIsModalOpen(true);
+        setSelectedAction(accion);
+      } else {
+        //Caso contrario, informa al usuario
+        console.log("No hay una fila seleccionada");
+      }
+    } else {
+      setIsModalOpen(true);
+      setSelectedAction(accion);
+    }
   };
 
   return (

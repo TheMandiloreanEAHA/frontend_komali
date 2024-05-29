@@ -17,9 +17,9 @@ const ModalAux = ({
     if (!btn) {
       switch (motivo) {
         case "success":
-          return <label className="text-2xl my-4">¡REGISTRO EXITOSO!</label>;
+          return <label className="text-2xl my-4">¡ACCIÓN EXITOSA!</label>;
         case "error":
-          return <label className="text-2xl my-4">ERROR DE REGISTRO</label>;
+          return <label className="text-2xl my-4">ERROR EN LA ACCIÓN</label>;
         case "missing":
           return <label className="text-2xl my-4">ADVERTENCIA</label>;
       }

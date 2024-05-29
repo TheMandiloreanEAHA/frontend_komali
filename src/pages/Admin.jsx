@@ -19,7 +19,7 @@ function Admin() {
   const [diningName, setDiningName] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
   const [selectedAction, setSelectedAction] = useState();
-  const [selectedRow, setSelectedRow] = useState();
+  const [selectedRow, setSelectedRow] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   console.log(selectedAction);

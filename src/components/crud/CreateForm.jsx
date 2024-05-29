@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPost } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
@@ -124,7 +124,7 @@ const CreateForm = () => {
             onChange={handleInputOnChange}
           />
           <select
-            className="border-2 border-black-900 text-2xl w-9/12 mb-3"
+            className="border-2 border-black-900 text-2xl w-9/12 mb-3 cursor-pointer"
             name="userType"
             value={values.userType}
             onChange={handleInputOnChange}
@@ -141,7 +141,7 @@ const CreateForm = () => {
             <option value="employee">Empleado</option>
           </select>
           <select
-            className="border-2 border-black-900 text-2xl w-9/12 mb-3"
+            className="border-2 border-black-900 text-2xl w-9/12 mb-3 cursor-pointer"
             name="diningRoom"
             value={values.diningRoom}
             onChange={handleInputOnChange}
