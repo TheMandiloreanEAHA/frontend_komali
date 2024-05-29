@@ -67,6 +67,24 @@ const axiosPut = async (url, body_params, token) => {
   return result;
 };
 
+const axiosPutForm = async (url, formData, token) => {
+  let result = undefined;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios
+    .putForm(url, formData, config)
+    .then((response) => {
+      result = response;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return result;
+};
+
 const axiosDelete = async (url, token) => {
   let result = undefined;
   const config = {
