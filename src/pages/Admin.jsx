@@ -93,6 +93,7 @@ function Admin() {
           <ModalCrud
             setIsModalOpen={setIsModalOpen}
             selectedAction={selectedAction}
+            category={selectedCategory}
           />
         )}
       </div>

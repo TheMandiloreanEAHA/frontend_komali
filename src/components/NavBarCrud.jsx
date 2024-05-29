@@ -1,9 +1,8 @@
 import { crudContext } from "../pages/Admin";
 import { useState, useContext } from "react";
-import TemporalModal from "../components/TemporalModal";
 
 const NavBarCrud = () => {
-  const { modal, action, row } = useContext(crudContext);
+  const { modal, action, row, category } = useContext(crudContext);
   const [isModalOpen, setIsModalOpen] = modal;
   const [selectedAction, setSelectedAction] = action;
   const [selectedRow, setSelectedRow] = row;
