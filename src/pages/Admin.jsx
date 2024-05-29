@@ -9,7 +9,7 @@ import AdminOptions from "../components/AdminOptions";
 import AdminCrud from "../components/AdminCrud";
 import ModalCrud from "../components/ModalCrud";
 import { axiosGet } from "../utils/axiosHelper";
-import ComedorForm from "../components/crud/ComedorForm";
+import InfoComedorForm from "../components/crud/InfoComedorForm";
 
 export const crudContext = React.createContext();
 
@@ -80,7 +80,7 @@ function Admin() {
           </div>
           <div className="w-4/5 h-full">
             {selectedCategory === "comedor" ? (
-              <ComedorForm />
+              <InfoComedorForm />
             ) : (
               <AdminCrud
                 setIsModalOpen={setIsModalOpen}

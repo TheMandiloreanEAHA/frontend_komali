@@ -1,27 +1,31 @@
-import CreateForm from "../components/crud/CreateForm";
-import EditForm from "../components/crud/EditForm";
+import UserForm from "./crud/UserForm";
+import EditUserForm from "./crud/EditUserForm";
 import ComedorForm from "./crud/ComedorForm";
 import ComedorEditForm from "./crud/ComedorEditForm";
 import DeleteForm from "../components/crud/DeleteForm";
 
 import React from "react";
+import ProductForm from "./crud/ProductForm";
+import InfoComedorForm from "./crud/InfoComedorForm";
 
 const ModalCrud = ({ setIsModalOpen, selectedAction, category }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  console.log(category);
+
   const renderSelectedForm = () => {
     if (category === "admin") {
       switch (selectedAction) {
         case "agregar":
-          return <CreateForm />;
+          return <UserForm />;
         case "modificar":
-          return <EditForm />;
+          return <EditUserForm />;
         case "eliminar":
           return <DeleteForm />;
         default:
-          console.log("tilin");
+          console.log("Opción Inválida");
       }
     } else if (category === "comedores") {
       switch (selectedAction) {
@@ -32,7 +36,29 @@ const ModalCrud = ({ setIsModalOpen, selectedAction, category }) => {
         case "eliminar":
           return <DeleteForm />;
         default:
-          console.log("tilin");
+          console.log("Opción Inválida");
+      }
+    } else if (category === "productos") {
+      switch (selectedAction) {
+        case "agregar":
+          return <ProductForm />;
+        case "modificar":
+          return <div>Tilin</div>;
+        case "eliminar":
+          return <DeleteForm />;
+        default:
+          console.log("Opción Inválida");
+      }
+    } else {
+      switch (selectedAction) {
+        case "agregar":
+          return <div>Agregar empleado</div>;
+        case "modificar":
+          return <div>Modificar empleado</div>;
+        case "eliminar":
+          return <DeleteForm />;
+        default:
+          console.log("Opción Inválida");
       }
     }
   };

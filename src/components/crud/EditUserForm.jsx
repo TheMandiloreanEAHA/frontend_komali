@@ -1,10 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { crudContext } from "../../pages/Admin";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
-import { axiosGet, axiosPost } from "../../utils/axiosHelper";
+import { axiosGet, axiosPut } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
 
-const AdminForm = () => {
+const EditUserForm = () => {
+  const { row } = useContext(crudContext);
+  const [selectedRow, setSelectedRow] = row;
   const [diningRoomList, setDiningRoomList] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const [isActive, setisActive] = useState(false);
   const [motivo, setmotivo] = useState("success");
   const [msj, setMsj] = useState("");
@@ -23,8 +27,25 @@ const AdminForm = () => {
     const initDiningRoomList = async () => {
       await getDiningRooms();
     };
+    const initUserInfo = async () => {
+      await getUserInfo();
+    };
     initDiningRoomList();
-  }, []); // Dependencias vacías para que se ejecute solo una vez
+    initUserInfo();
+  }, [selectedRow]); // Dependencia en selectedRow para que se ejecute cada vez que cambia
+
+  useEffect(() => {
+    // Sincronizar valores con userInfo cuando se cargue
+    if (userInfo) {
+      setValues({
+        name: userInfo.user_name || "",
+        pswd: userInfo.user_pass || "",
+        pswd2: userInfo.user_pass || "",
+        userType: userInfo.user_type || "",
+        diningRoom: userInfo.dining_room_id || "",
+      });
+    }
+  }, [userInfo]); // Ejecutar cada vez que userInfo cambie
 
   const getDiningRooms = async () => {
     const token = getDataLocalStorage("token");
@@ -35,12 +56,21 @@ const AdminForm = () => {
     }
   };
 
-  const createUser = async (values) => {
+  const getUserInfo = async () => {
+    const token = getDataLocalStorage("token");
+    const url = `http://localhost:8000/${selectedRow}`;
+    const result = await axiosGet(url, token);
+    if (result !== undefined) {
+      setUserInfo(result.data);
+    }
+  };
+
+  const editUser = async (values) => {
     if (
       values.name === "" ||
       values.pswd === "" ||
       values.pswd2 === "" ||
-      values.user_type === "" ||
+      values.userType === "" ||
       values.diningRoom === ""
     ) {
       setisActive(true);
@@ -52,17 +82,18 @@ const AdminForm = () => {
         setMsj("La contraseña debe ser la misma en ambos campos");
       } else {
         const params = {
+          user_id: selectedRow,
           user_name: values.name,
           user_pass: values.pswd,
           user_type: values.userType,
           dining_room_id: values.diningRoom,
         };
         const token = getDataLocalStorage("token");
-        const url = `http://127.0.0.1:8000/create`;
-        const result = await axiosPost(url, params, token);
+        const url = `http://127.0.0.1:8000/`;
+        const result = await axiosPut(url, params, token);
         if (result !== undefined) {
           if (!result.data.error) {
-            console.log("Usuario Agregado");
+            console.log("Usuario Actualizado");
             setmotivo("success");
             setisActive(true);
           }
@@ -88,13 +119,13 @@ const AdminForm = () => {
   const handleForm = (event) => {
     event.preventDefault();
     console.log(values);
-    createUser(values);
+    editUser(values);
   };
 
   return (
     <>
       <div className="my-6">
-        <h1 className="text-2xl mb-5">REGISTRO DE UN NUEVO USUARIO</h1>
+        <h1 className="text-2xl mb-5">EDICIÓN DE UN USUARIO</h1>
         <form
           className="flex flex-col items-center w-full gap-y-4"
           onSubmit={handleForm}
@@ -124,8 +155,9 @@ const AdminForm = () => {
             onChange={handleInputOnChange}
           />
           <select
-            className="border-2 border-black-900 text-2xl w-9/12 mb-3 cursor-pointer"
+            className="border-2 border-black-900 text-2xl w-9/12 mb-3 bg-gray-500/70 cursor-not-allowed"
             name="userType"
+            disabled={true}
             value={values.userType}
             onChange={handleInputOnChange}
           >
@@ -137,8 +169,9 @@ const AdminForm = () => {
             <option value="employee">Empleado</option>
           </select>
           <select
-            className="border-2 border-black-900 text-2xl w-9/12 mb-3 cursor-pointer"
+            className="border-2 border-black-900 text-2xl w-9/12 mb-3 bg-gray-500/70 cursor-not-allowed"
             name="diningRoom"
+            disabled={true}
             value={values.diningRoom}
             onChange={handleInputOnChange}
           >
@@ -176,4 +209,4 @@ const AdminForm = () => {
   );
 };
 
-export default AdminForm;
+export default EditUserForm;
