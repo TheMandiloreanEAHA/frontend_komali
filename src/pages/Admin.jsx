@@ -22,10 +22,6 @@ function Admin() {
   const [selectedRow, setSelectedRow] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(selectedAction);
-  console.log(selectedCategory);
-  console.log(selectedRow);
-
   const userTypes = ["admin", "second_admin"];
 
   const setInitCategory = () => {

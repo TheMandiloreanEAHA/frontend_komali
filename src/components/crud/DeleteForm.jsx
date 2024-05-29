@@ -64,6 +64,7 @@ const DeleteForm = () => {
         break;
     }
     setIsModalOpen(!isModalOpen);
+    // CORREGIR
     window.location.reload();
   };
 
