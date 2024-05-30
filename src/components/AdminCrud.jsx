@@ -85,8 +85,10 @@ const AdminCrud = ({ selectedCategory }) => {
           user_type: "Tipo",
         });
         break;
+      case "comedor":
+        break;
       default:
-        console.log("tilin");
+        console.log("Opción inválida");
         break;
     }
   };

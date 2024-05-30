@@ -24,7 +24,7 @@ const NavBarCrud = () => {
   };
 
   return (
-    <div class="grid grid-cols-6 gap-4 mb-4">
+    <div className="grid grid-cols-6 gap-4 mb-4">
       <button
         onClick={() => onSetSelectedAction("agregar")}
         className="h-10 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"

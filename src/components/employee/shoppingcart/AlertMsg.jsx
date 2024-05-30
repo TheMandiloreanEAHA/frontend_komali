@@ -3,12 +3,6 @@ import alertIcon from "../../../assets/alertIcon.svg";
 
 const AlertMsg = ({ total, onShowTicket }) => {
   return (
-    // <div class="h-full relative bg-gray-500">
-    //   <p>Relative parent</p>
-    //   <div class="absolute bottom-0 left-0 bg-white-100">
-    //     <p>Absolute child</p>
-    //   </div>
-    // </div>
     <div className="h-full relative">
       <div className="flex flex-col justify-center items-center px-8 pb-8">
         <img className="w-80" src={alertIcon} alt="warning icon" />

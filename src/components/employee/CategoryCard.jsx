@@ -1,8 +1,7 @@
 import React from "react";
-import finger from "../../assets/finger.svg";
+import categoryGenericIcon from "../../assets/categoryGenericIcon.svg";
 
 const CategoryCard = ({ categoryData }) => {
-  const categoryId = categoryData.category_id;
   const categoryImg = categoryData.category_img;
   const categoryName = categoryData.category_name;
 
@@ -10,7 +9,7 @@ const CategoryCard = ({ categoryData }) => {
     if (categoryImg) {
       return `data:image/png;base64,${categoryImg}`;
     } else {
-      return finger;
+      return categoryGenericIcon;
     }
   };
 

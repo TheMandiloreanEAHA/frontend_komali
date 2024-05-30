@@ -1,20 +1,28 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
-import { axiosGet, axiosPost, axiosPostForm } from "../../utils/axiosHelper";
+import {
+  axiosGet,
+  axiosPost,
+  axiosPostForm,
+  axiosPut,
+} from "../../utils/axiosHelper";
 import { jwtDecode } from "jwt-decode";
-import { fileToURL } from "../../utils/imageHelper";
+import { base64ToFile, fileToURL } from "../../utils/imageHelper";
 import finger from "../../assets/finger.svg";
 import MiniList from "./MiniList";
 import { API_URL } from "../../config/config";
+import { crudContext } from "../../pages/Admin";
 
-const ProductForm = () => {
+const ProductForm = ({ isEdit = false }) => {
+  const { row } = useContext(crudContext);
+  const [selectedRow, setSelectedRow] = row;
   const token = getDataLocalStorage("token");
   const data = jwtDecode(token);
   const productValues = {
     product_name: "",
-    product_price: null,
-    product_student_price: null,
-    product_calories: null,
+    product_price: 0,
+    product_student_price: 0,
+    product_calories: 0,
     product_optionals: [],
     product_selectives: [],
     product_description: "",
@@ -33,7 +41,42 @@ const ProductForm = () => {
 
   useEffect(() => {
     getCategories();
+    if (isEdit) {
+      getValuesById();
+    }
   }, []);
+
+  const getValuesById = async () => {
+    const token = getDataLocalStorage("token");
+    const data = jwtDecode(token);
+    const url = `${API_URL}products/getbyid/${data.dining_room_id}/${selectedRow}`;
+    const result = await axiosGet(url, token);
+    if (result !== undefined) {
+      const data = result.data;
+      console.log(data);
+      const productValuesAux = {
+        product_name: data.product_name,
+        product_price: data.product_price,
+        product_student_price: 0,
+        product_calories: data.product_calories,
+        product_optionals: [],
+        product_selectives: [],
+        product_description: data.product_description,
+        category_id: data.category_id,
+        dining_id: data.dining_room_id,
+      };
+      setValues(productValuesAux);
+      if (data.product_optionals) {
+        setOptionals(data.product_optionals);
+      }
+      if (data.product_selectives) {
+        setSelectives(data.product_selectives);
+      }
+      if (data.product_img) {
+        setProductImgFile(base64ToFile(data.product_img));
+      }
+    }
+  };
 
   console.log(values);
 
@@ -69,7 +112,6 @@ const ProductForm = () => {
 
   const onAddProduct = async () => {
     const token = getDataLocalStorage("token");
-    const url = `${API_URL}products/`;
     const formatValues = {
       product_name: values.product_name,
       product_price: parseFloat(values.product_price),
@@ -81,13 +123,27 @@ const ProductForm = () => {
       category_id: values.category_id,
       dining_id: values.dining_id,
     };
-    const result = await axiosPost(url, formatValues, token);
-    if (result !== undefined) {
-      console.log(result.data);
-      addProductImg({
-        file: productImgFile,
-        product_id: result.data.last_id,
-      });
+    if (!isEdit) {
+      const url = `${API_URL}products/`;
+      const result = await axiosPost(url, formatValues, token);
+      if (result !== undefined && result.status === 200) {
+        console.log(result.data);
+        addProductImg({
+          file: productImgFile,
+          product_id: result.data.last_id,
+        });
+      }
+    } else {
+      const url = `${API_URL}products/`;
+      formatValues["product_id"] = selectedRow;
+      formatValues["is_active"] = true;
+      const result = await axiosPut(url, formatValues, token);
+      if (result !== undefined && result.status === 200) {
+        addProductImg({
+          file: productImgFile,
+          product_id: selectedRow,
+        });
+      }
     }
   };
 
@@ -105,7 +161,7 @@ const ProductForm = () => {
       <div className="w-full flex mt-4">
         <div className="w-1/4 flex flex-col items-center px-4">
           <p className="font-bold mb-2">Imagen del producto</p>
-          <div className="bg-gray-100 w-full aspect-square rounded-2xl p-8">
+          <div className="bg-gray-100 w-full aspect-square rounded-2xl p-8 flex justify-center items-center">
             <img
               src={productImgFile ? fileToURL(productImgFile) : finger}
               alt="Imagen del producto"

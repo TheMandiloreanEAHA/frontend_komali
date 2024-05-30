@@ -12,8 +12,6 @@ const ModalCrud = ({ setIsModalOpen, selectedAction, category }) => {
     setIsModalOpen(false);
   };
 
-  console.log(category);
-
   const renderSelectedForm = () => {
     if (category === "admin") {
       switch (selectedAction) {
@@ -42,7 +40,7 @@ const ModalCrud = ({ setIsModalOpen, selectedAction, category }) => {
         case "agregar":
           return <ProductForm />;
         case "modificar":
-          return <div>Tilin</div>;
+          return <ProductForm isEdit={true} />;
         case "eliminar":
           return <DeleteForm />;
         default:
