@@ -103,4 +103,11 @@ const axiosDelete = async (url, token) => {
   return result;
 };
 
-export { axiosGet, axiosPost, axiosPut, axiosDelete, axiosPostForm };
+export {
+  axiosGet,
+  axiosPost,
+  axiosPut,
+  axiosPutForm,
+  axiosDelete,
+  axiosPostForm,
+};

@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { crudContext } from "../../pages/Admin";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
-import { axiosPostForm } from "../../utils/axiosHelper";
+import { axiosGet, axiosPutForm } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
 
-const ComedorForm = () => {
+const EditComedorForm = () => {
   const [selectedImages, setSelectedImages] = useState([null, null]);
   const [previews, setPreviews] = useState([null, null]);
   const fileImgRefs = [useRef(null), useRef(null)];
@@ -12,29 +13,75 @@ const ComedorForm = () => {
   const [motivo, setmotivo] = useState("success");
   const [msj, setMsj] = useState("");
 
+  const { row } = useContext(crudContext);
+  const [selectedRow, setSelectedRow] = row;
+  const [diningRoomInfo, setDiningRoomInfo] = useState("");
+
+  useEffect(() => {
+    const initDiningRoomInfo = async () => {
+      await getDiningRoom();
+    };
+    initDiningRoomInfo();
+  }, [selectedRow]); // Dependencia en selectedRow para que se ejecute cada vez que cambia
+
+  useEffect(() => {
+    //sincronizar valores cuando diningRoomInfo se cargue
+    if (diningRoomInfo) {
+      setValues({
+        dining_name: diningRoomInfo.dining_name || "",
+        logo_file: diningRoomInfo.logo_file || null,
+        bg_file: diningRoomInfo.bg_file || null,
+        is_active:
+          diningRoomInfo.is_active != null
+            ? diningRoomInfo.is_active.toString()
+            : "true",
+      });
+    }
+  }, [diningRoomInfo]);
+
+  const getDiningRoom = async () => {
+    const token = getDataLocalStorage("token");
+    const url = `http://localhost:8000/dining-room/${selectedRow}`;
+    const result = await axiosGet(url, token);
+    if (result !== undefined) {
+      setDiningRoomInfo(result.data);
+    }
+  };
+
   const initialFormValues = {
     dining_name: "",
     logo_file: null,
     bg_file: null,
+    is_active: "true",
   };
 
   const [values, setValues] = useState(initialFormValues);
 
-  const createDiningRoom = async (values) => {
+  const editDiningRoom = async (values) => {
     if (values.dining_name === "") {
       setisActive(true);
       setmotivo("missing");
       setMsj("El comedor debe llevar un nombre");
     } else {
+      const params = {
+        dining_id: selectedRow,
+        dining_name: values.dining_name,
+        logo_file: values.logo_file,
+        bg_file: values.bg_file,
+        is_active: values.is_active,
+      };
+      console.log(params);
       const token = getDataLocalStorage("token");
       const url = `http://127.0.0.1:8000/dining-room/`;
-      const result = await axiosPostForm(url, values, token);
+      const result = await axiosPutForm(url, params, token);
       if (result !== undefined) {
         if (!result.data.error) {
-          console.log("Comedor Agregado");
+          console.log("Comedor Editado");
           setmotivo("success");
           setisActive(true);
         }
+      } else {
+        console.log(result.data);
       }
     }
   };
@@ -69,15 +116,13 @@ const ComedorForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    event.preventDefault();
-    console.log(values);
-    createDiningRoom(values);
+    editDiningRoom(values);
   };
 
   return (
     <>
       <div className="my-6">
-        <h1 className="text-2xl mb-5">REGISTRO DE UN NUEVO COMEDOR</h1>
+        <h1 className="text-2xl mb-5">EDICIÓN DE UN COMEDOR</h1>
         <form
           className="flex flex-col items-center w-full gap-y-4"
           onSubmit={handleSubmit}
@@ -153,12 +198,13 @@ const ComedorForm = () => {
             por default.
           </label>
           <select
-            className="border-2 border-black-900 text-2xl w-9/12 mb-3  bg-gray-500/70 cursor-not-allowed"
-            name="estado"
-            disabled={true}
+            className="border-2 border-black-900 text-2xl w-9/12 mb-3"
+            name="is_active"
+            value={values.is_active}
+            onChange={handleInputOnChange}
           >
-            <option value={true}>Activo</option>
-            <option value={false}>Inactivo</option>
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
           </select>
           <button
             type="submit"
@@ -181,4 +227,4 @@ const ComedorForm = () => {
   );
 };
 
-export default ComedorForm;
+export default EditComedorForm;

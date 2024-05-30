@@ -1,12 +1,11 @@
 import UserForm from "./crud/UserForm";
 import EditUserForm from "./crud/EditUserForm";
 import ComedorForm from "./crud/ComedorForm";
-import ComedorEditForm from "./crud/ComedorEditForm";
 import DeleteForm from "../components/crud/DeleteForm";
 
 import React from "react";
 import ProductForm from "./crud/ProductForm";
-import InfoComedorForm from "./crud/InfoComedorForm";
+import EditComedorForm from "./crud/EditComedorForm";
 
 const ModalCrud = ({ setIsModalOpen, selectedAction, category }) => {
   const closeModal = () => {
@@ -32,7 +31,7 @@ const ModalCrud = ({ setIsModalOpen, selectedAction, category }) => {
         case "agregar":
           return <ComedorForm />;
         case "modificar":
-          return <ComedorEditForm />;
+          return <EditComedorForm />;
         case "eliminar":
           return <DeleteForm />;
         default:
