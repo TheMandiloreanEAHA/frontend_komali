@@ -11,6 +11,7 @@ import ModalCrud from "../components/ModalCrud";
 import { axiosGet } from "../utils/axiosHelper";
 import InfoComedorForm from "../components/crud/InfoComedorForm";
 import { API_URL } from "../config/config";
+import ModalWarning from "../components/ModalWarning";
 
 export const crudContext = React.createContext();
 
@@ -22,6 +23,7 @@ function Admin() {
   const [selectedAction, setSelectedAction] = useState();
   const [selectedRow, setSelectedRow] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalWarnOpen, setIsModalWarnOpen] = useState(false);
 
   const userTypes = ["admin", "second_admin"];
 
@@ -62,6 +64,7 @@ function Admin() {
         action: [selectedAction, setSelectedAction],
         row: [selectedRow, setSelectedRow],
         modal: [isModalOpen, setIsModalOpen],
+        modalWarn: [isModalWarnOpen, setIsModalWarnOpen],
       }}
     >
       <div className="w-full h-screen bg-gray-100">
@@ -95,6 +98,12 @@ function Admin() {
             setIsModalOpen={setIsModalOpen}
             selectedAction={selectedAction}
             category={selectedCategory}
+          />
+        )}
+        {isModalWarnOpen && (
+          <ModalWarning
+            isModalWarnOpen={isModalWarnOpen}
+            setIsModalWarnOpen={setIsModalWarnOpen}
           />
         )}
       </div>

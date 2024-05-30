@@ -1,11 +1,12 @@
 import { crudContext } from "../pages/Admin";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 const NavBarCrud = () => {
-  const { modal, action, row, category } = useContext(crudContext);
+  const { modal, action, row, modalWarn } = useContext(crudContext);
   const [isModalOpen, setIsModalOpen] = modal;
   const [selectedAction, setSelectedAction] = action;
   const [selectedRow, setSelectedRow] = row;
+  const [isModalWarnOpen, setIsModalWarnOpen] = modalWarn;
 
   const onSetSelectedAction = (accion) => {
     if (accion == "modificar" || accion == "eliminar") {
@@ -15,7 +16,7 @@ const NavBarCrud = () => {
         setSelectedAction(accion);
       } else {
         //Caso contrario, informa al usuario
-        console.log("No hay una fila seleccionada");
+        setIsModalWarnOpen(!isModalWarnOpen);
       }
     } else {
       setIsModalOpen(true);

@@ -94,8 +94,8 @@ const UserForm = () => {
 
   return (
     <>
-      <div className="my-6">
-        <h1 className="text-2xl mb-5">REGISTRO DE UN NUEVO USUARIO</h1>
+      <div className="my-7">
+        <h1 className="text-2xl mb-5 mx-10">REGISTRO DE UN NUEVO USUARIO</h1>
         <form
           className="flex flex-col items-center w-full gap-y-4"
           onSubmit={handleForm}
@@ -130,7 +130,11 @@ const UserForm = () => {
             value={values.userType}
             onChange={handleInputOnChange}
           >
-            <option value="" disabled hidden>
+            <option
+              value=""
+              disabled
+              hidden
+            >
               Tipo de usuario
             </option>
             <option value="admin">Administrador general</option>
@@ -143,12 +147,19 @@ const UserForm = () => {
             value={values.diningRoom}
             onChange={handleInputOnChange}
           >
-            <option value="" disabled hidden>
+            <option
+              value=""
+              disabled
+              hidden
+            >
               Selecciona un comedor
             </option>
             {diningRoomList.length > 0 ? (
               diningRoomList.map((item, index) => (
-                <option key={index} value={item.dining_id}>
+                <option
+                  key={index}
+                  value={item.dining_id}
+                >
                   {item.dining_name}
                 </option>
               ))
