@@ -25,7 +25,7 @@ const TableAdmin = ({ dataList = [], headNames }) => {
     <>
       {dataList.length > 0 && (
         <>
-          <div class="overflow-x-auto w-full h-auto shadow-lg rounded-2xl">
+          <div class="overflow-x-auto w-full h-auto rounded-2xl">
             <table class="w-full text-left">
               <thead class="uppercase bg-gray-400">
                 <tr>

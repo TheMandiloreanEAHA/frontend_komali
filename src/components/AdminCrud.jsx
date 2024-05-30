@@ -93,8 +93,12 @@ const AdminCrud = ({ selectedCategory }) => {
   return (
     <>
       <div className="rounded-3xl w-full h-full p-6 bg-white-100">
-        <NavBarCrud />
-        <TableAdmin dataList={dataList} headNames={headersTableNames} />
+        <div className="h-1/6 mp-20">
+          <NavBarCrud />
+        </div>
+        <div className="w-full h-5/6 overflow-y-auto rounded-2xl shadow-lg">
+          <TableAdmin dataList={dataList} headNames={headersTableNames} />
+        </div>
       </div>
     </>
   );
