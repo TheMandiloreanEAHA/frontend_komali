@@ -30,7 +30,7 @@ const TableAdmin = ({ dataList = [], headNames }) => {
                 <tr>
                   {Object.entries(dataList[0]).map((entry, index) => {
                     const key = entry[0];
-                    if (headNames[key]) {
+                    if (key && headNames[key]) {
                       return (
                         <td key={index} className="px-6 py-3">
                           {headNames[key]}

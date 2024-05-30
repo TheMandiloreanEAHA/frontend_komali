@@ -60,7 +60,7 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
   };
 
   return (
-    <div className="p-6 bg-uv-light-blue rounded-3xl h-full w-full overflow-y-auto shadow-lg">
+    <div className="p-6 bg-uv-light-blue rounded-3xl h-[94%] w-full overflow-y-auto shadow-lg">
       <div className="h-fit text-center grid grid-cols-1 gap-6">
         <div className="flex flex-col justify-center items-center w-full h-20 rounded-2xl bg-white-100 text-uv-blue px-4 font-bold text-2xl">
           <h4>MENÚ</h4>

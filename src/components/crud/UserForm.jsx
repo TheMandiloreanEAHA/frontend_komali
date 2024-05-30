@@ -3,13 +3,13 @@ import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPost } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
 import { API_URL } from "../../config/config";
+import { jwtDecode } from "jwt-decode";
 
-const UserForm = () => {
+const UserForm = ({ isSecondAdmin = false }) => {
   const [diningRoomList, setDiningRoomList] = useState([]);
   const [isActive, setisActive] = useState(false);
   const [motivo, setmotivo] = useState("success");
   const [msj, setMsj] = useState("");
-
   const initialFormValues = {
     name: "",
     pswd: "",
@@ -18,13 +18,22 @@ const UserForm = () => {
     diningRoom: "",
   };
 
+  if (isSecondAdmin) {
+    const token = getDataLocalStorage("token");
+    const data = jwtDecode(token);
+    initialFormValues["userType"] = "employee";
+    initialFormValues["diningRoom"] = data.dining_room_id;
+  }
+
   const [values, setValues] = useState(initialFormValues);
 
   useEffect(() => {
     const initDiningRoomList = async () => {
       await getDiningRooms();
     };
-    initDiningRoomList();
+    if (!isSecondAdmin) {
+      initDiningRoomList();
+    }
   }, []); // Dependencias vacías para que se ejecute solo una vez
 
   const getDiningRooms = async () => {
@@ -58,6 +67,7 @@ const UserForm = () => {
           user_type: values.userType,
           dining_room_id: values.diningRoom,
         };
+        console.log(params);
         const token = getDataLocalStorage("token");
         const url = `${API_URL}create`;
         const result = await axiosPost(url, params, token);
@@ -88,7 +98,6 @@ const UserForm = () => {
 
   const handleForm = (event) => {
     event.preventDefault();
-    console.log(values);
     createUser(values);
   };
 
@@ -124,49 +133,42 @@ const UserForm = () => {
             placeholder="Repita la contraseña"
             onChange={handleInputOnChange}
           />
-          <select
-            className="border-2 border-black-900 text-2xl w-9/12 mb-3 cursor-pointer"
-            name="userType"
-            value={values.userType}
-            onChange={handleInputOnChange}
-          >
-            <option
-              value=""
-              disabled
-              hidden
+          {!isSecondAdmin && (
+            <select
+              className="border-2 border-black-900 text-2xl w-9/12 mb-3 cursor-pointer"
+              name="userType"
+              value={values.userType}
+              onChange={handleInputOnChange}
             >
-              Tipo de usuario
-            </option>
-            <option value="admin">Administrador general</option>
-            <option value="second_admin">Administrador Secundario</option>
-            <option value="employee">Empleado</option>
-          </select>
-          <select
-            className="border-2 border-black-900 text-2xl w-9/12 mb-3 cursor-pointer"
-            name="diningRoom"
-            value={values.diningRoom}
-            onChange={handleInputOnChange}
-          >
-            <option
-              value=""
-              disabled
-              hidden
+              <option value="" disabled hidden>
+                Tipo de usuario
+              </option>
+              <option value="admin">Administrador general</option>
+              <option value="second_admin">Administrador Secundario</option>
+              <option value="employee">Empleado</option>
+            </select>
+          )}
+          {!isSecondAdmin && (
+            <select
+              className="border-2 border-black-900 text-2xl w-9/12 mb-3 cursor-pointer"
+              name="diningRoom"
+              value={values.diningRoom}
+              onChange={handleInputOnChange}
             >
-              Selecciona un comedor
-            </option>
-            {diningRoomList.length > 0 ? (
-              diningRoomList.map((item, index) => (
-                <option
-                  key={index}
-                  value={item.dining_id}
-                >
-                  {item.dining_name}
-                </option>
-              ))
-            ) : (
-              <option disabled>Cargando Datos...</option>
-            )}
-          </select>
+              <option value="" disabled hidden>
+                Selecciona un comedor
+              </option>
+              {diningRoomList.length > 0 ? (
+                diningRoomList.map((item, index) => (
+                  <option key={index} value={item.dining_id}>
+                    {item.dining_name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>Cargando Datos...</option>
+              )}
+            </select>
+          )}
           <button
             type="submit"
             className="w-52 h-14 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"

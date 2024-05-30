@@ -14,8 +14,9 @@ const EditComedorForm = () => {
   const [motivo, setmotivo] = useState("success");
   const [msj, setMsj] = useState("");
 
-  const { row } = useContext(crudContext);
+  const { row, list } = useContext(crudContext);
   const [selectedRow, setSelectedRow] = row;
+  const [dataList, setDataList] = list;
   const [diningRoomInfo, setDiningRoomInfo] = useState("");
 
   useEffect(() => {

@@ -7,7 +7,6 @@ import ProductList from "./ProductList";
 import ProductModal from "./ProductModal";
 import shoppingCarIcon from "../../assets/shoppingCarIcon.svg";
 import TemporalModal from "../TemporalModal";
-import successIcon from "../../assets/successIcon.svg";
 import { API_URL } from "../../config/config";
 
 const Menu = () => {
@@ -54,10 +53,6 @@ const Menu = () => {
 
   const onOpenTemporalModal = () => {
     setTemporalModal(true);
-  };
-
-  const onCloseTemporalModal = () => {
-    setTemporalModal(false);
   };
 
   const onSetSelectedCategory = (selectedCategory) => {
@@ -113,8 +108,7 @@ const Menu = () => {
       )}
       {temporalModal && (
         <TemporalModal
-          closeTemporalModal={onCloseTemporalModal}
-          icon={successIcon}
+          setTemporalModal={setTemporalModal}
           message="Producto agregado al carrito"
         />
       )}

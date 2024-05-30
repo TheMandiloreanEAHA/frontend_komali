@@ -49,9 +49,9 @@ const ModalCrud = ({ setIsModalOpen, selectedAction, category }) => {
     } else {
       switch (selectedAction) {
         case "agregar":
-          return <div>Agregar empleado</div>;
+          return <UserForm isSecondAdmin={true} />;
         case "modificar":
-          return <div>Modificar empleado</div>;
+          return <EditUserForm />;
         case "eliminar":
           return <DeleteForm />;
         default:
@@ -64,7 +64,7 @@ const ModalCrud = ({ setIsModalOpen, selectedAction, category }) => {
     <div className="w-full h-full bg-gray-900 bg-opacity-50 fixed bottom-0 right-0 flex justify-center items-center text-center">
       <div className="bg-white-100 rounded-3xl h-auto w-auto">
         <div className="relative w-full">
-          <div className="flex justify-end text-xl pr-6 font-bold absolute -top-1 right-0 mt-2">
+          <div className="flex justify-end text-xl pr-6 font-bold absolute top-0 right-0 mt-3">
             <button
               className="text-uv-blue"
               onClick={() => {

@@ -73,7 +73,7 @@ const ProductList = ({ selectedCategory, openModal }) => {
         </div>
       </form>
 
-      <div className="p-8 bg-uv-light-green rounded-3xl h-full text-center grid grid-cols-3 gap-8 overflow-y-auto shadow-lg">
+      <div className="p-8 bg-uv-light-green rounded-3xl h-[85%] text-center grid grid-cols-3 gap-8 overflow-y-auto shadow-lg">
         {productList ? (
           productList.map((item, index) => {
             return (

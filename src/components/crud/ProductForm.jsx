@@ -8,14 +8,17 @@ import {
 } from "../../utils/axiosHelper";
 import { jwtDecode } from "jwt-decode";
 import { base64ToFile, fileToURL } from "../../utils/imageHelper";
-import finger from "../../assets/finger.svg";
+import cameraIcon from "../../assets/cameraIcon.svg";
 import MiniList from "./MiniList";
 import { API_URL } from "../../config/config";
 import { crudContext } from "../../pages/Admin";
+import { getProducts } from "../../utils/requestHelper";
 
 const ProductForm = ({ isEdit = false }) => {
-  const { row } = useContext(crudContext);
+  const { row, modal, list } = useContext(crudContext);
   const [selectedRow, setSelectedRow] = row;
+  const [isModalOpen, setIsModalOpen] = modal;
+  const [dataList, setDataList] = list;
   const token = getDataLocalStorage("token");
   const data = jwtDecode(token);
   const productValues = {
@@ -78,8 +81,6 @@ const ProductForm = ({ isEdit = false }) => {
     }
   };
 
-  console.log(values);
-
   const onSetProductImg = (e) => {
     setProductImgFile(e.target.files[0]);
   };
@@ -106,7 +107,7 @@ const ProductForm = ({ isEdit = false }) => {
     const url = `${API_URL}products/image`;
     const result = await axiosPostForm(url, formData, token);
     if (result !== undefined) {
-      console.log(result);
+      return result;
     }
   };
 
@@ -127,11 +128,16 @@ const ProductForm = ({ isEdit = false }) => {
       const url = `${API_URL}products/`;
       const result = await axiosPost(url, formatValues, token);
       if (result !== undefined && result.status === 200) {
-        console.log(result.data);
-        addProductImg({
+        const imgResult = await addProductImg({
           file: productImgFile,
           product_id: result.data.last_id,
         });
+        if (imgResult !== undefined && result.status === 200) {
+          // ACTIVAR MODAL
+          console.log("PRODUCTO AGREGADO CORRECTAMENTE");
+          setIsModalOpen(false);
+          setDataList(await getProducts());
+        }
       }
     } else {
       const url = `${API_URL}products/`;
@@ -139,10 +145,16 @@ const ProductForm = ({ isEdit = false }) => {
       formatValues["is_active"] = true;
       const result = await axiosPut(url, formatValues, token);
       if (result !== undefined && result.status === 200) {
-        addProductImg({
+        const imgResult = await addProductImg({
           file: productImgFile,
           product_id: selectedRow,
         });
+        if (imgResult !== undefined && result.status === 200) {
+          // ACTIVAR MODAL
+          console.log("PRODUCTO ACTUALIZADO CORRECTAMENTE");
+          setIsModalOpen(false);
+          setDataList(await getProducts());
+        }
       }
     }
   };
@@ -156,145 +168,148 @@ const ProductForm = ({ isEdit = false }) => {
   };
 
   return (
-    <div className="text-uv-text-black p-8 w-full h-full flex flex-col justify-center items-center">
-      <h2 className="w-full text-2xl font-bold">Agregar nuevo producto</h2>
-      <div className="w-full flex mt-4">
-        <div className="w-1/4 flex flex-col items-center px-4">
-          <p className="font-bold mb-2">Imagen del producto</p>
-          <div className="bg-gray-100 w-full aspect-square rounded-2xl p-8 flex justify-center items-center">
-            <img
-              src={productImgFile ? fileToURL(productImgFile) : finger}
-              alt="Imagen del producto"
-            />
-          </div>
-          <button
-            className="bg-uv-blue text-white-100 rounded-full p-2 w-full font-bold mt-2"
-            onClick={() => imgRef.current.click()}
-          >
-            Seleccionar imagen
-          </button>
-          <input
-            type="file"
-            className="hidden"
-            accept="image/*"
-            ref={imgRef}
-            onChange={onSetProductImg}
-          />
-        </div>
-        <div className="w-3/4">
-          <div className="w-full">
-            <input
-              className="w-full border h-10 border-gray-300 rounded-lg p-2"
-              type="text"
-              value={values.product_name}
-              name="product_name"
-              placeholder="Nombre del producto"
-              onChange={onInputChange}
-            />
-          </div>
-          <div className="w-full grid grid-cols-2 gap-4 my-4">
-            <input
-              className="border h-10 border-gray-300 rounded-lg p-2"
-              type="number"
-              value={values.product_price}
-              name="product_price"
-              placeholder="Precio"
-              onChange={onInputChange}
-            />
-            <input
-              className="border h-10 border-gray-300 rounded-lg p-2"
-              type="number"
-              value={values.product_calories}
-              name="product_calories"
-              placeholder="Calorias"
-              onChange={onInputChange}
-            />
-          </div>
-          <div>
-            <textarea
-              className="w-full h-32 border border-gray-300 rounded-lg p-2"
-              value={values.product_description}
-              name="product_description"
-              placeholder="Descripción del producto"
-              onChange={onInputChange}
-            />
-          </div>
-          <div className="w-full flex mt-2">
-            <div className="w-1/4 m-auto font-bold">Categoría:</div>
-            <div className="w-3/4">
-              <select
-                className="border border-gray-300 text-lg p-2 rounded-lg w-full cursor-pointer capitalize"
-                name="category_id"
-                value={values.category_id}
-                onChange={onInputChange}
+    <>
+      <div className="w-full h-svh overflow-y-auto">
+        <div className="text-uv-text-black p-8 flex flex-col justify-center items-center">
+          <h2 className="w-full text-2xl font-bold">Agregar nuevo producto</h2>
+          <div className="w-full flex mt-4">
+            <div className="w-1/4 flex flex-col items-center px-4">
+              <p className="font-bold mb-2">Imagen del producto</p>
+              <div className="bg-gray-100 w-32 aspect-square rounded-2xl p-8 flex justify-center items-center">
+                <img
+                  src={productImgFile ? fileToURL(productImgFile) : cameraIcon}
+                  alt="Imagen del producto"
+                />
+              </div>
+              <button
+                className="bg-uv-blue text-white-100 rounded-full p-2 w-full font-bold mt-2"
+                onClick={() => imgRef.current.click()}
               >
-                {categories.length > 0 ? (
-                  categories.map((item, index) => (
-                    <option
-                      className="capitalize"
-                      key={index}
-                      value={item.category_id}
-                    >
-                      {item.category_name}
-                    </option>
-                  ))
-                ) : (
-                  <option disabled>Cargando Datos...</option>
-                )}
-              </select>
+                Seleccionar imagen
+              </button>
+              <input
+                type="file"
+                className="hidden"
+                accept="image/*"
+                ref={imgRef}
+                onChange={onSetProductImg}
+              />
+            </div>
+            <div className="w-3/4">
+              <div className="w-full">
+                <input
+                  className="w-full border h-10 border-gray-300 rounded-lg p-2"
+                  type="text"
+                  value={values.product_name}
+                  name="product_name"
+                  placeholder="Nombre del producto"
+                  onChange={onInputChange}
+                />
+              </div>
+              <div className="w-full grid grid-cols-2 gap-4 my-4">
+                <input
+                  className="border h-10 border-gray-300 rounded-lg p-2"
+                  type="number"
+                  value={values.product_price}
+                  name="product_price"
+                  placeholder="Precio"
+                  onChange={onInputChange}
+                />
+                <input
+                  className="border h-10 border-gray-300 rounded-lg p-2"
+                  type="number"
+                  value={values.product_calories}
+                  name="product_calories"
+                  placeholder="Calorias"
+                  onChange={onInputChange}
+                />
+              </div>
+              <div>
+                <textarea
+                  className="w-full h-32 border border-gray-300 rounded-lg p-2"
+                  value={values.product_description}
+                  name="product_description"
+                  placeholder="Descripción del producto"
+                  onChange={onInputChange}
+                />
+              </div>
+              <div className="w-full flex mt-2">
+                <div className="w-1/4 m-auto font-bold">Categoría:</div>
+                <div className="w-3/4">
+                  <select
+                    className="border border-gray-300 text-lg p-2 rounded-lg w-full cursor-pointer capitalize"
+                    name="category_id"
+                    value={values.category_id}
+                    onChange={onInputChange}
+                  >
+                    {categories.length > 0 ? (
+                      categories.map((item, index) => (
+                        <option
+                          className="capitalize"
+                          key={index}
+                          value={item.category_id}
+                        >
+                          {item.category_name}
+                        </option>
+                      ))
+                    ) : (
+                      <option disabled>Cargando Datos...</option>
+                    )}
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="w-full grid grid-cols-2 gap-4 my-4">
-        <div>
-          <p className="font-bold">Ingredientes opcionales:</p>
-          <MiniList list={optionals} setList={setOptionals} />
-          <input
-            className="w-full border h-10 border-gray-300 rounded-lg p-2"
-            type="text"
-            name="optionals"
-            placeholder="Ingrediente opcional"
-            value={newOptional}
-            onChange={(e) => {
-              setNewOptional(e.target.value);
-            }}
-          />
+          <div className="w-full grid grid-cols-2 gap-4 my-4">
+            <div>
+              <p className="font-bold">Ingredientes opcionales:</p>
+              <MiniList list={optionals} setList={setOptionals} />
+              <input
+                className="w-full border h-10 border-gray-300 rounded-lg p-2"
+                type="text"
+                name="optionals"
+                placeholder="Ingrediente opcional"
+                value={newOptional}
+                onChange={(e) => {
+                  setNewOptional(e.target.value);
+                }}
+              />
+              <button
+                className="bg-uv-blue text-white-100 rounded-full p-2 w-1/2 font-bold mt-2"
+                onClick={onAddOptional}
+              >
+                Agregar opcional
+              </button>
+            </div>
+            <div>
+              <p className="font-bold">Variantes:</p>
+              <MiniList list={selectives} setList={setSelectives} />
+              <input
+                className="w-full border h-10 border-gray-300 rounded-lg p-2"
+                type="text"
+                placeholder="Variante"
+                value={newSelective}
+                onChange={(e) => {
+                  setNewSelective(e.target.value);
+                }}
+              />
+              <button
+                className="bg-uv-blue text-white-100 rounded-full p-2 w-1/2 font-bold mt-2"
+                onClick={onAddSelective}
+              >
+                Agregar variante
+              </button>
+            </div>
+          </div>
           <button
-            className="bg-uv-blue text-white-100 rounded-full p-2 w-1/2 font-bold mt-2"
-            onClick={onAddOptional}
+            className="text-lg font-bold text-white-100 p-4 rounded-full bg-uv-green w-52"
+            onClick={onAddProduct}
           >
-            Agregar opcional
+            Finalizar
           </button>
         </div>
-        <div>
-          <p className="font-bold">Variantes:</p>
-          <MiniList list={selectives} setList={setSelectives} />
-          <input
-            className="w-full border h-10 border-gray-300 rounded-lg p-2"
-            type="text"
-            placeholder="Variante"
-            value={newSelective}
-            onChange={(e) => {
-              setNewSelective(e.target.value);
-            }}
-          />
-          <button
-            className="bg-uv-blue text-white-100 rounded-full p-2 w-1/2 font-bold mt-2"
-            onClick={onAddSelective}
-          >
-            Agregar variante
-          </button>
-        </div>
       </div>
-
-      <button
-        className="text-lg font-bold text-white-100 p-4 rounded-full bg-uv-green w-52"
-        onClick={onAddProduct}
-      >
-        Finalizar
-      </button>
-    </div>
+    </>
   );
 };
 

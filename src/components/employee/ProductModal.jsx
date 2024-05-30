@@ -3,6 +3,7 @@ import {
   saveDataLocalStorage,
   getDataLocalStorage,
 } from "../../utils/localStorageHelper";
+import { base64ToFile, fileToURL } from "../../utils/imageHelper";
 
 const ProductModal = ({
   closeModal,
@@ -20,7 +21,7 @@ const ProductModal = ({
   const productDescription = productInfo.product_description;
   const categoryId = productInfo.category_id;
   const diningId = productInfo.dining_id;
-  const productImg = productInfo.product_img;
+  const productImg = base64ToFile(productInfo.product_img);
 
   const [selective, setSelective] = useState(0);
   const [optionalsChecked, setOptionalsChecked] = useState();
@@ -115,8 +116,12 @@ const ProductModal = ({
         <div className="flex flex-row">
           {/* DIV IMAGEN CON CALORIAS */}
           <div className="px-8 pb-8 w-1/2">
-            <div className="w-full aspect-square bg-gray-100 rounded-2xl flex justify-center items-center">
-              <img src={productImg} alt="Imagen de producto" />
+            <div className="w-full aspect-square bg-gray-100 rounded-2xl flex justify-center items-center p-8">
+              <img
+                src={fileToURL(productImg)}
+                alt="Imagen de producto"
+                className="h-50"
+              />
             </div>
             <div className="text-2xl flex justify-around m-4">
               <p className="text-justify">

@@ -24,6 +24,7 @@ function Admin() {
   const [selectedRow, setSelectedRow] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalWarnOpen, setIsModalWarnOpen] = useState(false);
+  const [dataList, setDataList] = useState();
 
   const userTypes = ["admin", "second_admin"];
 
@@ -65,6 +66,7 @@ function Admin() {
         row: [selectedRow, setSelectedRow],
         modal: [isModalOpen, setIsModalOpen],
         modalWarn: [isModalWarnOpen, setIsModalWarnOpen],
+        list: [dataList, setDataList],
       }}
     >
       <div className="w-full h-screen bg-gray-100">

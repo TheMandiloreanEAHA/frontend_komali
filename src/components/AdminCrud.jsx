@@ -5,57 +5,27 @@ import { getDataLocalStorage } from "../utils/localStorageHelper";
 import { axiosGet } from "../utils/axiosHelper";
 import { jwtDecode } from "jwt-decode";
 import { API_URL } from "../config/config";
+import { crudContext } from "../pages/Admin";
+import {
+  getUsers,
+  getDiningRooms,
+  getProducts,
+  getEmployees,
+} from "../utils/requestHelper";
 
 const AdminCrud = ({ selectedCategory }) => {
-  const [dataList, setDataList] = useState();
   const [headersTableNames, setHeadersTableNames] = useState();
+  const { list } = useContext(crudContext);
+  const [dataList, setDataList] = list;
 
   useEffect(() => {
     selectedCategoryTable();
   }, [selectedCategory]);
 
-  const getUsers = async () => {
-    const token = getDataLocalStorage("token");
-    const url = API_URL;
-    const result = await axiosGet(url, token);
-    if (result !== undefined) {
-      setDataList(result.data);
-    }
-  };
-
-  const getDiningRooms = async () => {
-    const token = getDataLocalStorage("token");
-    const url = `${API_URL}dining-room/`;
-    const result = await axiosGet(url, token);
-    if (result !== undefined) {
-      setDataList(result.data);
-    }
-  };
-
-  const getProducts = async () => {
-    const token = getDataLocalStorage("token");
-    const data = jwtDecode(token);
-    const url = `${API_URL}products/${data.dining_room_id}`;
-    const result = await axiosGet(url, token);
-    if (result !== undefined) {
-      setDataList(result.data);
-    }
-  };
-
-  const getEmployees = async () => {
-    const token = getDataLocalStorage("token");
-    const data = jwtDecode(token);
-    const url = `${API_URL}employees/${data.dining_room_id}`;
-    const result = await axiosGet(url, token);
-    if (result !== undefined) {
-      setDataList(result.data);
-    }
-  };
-
-  const selectedCategoryTable = () => {
+  const selectedCategoryTable = async () => {
     switch (selectedCategory) {
       case "admin":
-        getUsers();
+        setDataList(await getUsers());
         setHeadersTableNames({
           user_name: "Nombre",
           user_type: "Tipo",
@@ -63,14 +33,14 @@ const AdminCrud = ({ selectedCategory }) => {
         });
         break;
       case "comedores":
-        getDiningRooms();
+        setDataList(await getDiningRooms());
         setHeadersTableNames({
           dining_name: "Nombre",
           is_active: "Estado",
         });
         break;
       case "productos":
-        getProducts();
+        setDataList(await getProducts());
         setHeadersTableNames({
           product_name: "Nombre",
           product_price: "Precio",
@@ -79,13 +49,11 @@ const AdminCrud = ({ selectedCategory }) => {
         });
         break;
       case "empleados":
-        getEmployees();
+        setDataList(await getEmployees());
         setHeadersTableNames({
           user_name: "Nombre",
           user_type: "Tipo",
         });
-        break;
-      case "comedor":
         break;
       default:
         console.log("Opción inválida");
