@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { axiosDelete } from "../../../utils/axiosHelper";
 import { getDataLocalStorage } from "../../../utils/localStorageHelper";
+import { API_URL } from "../../../config/config";
 
 const OrderCard = ({ orderData, index, onDeleteOrder, diningId }) => {
   const [orderNum, setOrderNum] = useState(undefined);
@@ -18,7 +19,7 @@ const OrderCard = ({ orderData, index, onDeleteOrder, diningId }) => {
 
   const deleteOrderByNum = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://127.0.0.1:8000/orders/${diningId}/${orderNum}`;
+    const url = `${API_URL}orders/${diningId}/${orderNum}`;
     const result = await axiosDelete(url, token);
     if (result !== undefined) {
       return result;

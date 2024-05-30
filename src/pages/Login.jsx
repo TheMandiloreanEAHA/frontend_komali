@@ -8,6 +8,7 @@ import {
   deleteDataLocalStorage,
 } from "../utils/localStorageHelper.js";
 import TopBar from "../components/TopBar.jsx";
+import { API_URL } from "../config/config.js";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -48,7 +49,7 @@ const Login = () => {
   //Función cuando el usuario presiona el botón de iniciar sesión
   async function loginClick() {
     //Nos comunicamos con el backend para comprobar que el usuario sea válido
-    const result = await axiosPost("http://localhost:8000/", {
+    const result = await axiosPost(API_URL, {
       user_name: userName,
       user_pass: userPass,
     });

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPost } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
+import { API_URL } from "../../config/config";
 
 const UserForm = () => {
   const [diningRoomList, setDiningRoomList] = useState([]);
@@ -28,7 +29,7 @@ const UserForm = () => {
 
   const getDiningRooms = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/dining-room/`;
+    const url = `${API_URL}dining-room/`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDiningRoomList(result.data);
@@ -58,7 +59,7 @@ const UserForm = () => {
           dining_room_id: values.diningRoom,
         };
         const token = getDataLocalStorage("token");
-        const url = `http://127.0.0.1:8000/create`;
+        const url = `${API_URL}create`;
         const result = await axiosPost(url, params, token);
         if (result !== undefined) {
           if (!result.data.error) {

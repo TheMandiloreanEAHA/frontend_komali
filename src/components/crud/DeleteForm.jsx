@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { crudContext } from "../../pages/Admin";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosDelete } from "../../utils/axiosHelper";
+import { API_URL } from "../../config/config";
 
 const DeleteForm = () => {
   const { row, category, modal } = useContext(crudContext);
@@ -11,7 +12,7 @@ const DeleteForm = () => {
 
   const deleteAdmin = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/${selectedRow}`;
+    const url = `${API_URL}${selectedRow}`;
     const result = await axiosDelete(url, token);
     if (result !== undefined) {
       console.log(result);
@@ -20,7 +21,7 @@ const DeleteForm = () => {
 
   const deleteDining = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/dining-room/${selectedRow}`;
+    const url = `${API_URL}${selectedRow}`;
     const result = await axiosDelete(url, token);
     if (result !== undefined) {
       console.log(result);
@@ -29,7 +30,7 @@ const DeleteForm = () => {
 
   const deleteProduct = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/products/${selectedRow}`;
+    const url = `${API_URL}${selectedRow}`;
     const result = await axiosDelete(url, token);
     if (result !== undefined) {
       console.log(result);
@@ -38,7 +39,7 @@ const DeleteForm = () => {
 
   const deleteEmployee = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/${selectedRow}`;
+    const url = `${API_URL}${selectedRow}`;
     const result = await axiosDelete(url, token);
     if (result !== undefined) {
       console.log(result);

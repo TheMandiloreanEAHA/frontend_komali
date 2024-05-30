@@ -3,6 +3,7 @@ import { crudContext } from "../../pages/Admin";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPut } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
+import { API_URL } from "../../config/config";
 
 const EditUserForm = () => {
   const { row } = useContext(crudContext);
@@ -49,7 +50,7 @@ const EditUserForm = () => {
 
   const getDiningRooms = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/dining-room/`;
+    const url = `${API_URL}dining-room/`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDiningRoomList(result.data);
@@ -58,7 +59,7 @@ const EditUserForm = () => {
 
   const getUserInfo = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/${selectedRow}`;
+    const url = `${API_URL}${selectedRow}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setUserInfo(result.data);
@@ -89,7 +90,7 @@ const EditUserForm = () => {
           dining_room_id: values.diningRoom,
         };
         const token = getDataLocalStorage("token");
-        const url = `http://127.0.0.1:8000/`;
+        const url = API_URL;
         const result = await axiosPut(url, params, token);
         if (result !== undefined) {
           if (!result.data.error) {

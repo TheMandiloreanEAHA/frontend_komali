@@ -3,6 +3,7 @@ import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { jwtDecode } from "jwt-decode";
 import { axiosGet } from "../../utils/axiosHelper";
 import ProductCard from "./ProductCard";
+import { API_URL } from "../../config/config";
 
 const ProductList = ({ selectedCategory, openModal }) => {
   const [productList, setProductList] = useState();
@@ -20,7 +21,7 @@ const ProductList = ({ selectedCategory, openModal }) => {
     const token = getDataLocalStorage("token");
     const data = jwtDecode(token);
     const dining_room_id = data.dining_room_id;
-    const url = `http://localhost:8000/products/${dining_room_id}/${selectedCategory}`;
+    const url = `${API_URL}products/${dining_room_id}/${selectedCategory}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setProductList(result.data);
@@ -33,7 +34,7 @@ const ProductList = ({ selectedCategory, openModal }) => {
       const token = getDataLocalStorage("token");
       const data = jwtDecode(token);
       const dining_room_id = data.dining_room_id;
-      const url = `http://localhost:8000/products/search/${dining_room_id}/${value}`;
+      const url = `${API_URL}products/search/${dining_room_id}/${value}`;
       const result = await axiosGet(url, token);
       if (result !== undefined) {
         setProductList(result.data);

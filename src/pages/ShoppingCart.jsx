@@ -5,6 +5,7 @@ import { axiosGet, axiosPost } from "../utils/axiosHelper";
 import OrderList from "../components/employee/shoppingcart/OrderList";
 import OrderResumen from "../components/employee/shoppingcart/OrderResumen";
 import OrderModal from "../components/employee/shoppingcart/OrderModal";
+import { API_URL } from "../config/config";
 
 const ShoppingCart = () => {
   const [order, setOrder] = useState();
@@ -37,7 +38,7 @@ const ShoppingCart = () => {
 
   const getOrderNumber = async (diningId) => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/ordersnum/${diningId}`;
+    const url = `${API_URL}ordersnum/${diningId}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       return result.data.order_num;
@@ -67,7 +68,7 @@ const ShoppingCart = () => {
 
   const insertOrder = async (request) => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/orders/`;
+    const url = `${API_URL}orders/`;
     const result = await axiosPost(url, request, token);
     if (result !== undefined) {
       if (result.status === 200) {

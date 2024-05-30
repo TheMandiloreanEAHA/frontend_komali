@@ -10,6 +10,7 @@ import AdminCrud from "../components/AdminCrud";
 import ModalCrud from "../components/ModalCrud";
 import { axiosGet } from "../utils/axiosHelper";
 import InfoComedorForm from "../components/crud/InfoComedorForm";
+import { API_URL } from "../config/config";
 
 export const crudContext = React.createContext();
 
@@ -47,7 +48,7 @@ function Admin() {
   }, []);
 
   const getDiningRoom = async () => {
-    const url = `http://127.0.0.1:8000/dining-room/${data.dining_room_id}`;
+    const url = `${API_URL}dining-room/${data.dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDiningName(result.data.dining_name);

@@ -3,6 +3,7 @@ import { crudContext } from "../../pages/Admin";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPutForm } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
+import { API_URL } from "../../config/config";
 
 const EditComedorForm = () => {
   const [selectedImages, setSelectedImages] = useState([null, null]);
@@ -72,7 +73,7 @@ const EditComedorForm = () => {
       };
       console.log(params);
       const token = getDataLocalStorage("token");
-      const url = `http://127.0.0.1:8000/dining-room/`;
+      const url = `${API_URL}dining-room/`;
       const result = await axiosPutForm(url, params, token);
       if (result !== undefined) {
         if (!result.data.error) {

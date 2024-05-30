@@ -8,6 +8,7 @@ import ProductModal from "./ProductModal";
 import shoppingCarIcon from "../../assets/shoppingCarIcon.svg";
 import TemporalModal from "../TemporalModal";
 import successIcon from "../../assets/successIcon.svg";
+import { API_URL } from "../../config/config";
 
 const Menu = () => {
   const [diningRoomData, setDiningRoomData] = useState();
@@ -69,7 +70,7 @@ const Menu = () => {
 
   const getDinerRoomData = async (dining_room_id) => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/dining-room/${dining_room_id}`;
+    const url = `${API_URL}dining-room/${dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDiningRoomData(result.data);

@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { getDataLocalStorage } from "../utils/localStorageHelper";
 import { axiosGet } from "../utils/axiosHelper";
 import { jwtDecode } from "jwt-decode";
+import { API_URL } from "../config/config";
 
 const AdminCrud = ({ selectedCategory }) => {
   const [dataList, setDataList] = useState();
@@ -15,7 +16,7 @@ const AdminCrud = ({ selectedCategory }) => {
 
   const getUsers = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/`;
+    const url = API_URL;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDataList(result.data);
@@ -24,7 +25,7 @@ const AdminCrud = ({ selectedCategory }) => {
 
   const getDiningRooms = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/dining-room/`;
+    const url = `${API_URL}dining-room/`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDataList(result.data);
@@ -34,7 +35,7 @@ const AdminCrud = ({ selectedCategory }) => {
   const getProducts = async () => {
     const token = getDataLocalStorage("token");
     const data = jwtDecode(token);
-    const url = `http://localhost:8000/products/${data.dining_room_id}`;
+    const url = `${API_URL}products/${data.dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDataList(result.data);
@@ -44,7 +45,7 @@ const AdminCrud = ({ selectedCategory }) => {
   const getEmployees = async () => {
     const token = getDataLocalStorage("token");
     const data = jwtDecode(token);
-    const url = `http://localhost:8000/employees/${data.dining_room_id}`;
+    const url = `${API_URL}employees/${data.dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDataList(result.data);

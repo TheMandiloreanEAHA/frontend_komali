@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { fileToURL } from "../../utils/imageHelper";
 import finger from "../../assets/finger.svg";
 import MiniList from "./MiniList";
+import { API_URL } from "../../config/config";
 
 const ProductForm = () => {
   const token = getDataLocalStorage("token");
@@ -42,7 +43,7 @@ const ProductForm = () => {
 
   const getCategories = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/categories/`;
+    const url = `${API_URL}categories/`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setCategories(result.data);
@@ -59,7 +60,7 @@ const ProductForm = () => {
 
   const addProductImg = async (formData) => {
     const token = getDataLocalStorage("token");
-    const url = `http://127.0.0.1:8000/products/image`;
+    const url = `${API_URL}products/image`;
     const result = await axiosPostForm(url, formData, token);
     if (result !== undefined) {
       console.log(result);
@@ -68,7 +69,7 @@ const ProductForm = () => {
 
   const onAddProduct = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://127.0.0.1:8000/products/`;
+    const url = `${API_URL}products/`;
     const formatValues = {
       product_name: values.product_name,
       product_price: parseFloat(values.product_price),
@@ -96,11 +97,6 @@ const ProductForm = () => {
 
   const onAddSelective = () => {
     setSelectives([...selectives, newSelective]);
-  };
-
-  const onDeleteOptional = (index) => {
-    const newOptionals = optionals.filter((item, i) => i !== index);
-    setOptionals(newOptionals);
   };
 
   return (

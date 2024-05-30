@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosPostForm } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
+import { API_URL } from "../../config/config";
 
 const ComedorForm = () => {
   const [selectedImages, setSelectedImages] = useState([null, null]);
@@ -27,7 +28,7 @@ const ComedorForm = () => {
       setMsj("El comedor debe llevar un nombre");
     } else {
       const token = getDataLocalStorage("token");
-      const url = `http://127.0.0.1:8000/dining-room/`;
+      const url = `${API_URL}dining-room/`;
       const result = await axiosPostForm(url, values, token);
       if (result !== undefined) {
         if (!result.data.error) {

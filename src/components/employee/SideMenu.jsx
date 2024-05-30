@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { axiosGet } from "../../utils/axiosHelper";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import CategoryCard from "./CategoryCard";
+import { API_URL } from "../../config/config";
 
 const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
   const [categoriesFilter, setCategoriesFilter] = useState();
@@ -19,7 +20,7 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
 
   const getCategories = async () => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/categories/`;
+    const url = `${API_URL}categories/`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       return result.data;
@@ -30,7 +31,7 @@ const SideMenu = ({ diningRoom, onSetSelectedCategory }) => {
 
   const getCategoryCount = async (dining_room_id) => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/counter/${dining_room_id}`;
+    const url = `${API_URL}counter/${dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       return result.data;

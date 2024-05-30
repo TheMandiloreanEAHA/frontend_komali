@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getDataLocalStorage } from "../../../utils/localStorageHelper";
 import { jwtDecode } from "jwt-decode";
 import { axiosPost } from "../../../utils/axiosHelper";
+import { API_URL } from "../../../config/config";
 
 const LogOrderCard = ({ orderLogData }) => {
   const [productsData, setProductsData] = useState();
@@ -21,7 +22,7 @@ const LogOrderCard = ({ orderLogData }) => {
       dining_id: dining_room_id,
       products_list: orderLogData.products_id,
     };
-    const url = `http://127.0.0.1:8000/products/filter`;
+    const url = `${API_URL}products/filter`;
     const result = await axiosPost(url, productsRequest, token);
     if (result !== undefined) {
       setProductsData(result.data);

@@ -10,6 +10,7 @@ import {
 import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import { axiosGet } from "../../utils/axiosHelper.js";
+import { API_URL } from "../../config/config.js";
 
 const WelcomeScreen = () => {
   const [diningRoomData, setDiningRoomData] = useState({});
@@ -25,7 +26,7 @@ const WelcomeScreen = () => {
 
   const getDinerRoomData = async (dining_room_id) => {
     const token = getDataLocalStorage("token");
-    const url = `http://localhost:8000/dining-room/${dining_room_id}`;
+    const url = `${API_URL}dining-room/${dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       setDiningRoomData(result.data);
@@ -37,7 +38,7 @@ const WelcomeScreen = () => {
     if (diningLogo === undefined || diningLogo === null) {
       return logoComedores;
     } else {
-      return diningLogo;
+      return `data:image/png;base64,${diningLogo}`;
     }
   };
 
@@ -46,7 +47,7 @@ const WelcomeScreen = () => {
     if (diningBg === undefined || diningBg === null) {
       return background;
     } else {
-      return diningBg;
+      return `data:image/png;base64,${diningBg}`;
     }
   };
 
@@ -59,7 +60,7 @@ const WelcomeScreen = () => {
       <div className="w-3/5 bg-uv-background flex flex-col justify-center items-center">
         <h1 className="text-5xl font-bold">Bienvenido a</h1>
         <img
-          src={logoComedores}
+          src={setDiningLogo()}
           alt="Imágen del sistema"
           className="w-60 h-60 my-4"
         />

@@ -3,6 +3,7 @@ import { getDataLocalStorage } from "../../../utils/localStorageHelper";
 import { jwtDecode } from "jwt-decode";
 import { axiosGet } from "../../../utils/axiosHelper";
 import OrderCard from "./OrderCard";
+import { API_URL } from "../../../config/config";
 
 const OrderList = () => {
   const [ordersData, setOrdersData] = useState();
@@ -26,7 +27,7 @@ const OrderList = () => {
     const token = getDataLocalStorage("token");
     const data = jwtDecode(token);
     const dining_room_id = data.dining_room_id;
-    const url = `http://127.0.0.1:8000/orders/${dining_room_id}`;
+    const url = `${API_URL}orders/${dining_room_id}`;
     const result = await axiosGet(url, token);
     if (result !== undefined) {
       const grouped = groupBy(result.data, (order) => order.order_num);
