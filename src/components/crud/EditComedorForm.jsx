@@ -4,6 +4,8 @@ import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPutForm } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
 import { API_URL } from "../../config/config";
+import { getDiningRooms } from "../../utils/requestHelper";
+import { base64ToFile, fileToURL } from "../../utils/imageHelper";
 
 const EditComedorForm = () => {
   const [selectedImages, setSelectedImages] = useState([null, null]);
@@ -38,6 +40,17 @@ const EditComedorForm = () => {
             ? diningRoomInfo.is_active.toString()
             : "true",
       });
+      // Convertir base64 a URL y actualizar las vistas previas
+      const newPreviews = [null, null];
+      if (diningRoomInfo.dining_logo) {
+        const logoFile = base64ToFile(diningRoomInfo.dining_logo);
+        newPreviews[0] = logoFile;
+      }
+      if (diningRoomInfo.dining_bg) {
+        const bgFile = base64ToFile(diningRoomInfo.dining_bg);
+        newPreviews[1] = bgFile;
+      }
+      setPreviews(newPreviews);
     }
   }, [diningRoomInfo]);
 
@@ -80,6 +93,7 @@ const EditComedorForm = () => {
           console.log("Comedor Editado");
           setmotivo("success");
           setisActive(true);
+          setDataList(await getDiningRooms());
         }
       } else {
         console.log(result.data);
@@ -158,7 +172,7 @@ const EditComedorForm = () => {
             {previews[0] && (
               <div className="mb-4">
                 <img
-                  src={previews[0]}
+                  src={previews[0] ? fileToURL(previews[0]) : null}
                   alt="Vista previa"
                   className="w-16 h-w-16 object-cover mr-20"
                 />
@@ -187,7 +201,7 @@ const EditComedorForm = () => {
             {previews[1] && (
               <div className="mb-4">
                 <img
-                  src={previews[1]}
+                  src={previews[1] ? fileToURL(previews[1]) : null}
                   alt="Vista previa"
                   className="w-16 h-w-16 object-cover mr-20"
                 />

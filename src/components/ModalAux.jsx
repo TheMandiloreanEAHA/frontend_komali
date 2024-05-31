@@ -87,7 +87,6 @@ const ModalAux = ({
     setIsModalOpen(!isModalOpen);
     setisActive(!isActive);
     setmsj("");
-    window.location.reload();
   };
 
   const cerrar = () => {

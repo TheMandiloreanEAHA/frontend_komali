@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { crudContext } from "../../pages/Admin";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPost } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
 import { API_URL } from "../../config/config";
 import { jwtDecode } from "jwt-decode";
+import { getUsers } from "../../utils/requestHelper";
 
 const UserForm = ({ isSecondAdmin = false }) => {
+  const { list } = useContext(crudContext);
+  const [dataList, setDataList] = list;
   const [diningRoomList, setDiningRoomList] = useState([]);
   const [isActive, setisActive] = useState(false);
   const [motivo, setmotivo] = useState("success");
@@ -74,6 +78,7 @@ const UserForm = ({ isSecondAdmin = false }) => {
           if (!result.data.error) {
             setmotivo("success");
             setisActive(true);
+            setDataList(await getUsers());
           }
         } else {
           setmotivo("missing");
@@ -138,7 +143,11 @@ const UserForm = ({ isSecondAdmin = false }) => {
               value={values.userType}
               onChange={handleInputOnChange}
             >
-              <option value="" disabled hidden>
+              <option
+                value=""
+                disabled
+                hidden
+              >
                 Tipo de usuario
               </option>
               <option value="admin">Administrador general</option>
@@ -153,12 +162,19 @@ const UserForm = ({ isSecondAdmin = false }) => {
               value={values.diningRoom}
               onChange={handleInputOnChange}
             >
-              <option value="" disabled hidden>
+              <option
+                value=""
+                disabled
+                hidden
+              >
                 Selecciona un comedor
               </option>
               {diningRoomList.length > 0 ? (
                 diningRoomList.map((item, index) => (
-                  <option key={index} value={item.dining_id}>
+                  <option
+                    key={index}
+                    value={item.dining_id}
+                  >
                     {item.dining_name}
                   </option>
                 ))

@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import { crudContext } from "../../pages/Admin";
 import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosPostForm } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
 import { API_URL } from "../../config/config";
+import { getDiningRooms } from "../../utils/requestHelper";
 
 const ComedorForm = () => {
   const [selectedImages, setSelectedImages] = useState([null, null]);
@@ -12,6 +14,9 @@ const ComedorForm = () => {
   const [isActive, setisActive] = useState(false);
   const [motivo, setmotivo] = useState("success");
   const [msj, setMsj] = useState("");
+
+  const { list } = useContext(crudContext);
+  const [dataList, setDataList] = list;
 
   const initialFormValues = {
     dining_name: "",
@@ -35,6 +40,7 @@ const ComedorForm = () => {
           console.log("Comedor Agregado");
           setmotivo("success");
           setisActive(true);
+          setDataList(await getDiningRooms());
         }
       }
     }

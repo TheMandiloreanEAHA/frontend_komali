@@ -4,10 +4,12 @@ import { getDataLocalStorage } from "../../utils/localStorageHelper";
 import { axiosGet, axiosPut } from "../../utils/axiosHelper";
 import ModalAux from "../ModalAux";
 import { API_URL } from "../../config/config";
+import { getUsers } from "../../utils/requestHelper";
 
 const EditUserForm = () => {
-  const { row } = useContext(crudContext);
+  const { row, list } = useContext(crudContext);
   const [selectedRow, setSelectedRow] = row;
+  const [dataList, setDataList] = list;
   const [diningRoomList, setDiningRoomList] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [isActive, setisActive] = useState(false);
@@ -97,6 +99,7 @@ const EditUserForm = () => {
             console.log("Usuario Actualizado");
             setmotivo("success");
             setisActive(true);
+            setDataList(await getUsers());
           }
         } else {
           setmotivo("missing");
@@ -161,7 +164,11 @@ const EditUserForm = () => {
             value={values.userType}
             onChange={handleInputOnChange}
           >
-            <option value="" disabled hidden>
+            <option
+              value=""
+              disabled
+              hidden
+            >
               Tipo de usuario
             </option>
             <option value="admin">Administrador general</option>
@@ -175,12 +182,19 @@ const EditUserForm = () => {
             value={values.diningRoom}
             onChange={handleInputOnChange}
           >
-            <option value="" disabled hidden>
+            <option
+              value=""
+              disabled
+              hidden
+            >
               Selecciona un comedor
             </option>
             {diningRoomList.length > 0 ? (
               diningRoomList.map((item, index) => (
-                <option key={index} value={item.dining_id}>
+                <option
+                  key={index}
+                  value={item.dining_id}
+                >
                   {item.dining_name}
                 </option>
               ))
