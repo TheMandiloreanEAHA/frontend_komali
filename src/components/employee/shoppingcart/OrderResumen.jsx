@@ -61,6 +61,13 @@ const OrderResumen = ({ orderList, onOpenModal }) => {
     }
   };
 
+  const disableBtn = () => {
+    if (orderList && orderList.length > 0) {
+      return false;
+    }
+    return true;
+  };
+
   return (
     <div className="rounded-3xl w-1/2 h-5/6 bg-uv-light-blue shadow-lg">
       <div className="flex flex-col items-center justify-center p-8 h-3/4">
@@ -94,8 +101,13 @@ rounded-bl-3xl bg-uv-blue text-white-100 w-1/2 h-full"
           REGRESAR
         </button>
         <button
-          className="rounded-br-3xl bg-uv-green text-white-100 w-1/2 h-full"
+          className={
+            orderList && orderList.length > 0
+              ? "rounded-br-3xl bg-uv-green text-white-100 w-1/2 h-full"
+              : "rounded-br-3xl bg-gray-400 text-white-100 w-1/2 h-full"
+          }
           onClick={() => onOpenModal(true)}
+          disabled={disableBtn()}
         >
           COMPRAR
         </button>

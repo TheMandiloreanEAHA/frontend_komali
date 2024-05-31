@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDataLocalStorage } from "../../../utils/localStorageHelper";
 
-const TicketMsg = ({ total, onCreateOrder, orderList, orderNum }) => {
+const TicketMsg = ({ total, setStep, orderList, orderNum }) => {
   const [date, setDate] = useState();
   const [clientType, setClientType] = useState();
   const [matricula, setMatricula] = useState();
@@ -92,7 +92,7 @@ const TicketMsg = ({ total, onCreateOrder, orderList, orderNum }) => {
           <h3>TOTAL: ${total.toFixed(2)}</h3>
         </div>
         <div
-          onClick={onCreateOrder}
+          onClick={() => setStep(2)}
           className="bg-uv-green w-full py-6 rounded-b-3xl cursor-pointer"
         >
           <button className="text-3xl font-bold text-white-100">

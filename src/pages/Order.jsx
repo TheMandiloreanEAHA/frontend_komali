@@ -10,9 +10,9 @@ const Order = () => {
   const [list, setList] = useState(true);
 
   return (
-    <>
+    <div className="h-screen">
       <TopBar />
-      <div className="w-full h-full bg-gray-100 flex">
+      <div className="w-full bg-gray-100 flex">
         <div
           className="m-6"
           onMouseEnter={() => setShowSideBar(true)}
@@ -32,7 +32,7 @@ const Order = () => {
           {list ? <OrderList /> : <LogOrderList />}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import alertIcon from "../../../assets/alertIcon.svg";
 
-const AlertMsg = ({ total, onShowTicket }) => {
+const AlertMsg = ({ total, setStep }) => {
   return (
     <div className="h-full relative">
       <div className="flex flex-col justify-center items-center px-8 pb-8">
@@ -18,7 +18,7 @@ const AlertMsg = ({ total, onShowTicket }) => {
       </div>
       <div
         className="bg-uv-green w-full py-6 rounded-b-3xl cursor-pointer absolute bottom-0 left-0"
-        onClick={onShowTicket}
+        onClick={() => setStep(1)}
       >
         <button className="text-3xl font-bold text-white-100">Continuar</button>
       </div>
