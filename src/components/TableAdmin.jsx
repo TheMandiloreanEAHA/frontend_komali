@@ -22,49 +22,53 @@ const TableAdmin = ({ dataList = [], headNames }) => {
 
   return (
     <>
-      {dataList.length > 0 && (
+      {dataList.length > 0 && headNames && (
         <>
           <div className="overflow-x-auto w-full h-auto rounded-2xl">
             <table className="w-full text-left">
               <thead className="uppercase bg-gray-400">
                 <tr>
-                  {Object.entries(dataList[0]).map((entry, index) => {
-                    const key = entry[0];
-                    if (key && headNames[key]) {
-                      return (
-                        <td key={index} className="px-6 py-3">
-                          {headNames[key]}
-                        </td>
-                      );
-                    }
-                  })}
+                  {dataList.length > 0 &&
+                    headNames &&
+                    Object.entries(dataList[0]).map((entry, index) => {
+                      const key = entry[0];
+                      if (key && headNames[key]) {
+                        return (
+                          <td key={index} className="px-6 py-3">
+                            {headNames[key]}
+                          </td>
+                        );
+                      }
+                    })}
                 </tr>
               </thead>
               <tbody>
-                {dataList.map((item, index) => {
-                  return (
-                    <tr
-                      key={index}
-                      datavalue={Object.values(item)[0]}
-                      className="bg-white-100 hover:bg-gray-200 hover:text-white-100 cursor-pointer"
-                      onClick={onGetRowInfo}
-                    >
-                      {Object.entries(item).map((entry, index) => {
-                        const key = entry[0];
-                        if (headNames[key]) {
-                          const value = entry[1];
-                          if (value === true) {
-                            return <td className="px-6 py-4">Activo</td>;
-                          } else if (value === false) {
-                            return <td className="px-6 py-4">Inactivo</td>;
-                          } else {
-                            return <td className="px-6 py-4">{value}</td>;
+                {dataList.length > 0 &&
+                  headNames &&
+                  dataList.map((item, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        datavalue={Object.values(item)[0]}
+                        className="bg-white-100 hover:bg-gray-200 hover:text-white-100 cursor-pointer"
+                        onClick={onGetRowInfo}
+                      >
+                        {Object.entries(item).map((entry, index) => {
+                          const key = entry[0];
+                          if (headNames[key]) {
+                            const value = entry[1];
+                            if (value === true) {
+                              return <td className="px-6 py-4">Activo</td>;
+                            } else if (value === false) {
+                              return <td className="px-6 py-4">Inactivo</td>;
+                            } else {
+                              return <td className="px-6 py-4">{value}</td>;
+                            }
                           }
-                        }
-                      })}
-                    </tr>
-                  );
-                })}
+                        })}
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

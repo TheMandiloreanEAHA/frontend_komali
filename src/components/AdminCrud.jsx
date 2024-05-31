@@ -23,6 +23,7 @@ const AdminCrud = ({ selectedCategory }) => {
   }, [selectedCategory]);
 
   const selectedCategoryTable = async () => {
+    setHeadersTableNames(undefined);
     switch (selectedCategory) {
       case "admin":
         setDataList(await getUsers());
