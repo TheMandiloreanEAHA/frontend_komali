@@ -25,34 +25,34 @@ const NavBarCrud = () => {
   };
 
   return (
-    <div className="grid grid-cols-6 gap-4 mb-4">
+    <div className="grid grid-cols-3 justify-items-center gap-20 mb-4">
       <button
         onClick={() => onSetSelectedAction("agregar")}
-        className="h-10 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
+        className="h-14 w-9/12 rounded-full bg-uv-blue text-3xl text-white-100 hover:font-bold"
         type="button"
       >
         Nuevo
       </button>
       <button
         onClick={() => onSetSelectedAction("modificar")}
-        className=" h-10 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
+        className=" h-14 w-9/12 rounded-full bg-uv-blue text-3xl text-white-100 hover:font-bold"
         type="button"
       >
         Editar
       </button>
       <button
         onClick={() => onSetSelectedAction("eliminar")}
-        className=" h-10 rounded-full bg-uv-blue text-2xl text-white-100 hover:font-bold"
+        className=" h-14 w-9/12 rounded-full bg-uv-blue text-3xl text-white-100 hover:font-bold"
         type="button"
       >
         Eliminar
       </button>
-      <input
+      {/* <input
         type="text"
         id="buscar"
         placeholder="Nombre empleado"
         className="col-span-3 h-10 rounded-full border-2 border-uv-blue p-4"
-      />
+      /> */}
     </div>
   );
 };
