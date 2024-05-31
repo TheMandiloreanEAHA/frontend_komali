@@ -134,7 +134,6 @@ const ProductForm = ({ isEdit = false }) => {
         });
         if (imgResult !== undefined && result.status === 200) {
           // ACTIVAR MODAL
-          console.log("PRODUCTO AGREGADO CORRECTAMENTE");
           setIsModalOpen(false);
           setDataList(await getProducts());
         }
@@ -151,7 +150,6 @@ const ProductForm = ({ isEdit = false }) => {
         });
         if (imgResult !== undefined && result.status === 200) {
           // ACTIVAR MODAL
-          console.log("PRODUCTO ACTUALIZADO CORRECTAMENTE");
           setIsModalOpen(false);
           setDataList(await getProducts());
         }

@@ -15,10 +15,12 @@ const OrderList = ({ orderList, setOrderList }) => {
     }
   }, [orderList]);
 
+  console.log(orderList);
+
   return (
-    <div className="p-8 bg-uv-light-blue shadow-lg rounded-3xl w-1/2 h-5/6 overflow-y-scroll">
+    <div className="p-8 bg-uv-light-blue shadow-lg rounded-3xl w-1/2 h-5/6 overflow-y-auto">
       <div className="w-full grid gap-8">
-        {orderList ? (
+        {orderList && orderList.length > 0 ? (
           orderList.map((item, index) => {
             return (
               <OrderCard
@@ -30,7 +32,7 @@ const OrderList = ({ orderList, setOrderList }) => {
             );
           })
         ) : (
-          <div className="w-full text-center">
+          <div className="text-2xl text-center">
             <span>Carrito vacio</span>
           </div>
         )}

@@ -92,7 +92,6 @@ const ProductModal = ({
       product_description: productDescription,
       category_id: categoryId,
       dining_id: diningId,
-      product_img: productImg,
     };
     return order;
   };

@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { getDataLocalStorage } from "../../../utils/localStorageHelper";
+import flameGreen from "../../../assets/flameGreen.svg";
+import flameOrange from "../../../assets/flameOrange.svg";
+import flameRed from "../../../assets/flameRed.svg";
 
 const OrderResumen = ({ orderList, onOpenModal }) => {
   const [total, setTotal] = useState();
@@ -43,6 +46,21 @@ const OrderResumen = ({ orderList, onOpenModal }) => {
     }
   };
 
+  const setCaloriesImg = () => {
+    if (calTotal < 300) {
+      return flameRed;
+    }
+    if (calTotal >= 300 && calTotal < 500) {
+      return flameOrange;
+    }
+    if (calTotal >= 500 && calTotal < 700) {
+      return flameGreen;
+    }
+    if (calTotal >= 700) {
+      return flameRed;
+    }
+  };
+
   return (
     <div className="rounded-3xl w-1/2 h-5/6 bg-uv-light-blue shadow-lg">
       <div className="flex flex-col items-center justify-center p-8 h-3/4">
@@ -61,9 +79,10 @@ const OrderResumen = ({ orderList, onOpenModal }) => {
           {clientType + ": "}
           <span className="text-uv-blue">{matricula}</span>
         </p>
-        <p className="text-2xl mt-2 capitalize">
+        <p className="text-2xl mt-2 capitalize flex justify-center items-center">
           Calorias totales:{" "}
-          <span className={calTotal && setCaloriesColor()}>{calTotal}</span>
+          <span className={setCaloriesColor()}>{calTotal}</span>
+          <img className="h-6" src={setCaloriesImg()} alt="Calorias" />
         </p>
       </div>
       <div className="w-full h-1/4 font-bold text-xl">

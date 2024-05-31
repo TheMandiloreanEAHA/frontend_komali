@@ -119,7 +119,6 @@ const EditUserForm = () => {
 
   const handleForm = (event) => {
     event.preventDefault();
-    console.log(values);
     editUser(values);
   };
 
@@ -162,11 +161,7 @@ const EditUserForm = () => {
             value={values.userType}
             onChange={handleInputOnChange}
           >
-            <option
-              value=""
-              disabled
-              hidden
-            >
+            <option value="" disabled hidden>
               Tipo de usuario
             </option>
             <option value="admin">Administrador general</option>
@@ -180,19 +175,12 @@ const EditUserForm = () => {
             value={values.diningRoom}
             onChange={handleInputOnChange}
           >
-            <option
-              value=""
-              disabled
-              hidden
-            >
+            <option value="" disabled hidden>
               Selecciona un comedor
             </option>
             {diningRoomList.length > 0 ? (
               diningRoomList.map((item, index) => (
-                <option
-                  key={index}
-                  value={item.dining_id}
-                >
+                <option key={index} value={item.dining_id}>
                   {item.dining_name}
                 </option>
               ))

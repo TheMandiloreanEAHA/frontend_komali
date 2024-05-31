@@ -67,13 +67,11 @@ const UserForm = ({ isSecondAdmin = false }) => {
           user_type: values.userType,
           dining_room_id: values.diningRoom,
         };
-        console.log(params);
         const token = getDataLocalStorage("token");
         const url = `${API_URL}create`;
         const result = await axiosPost(url, params, token);
         if (result !== undefined) {
           if (!result.data.error) {
-            console.log("Usuario Agregado");
             setmotivo("success");
             setisActive(true);
           }

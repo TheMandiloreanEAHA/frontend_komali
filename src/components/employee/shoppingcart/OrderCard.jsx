@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import trashIcon from "../../../assets/trashIcon.svg";
 import { fileToURL, base64ToFile } from "../../../utils/imageHelper";
+import { getDataLocalStorage } from "../../../utils/localStorageHelper";
+import { API_URL } from "../../../config/config";
+import { axiosGet } from "../../../utils/axiosHelper";
 
 const OrderCard = ({ data, index, deleteProduct }) => {
-  const productImg = base64ToFile(data.product_img);
+  const [productImg, setProductImg] = useState();
+
+  useEffect(() => {
+    getValuesById(data.dining_id, data.product_id);
+  }, []);
+
+  const getValuesById = async (dining_id, product_id) => {
+    const token = getDataLocalStorage("token");
+    const url = `${API_URL}products/getbyid/${dining_id}/${product_id}`;
+    const result = await axiosGet(url, token);
+    if (result !== undefined) {
+      const data = result.data;
+      setProductImg(base64ToFile(data.product_img));
+    }
+  };
+
   return (
     <div className="rounded-2xl bg-white-100 h-fit flex shadow-md">
       <div className="w-4/5 p-4 flex">

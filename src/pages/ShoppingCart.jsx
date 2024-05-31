@@ -21,6 +21,8 @@ const ShoppingCart = () => {
         setOrderNum(orderNumAux);
       }
       const orderData = getDataLocalStorage("order");
+      const token = getDataLocalStorage("token");
+      console.log(orderData, token);
       setOrder(orderData);
     };
     initShoppingCart();

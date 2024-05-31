@@ -72,7 +72,6 @@ const EditComedorForm = () => {
         bg_file: values.bg_file,
         is_active: values.is_active,
       };
-      console.log(params);
       const token = getDataLocalStorage("token");
       const url = `${API_URL}dining-room/`;
       const result = await axiosPutForm(url, params, token);

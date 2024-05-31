@@ -71,7 +71,6 @@ const ComedorForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     event.preventDefault();
-    console.log(values);
     createDiningRoom(values);
   };
 

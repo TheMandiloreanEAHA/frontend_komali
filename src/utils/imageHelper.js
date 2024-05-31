@@ -10,7 +10,8 @@ function base64ToFile(base64String, filename) {
   if (
     base64String !== undefined &&
     base64String !== null &&
-    base64String !== ""
+    base64String !== "" &&
+    typeof base64String === "string"
   ) {
     const base64Prefix = "data:image/png;base64,";
     const base64 = base64String.replace(base64Prefix, "");
